@@ -1,0 +1,20 @@
+# Wordpress - ignore core, configuration, examples, uploads and logs.
+# https://github.com/github/gitignore/blob/main/WordPress.gitignore
+
+# Log files
+*.log
+
+# htaccess
+/vendor
+/.htaccess
+.user.ini
+php.ini
+.htaccess
+.phpunit.result.cache
+.DS_Store
+/.DS_Store
+**/.DS_Store
+.idea/
+node_modules/
+npm-debug.log
+yarn-error.log

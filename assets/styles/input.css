@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "./scss/app.css";
+
+@font-face {
+    font-family: "Peyda";
+    src: url("../fonts/peyda/PeydaWebFaNum-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Peyda";
+    src: url("../fonts/peyda/PeydaWebFaNum-Medium.woff2") format("woff2");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Peyda";
+    src: url("../fonts/peyda/PeydaWebFaNum-Bold.woff2") format("woff2");
+    font-weight: bold;
+}
+
+html,
+body {
+    font-family: "Peyda";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    color: var(--color-black);
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* Swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+@theme {
+    --color-dark: #07041D;
+    --color-blue-primary: #1844DA;
+    --color-yellow-primary: #FFA500;
+    --color-description: #8585A5;
+}
+
+@layer utilities {
+    .container {
+        width: 100%;
+        max-width: 1320px;
+        margin-inline: auto;
+        padding-inline: 20px;
+    }
+}
