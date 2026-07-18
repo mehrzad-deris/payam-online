@@ -11,7 +11,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header>
+<header class="site-header fixed z-20 w-full">
     <div class="container">
         <div class="flex justify-between items-center">
             <div class="lg:min-w-70">
@@ -26,7 +26,7 @@
                         'menu_class'     => 'main-menu flex gap-2',
                 ] ) ?>
             </div>
-            <div class="lg:min-w-70 flex gap-2.5">
+            <div class="lg:min-w-70 flex gap-2.5 justify-end">
                 <a href="#" class="flex items-center">
                     <span>مشاوره رایگان</span>
                     <?= icon('', 'w-5 h-5') ?>

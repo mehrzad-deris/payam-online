@@ -20,7 +20,7 @@
 
 html,
 body {
-    font-family: "Peyda";
+    font-family: "Peyda", arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden !important;
