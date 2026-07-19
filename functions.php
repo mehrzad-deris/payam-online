@@ -53,6 +53,15 @@ function theme_scripts() {
 		null,
 		true
 	);
+
+	wp_enqueue_script(
+		'landing',
+//		get_template_directory_uri() . '/assets/js/landing-page.min.js',
+		get_template_directory_uri() . '/assets/js/landing-page.js',
+		[ 'app' ], // dependency
+		null,
+		true
+	);
 }
 
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
