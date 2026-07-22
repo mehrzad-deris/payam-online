@@ -290,3 +290,131 @@ if (canvas) {
         meteorDuration: 850,
     });
 }
+
+
+/* Scale on scroll */
+const hero = document.querySelector('.hero-section');
+const visual = document.querySelector('.hero-visual');
+
+if (hero && visual) {
+    let ticking = false;
+
+    const updateHeroScale = () => {
+        const rect = hero.getBoundingClientRect();
+        const progress = Math.min(
+            Math.max(-rect.top / rect.height, 0),
+            1
+        );
+
+        const scale = 1 + progress * 0.9;
+
+        visual.style.transform = `scale(${scale})`;
+
+        ticking = false;
+    };
+
+    const onScroll = () => {
+        if (ticking) return;
+
+        ticking = true;
+        requestAnimationFrame(updateHeroScale);
+    };
+
+    updateHeroScale();
+
+    window.addEventListener('scroll', onScroll, {
+        passive: true,
+    });
+}
+
+
+/* Slide domains */
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('#domain-prices');
+
+    if (!container) {
+        return;
+    }
+
+    const items = container.querySelectorAll('.domain-price-item');
+
+    let domainPrices = [];
+
+    try {
+        domainPrices = JSON.parse(
+            container.dataset.domainPrices || '[]'
+        );
+    } catch (error) {
+        console.error('Domain prices data is not valid JSON.', error);
+        return;
+    }
+
+    if (!domainPrices.length || !items.length) {
+        return;
+    }
+
+    const visibleItemsCount = items.length;
+
+    let nextIndex = visibleItemsCount;
+    let replacePosition = 0;
+
+    /**
+     * Update one domain item.
+     *
+     * @param {HTMLElement} item
+     * @param {{ extension: string, price: string }} data
+     */
+    function updateItem(item, data) {
+        const priceElement = item.querySelector('.domain-price');
+        const extensionElement = item.querySelector('.domain-extension');
+
+        if (!priceElement || !extensionElement) {
+            return;
+        }
+
+        priceElement.textContent = data.price ?? '';
+        extensionElement.textContent = data.extension ?? '';
+    }
+
+    // نمایش اولیه سه آیتم اول
+    items.forEach((item, index) => {
+        const domain = domainPrices[index];
+
+        if (domain) {
+            updateItem(item, domain);
+        }
+    });
+
+    // اگر سه آیتم یا کمتر وجود داشت، نیازی به تعویض نیست.
+    if (domainPrices.length <= visibleItemsCount) {
+        return;
+    }
+
+    setInterval(() => {
+        const item = items[replacePosition];
+        const nextDomain = domainPrices[nextIndex];
+
+        if (!item || !nextDomain) {
+            return;
+        }
+
+        item.classList.add(
+            'opacity-0',
+            'scale-95',
+            'translate-y-2'
+        );
+
+        setTimeout(() => {
+            updateItem(item, nextDomain);
+
+            nextIndex = (nextIndex + 1) % domainPrices.length;
+            replacePosition = (replacePosition + 1) % visibleItemsCount;
+
+            item.classList.remove(
+                'opacity-0',
+                'scale-95',
+                'translate-y-2'
+            );
+        }, 500);
+    }, 3000);
+});

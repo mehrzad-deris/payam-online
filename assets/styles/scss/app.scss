@@ -56,6 +56,17 @@
   }
 }
 
+.field-rtl {
+  direction: ltr;
+  text-align: left;
+
+  &::placeholder {
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: plaintext;
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {

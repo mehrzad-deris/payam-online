@@ -15,13 +15,13 @@
     <div class="container">
         <div class="flex lg:justify-between justify-end-safe items-center gap-3">
             <div class="lg:min-w-70 order-2 lg:order-0 flex-none">
-                <a href="<?= esc_url( home_url() ) ?>" class="relative flex h-10 shrink-0 overflow-hidden lg:w-auto w-[37px]">
-                    <img class="logo-dark absolute inset-y-0 right-0 h-10 w-[119px] max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
-                    <img class="logo-light absolute inset-y-0 right-0 h-10 w-[119px] max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline-colored.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
+                <a href="<?= esc_url( home_url() ) ?>" class="relative flex h-10 shrink-0 overflow-hidden lg:w-auto w-9.25">
+                    <img class="logo-dark absolute inset-y-0 right-0 h-10 w-29.75 max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
+                    <img class="logo-light absolute inset-y-0 right-0 h-10 w-29.75 max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline-colored.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
                 </a>
             </div>
             <div class="w-full lg:w-auto">
-                <span aria-hidden="true" class="lg:hidden cursor-pointer"><?= icon( 'hamburger-menu', 'w-8 h-8 duration-200' ) ?></span>
+                <span aria-hidden="true" class="lg:hidden cursor-pointer"><?= icon( 'hamburger-menu', 'w-8 h-8 duration-200 fill-white' ) ?></span>
                 <div class="hidden lg:block">
                     <?= wp_nav_menu( [
                             'theme_location' => 'main_menu',
@@ -43,5 +43,5 @@
         </div>
     </div>
 
-    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+64px)] bg-gradient-to-b from-black/35 via-black/15 to-transparent backdrop-blur-[8px] backdrop-saturate-150 [mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+64px)] backdrop-blur-[8px] backdrop-saturate-150 [mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)]"></div>
 </header>

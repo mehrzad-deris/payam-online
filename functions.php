@@ -9,6 +9,9 @@ function theme_setup() {
 
 add_action( 'after_setup_theme', 'theme_setup' );
 
+require_once get_theme_file_path('/inc/asset_registry.php');
+require_once get_theme_file_path('/inc/image_resize.php');
+
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );
 add_action( 'wp_enqueue_scripts', function () {
@@ -17,57 +20,6 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_dequeue_style( 'classic-theme-styles' );
 }, 100 );
 
-/* Enqueue Styles */
-function theme_styles() {
-	wp_enqueue_style(
-		'smo-theme',
-		get_template_directory_uri() . '/assets/styles/theme.min.css',
-		[],
-		filemtime( get_template_directory() . '/assets/styles/theme.min.css' )
-	);
-	wp_enqueue_style(
-		'swiper',
-		get_template_directory_uri() . '/assets/scripts/swiper/swiper-bundle.min.css',
-		[],
-		filemtime( get_template_directory() . '/assets/scripts/swiper/swiper-bundle.min.css' )
-	);
-}
-
-add_action( 'wp_enqueue_scripts', 'theme_styles' );
-
-/* Enqueue Scripts */
-function theme_scripts() {
-	wp_enqueue_script(
-		'swiper',
-		get_template_directory_uri() . '/assets/scripts/swiper/swiper-bundle.min.js',
-		[],
-		null,
-		true
-	);
-
-	wp_enqueue_script(
-		'app',
-//		get_template_directory_uri() . '/assets/js/app.min.js',
-		get_template_directory_uri() . '/assets/js/app.js',
-		[ 'swiper' ], // dependency
-		null,
-		true
-	);
-
-	wp_enqueue_script(
-		'landing',
-//		get_template_directory_uri() . '/assets/js/landing-page.min.js',
-		get_template_directory_uri() . '/assets/js/landing-page.js',
-		[ 'app' ], // dependency
-		null,
-		true
-	);
-}
-
-add_action( 'wp_enqueue_scripts', 'theme_scripts' );
-
-/* Components */
-require_once get_template_directory() . '/inc/components.php';
 
 /* Icon Component */
 function icon( $name, $class = '' ) {
@@ -90,20 +42,6 @@ function theme_render_block( $layout ) {
 		echo "<!-- Block not found: {$layout} -->";
 	}
 }
-
-/* Image Resize */
-add_action( 'after_setup_theme', function () {
-	/* Hero Section */
-	add_image_size( 'hero_section', 385, 441, true ); // Hero
-	add_image_size( 'hero_section_2x', 770, 882, true ); // Hero x2
-} );
-
-/* SVG Support */
-add_filter( 'upload_mimes', function ( $mimes ) {
-	$mimes['svg'] = 'image/svg+xml';
-
-	return $mimes;
-} );
 
 /* Remove WP Version */
 add_filter( 'the_generator', '__return_empty_string' );
