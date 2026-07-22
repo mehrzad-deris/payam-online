@@ -1,0 +1,339 @@
+.services-tabs {
+  display: grid;
+  grid-template-areas: "panels tabs";
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 413px);
+  gap: 48px;
+  direction: ltr;
+  margin-bottom: -100px;
+
+  &__list {
+    grid-area: tabs;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    direction: rtl;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 30px 32px;
+    border-radius: 32px;
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.75;
+    text-align: right;
+    cursor: pointer;
+    transition: color 200ms, background-color 200ms, border-color 200ms, transform 200ms;
+    font-size: 20px;
+    background: white;
+    color: var(--color-description);
+    box-shadow: var(--shadow-mellow);
+    border: none;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 80px;
+      right: -150px;
+      background: radial-gradient(ellipse at center, rgba(24, 68, 218, 1) 0%, rgba(255, 255, 255, 0) 68%);
+      opacity: .12;
+      filter: blur(15px);
+      transition: 300ms;
+    }
+
+    &:hover {
+      border-color: rgba(24, 68, 218, 0.45);
+      color: var(--color-blue-primary);
+
+      .services-tabs__button__icon {
+        filter: none;
+      }
+    }
+
+    &[aria-selected="true"] {
+      background: var(--color-blue-primary);
+      color: white;
+      box-shadow: none;
+
+      .services-tabs__button__icon {
+        filter: brightness(11) grayscale(1);
+      }
+
+      &:before {
+        opacity: .26;
+        background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 68%);
+        filter: blur(5px);
+      }
+
+      .shadow-shape {
+        fill: #ffffff;
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(255, 165, 0, 0.4);
+      outline-offset: 2px;
+    }
+
+    &__icon {
+      display: grid;
+      flex: 0 0 40px;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 12px;
+      filter: brightness(2.3) grayscale(0.8) saturate(3.3) contrast(0.3) hue-rotate(17deg);
+      transition: 200ms;
+
+      img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__button-title {
+    min-width: 0;
+  }
+
+  &__title-icon {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+    place-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__panels {
+    grid-area: panels;
+    min-width: 0;
+    direction: rtl;
+    margin-bottom: 100px;
+  }
+
+  &__panel {
+    min-height: 100%;
+    padding: 40px;
+    box-shadow: var(--shadow-mellow);
+    background: white;
+    border-radius: 20px;
+    line-height: 2;
+    animation: services-tab-panel-in 320ms ease-out both;
+
+    &[hidden] {
+      display: none;
+    }
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__panel-layout {
+  }
+
+  &__panel-content {
+    min-width: 0;
+  }
+
+  &__title {
+    font-weight: 500;
+    line-height: 30px;
+    border-radius: 12px;
+  }
+
+  &__description {
+    line-height: 36px;
+    color: var(--color-dark);
+    font-size: 14px;
+
+    p {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      li {
+        padding-right: 10px;
+        position: relative;
+        vertical-align: middle;
+
+        &:before {
+          content: '';
+          width: 3px;
+          height: 3px;
+          background: var(--color-dark);
+          display: inline-block;
+          margin-left: 10px;
+        }
+      }
+
+    }
+  }
+
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    position: relative;
+    gap: 12px;
+    list-style: none;
+    margin-top: 40px;
+    padding-top: 40px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      top: 0;
+      right: 0;
+      background: linear-gradient(to right, rgba(27, 69, 213, 0) 0%, rgba(27, 69, 213, 0.2) 50%, rgba(27, 69, 213, 0) 99%, rgba(27, 69, 213, 0) 100%);
+    }
+  }
+
+  &__feature {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span:first-child {
+      font-weight: 300;
+      color: var(--color-description);
+      font-size: 16px;
+      line-height: 30px;
+      margin-bottom: 4px;
+    }
+
+    span {
+      color: var(--color-dark);
+      line-height: 30px;
+      font-weight: 500;
+    }
+  }
+
+  &__cta {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 4px 12px 4px 4px;
+    border-radius: 999px;
+    background: var(--color-blue-primary);
+    color: white;
+    text-decoration: none;
+    transition: opacity 200ms, transform 200ms;
+
+    &__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      stroke: var(--color-blue-primary);
+      transition: 200ms;
+    }
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(255, 165, 0, 0.4);
+      outline-offset: 2px;
+    }
+  }
+
+  &__image {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+@keyframes services-tab-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-tabs__panel {
+    animation: none;
+  }
+}
+
+@media (max-width: 1280px) {
+  .services-tabs {
+    grid-template-areas: "panels";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-top: 40px;
+
+    &__list {
+      display: none;
+    }
+
+    &__panel {
+      display: block;
+      padding: 20px;
+      min-height: auto;
+
+      &[hidden] {
+        display: block !important;
+      }
+
+      + .services-tabs__panel {
+        margin-top: 24px;
+      }
+    }
+
+    &__panel-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    &__features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &__image {
+      display: none;
+    }
+  }
+}

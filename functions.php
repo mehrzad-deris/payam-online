@@ -43,6 +43,19 @@ function theme_render_block( $layout ) {
 	}
 }
 
+/**
+ * Renders the reusable section heading component.
+ *
+ * @param array $args Component data and optional presentation classes.
+ */
+function section_heading( array $args = [] ): void {
+	get_template_part(
+		'template-parts/components/section_heading',
+		null,
+		$args
+	);
+}
+
 /* Remove WP Version */
 add_filter( 'the_generator', '__return_empty_string' );
 function remove_version_from_assets( $src ) {

@@ -4,6 +4,13 @@
 @font-face {
     font-family: "Peyda";
     font-display: swap;
+    src: url("../fonts/peyda/PeydaWebFaNum-Light.woff2") format("woff2");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Peyda";
+    font-display: swap;
     src: url("../fonts/peyda/PeydaWebFaNum-Regular.woff2") format("woff2");
 }
 
@@ -30,6 +37,7 @@ body {
     max-width: 100% !important;
     color: var(--color-black);
     font-size: 16px;
+    background: #F6F8FE;
 }
 
 input:focus {
@@ -47,6 +55,14 @@ input:focus {
     --color-blue-primary: #1844DA;
     --color-yellow-primary: #FFA500;
     --color-description: #8585A5;
+
+    --shadow-mellow: 0px 1.85px 3.15px rgba(24, 77, 218, 0.0048),
+    0px 8.15px 6.52px rgba(24, 77, 218, 0.0079),
+    0px 20px 13px rgba(24, 77, 218, 0.01),
+    0px 38.52px 25.48px rgba(24, 77, 218, 0.0121),
+    0px 64.81px 46.85px rgba(24, 77, 218, 0.0152),
+    0px 100px 80px rgba(24, 77, 218, 0.02);
+;
 }
 
 @layer utilities {

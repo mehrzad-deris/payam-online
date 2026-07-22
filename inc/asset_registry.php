@@ -58,8 +58,11 @@ function payam_get_section_config(): array {
 		'hero_section' => [],
 
 		'services_section' => [
+			'styles' => [
+				'payam-bundle-cards'
+			],
 			'scripts' => [
-				'payam-bundle-cards-slider',
+				'payam-bundle-cards',
 			],
 		],
 	];
@@ -80,7 +83,7 @@ function payam_get_section_assets(): array {
 		);
 
 		$script_path = sprintf(
-			'/assets/js/sections/%s.js',
+			'/assets/js/sections/%s.min.js',
 			$slug
 		);
 
@@ -166,7 +169,7 @@ function payam_register_assets(): void {
 
 	payam_register_theme_script(
 		'payam-app',
-		'/assets/js/app.js'
+		'/assets/js/app.min.js'
 	);
 
 	/*
@@ -187,16 +190,20 @@ function payam_register_assets(): void {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Cards slider bundle
+	| Cards bundle
 	|--------------------------------------------------------------------------
 	*/
 
+	payam_register_theme_style(
+		'payam-bundle-cards',
+		'/assets/styles/scss/bundles/cards.css'
+	);
+
 	payam_register_theme_script(
-		'payam-bundle-cards-slider',
-		'/assets/js/bundles/cards-slider.js',
+		'payam-bundle-cards',
+		'/assets/js/bundles/cards.min.js',
 		[
 			'payam-app',
-			'payam-vendor-swiper',
 		]
 	);
 
@@ -215,7 +222,7 @@ function payam_register_assets(): void {
 		);
 
 		$script_path = sprintf(
-			'/assets/js/sections/%s.js',
+			'/assets/js/sections/%s.min.js',
 			$slug
 		);
 

@@ -7,40 +7,54 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    let ticking = false;
+    let currentTheme = '';
+
     const updateHeaderTheme = () => {
         const headerHeight = header.offsetHeight;
-        let activeSection = null;
+        let nextTheme = '';
 
-        sections.forEach((section) => {
+        for (const section of sections) {
             const rect = section.getBoundingClientRect();
 
             if (
                 rect.top <= headerHeight &&
                 rect.bottom > headerHeight
             ) {
-                activeSection = section;
+                nextTheme = section.dataset.headerTheme || '';
+                break;
             }
-        });
+        }
 
-        if (!activeSection) {
+        if (nextTheme && nextTheme !== currentTheme) {
+            header.classList.remove(
+                'site-header--light',
+                'site-header--dark'
+            );
+
+            header.classList.add(`site-header--${nextTheme}`);
+            currentTheme = nextTheme;
+        }
+
+        ticking = false;
+    };
+
+    const requestUpdate = () => {
+        if (ticking) {
             return;
         }
 
-        const theme = activeSection.dataset.headerTheme;
-
-        header.classList.remove(
-            'site-header--light',
-            'site-header--dark'
-        );
-
-        header.classList.add(`site-header--${theme}`);
+        ticking = true;
+        requestAnimationFrame(updateHeaderTheme);
     };
 
-    updateHeaderTheme();
+    requestUpdate();
 
-    window.addEventListener('scroll', updateHeaderTheme, {
+    window.addEventListener('scroll', requestUpdate, {
         passive: true
     });
 
-    window.addEventListener('resize', updateHeaderTheme);
+    window.addEventListener('resize', requestUpdate, {
+        passive: true
+    });
 });

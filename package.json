@@ -3,7 +3,7 @@
     "dev": "npx @tailwindcss/cli -i ./assets/styles/input.css -o ./assets/styles/theme.min.css --watch",
     "build": "npm run build:css && npm run build:js",
     "build:css": "npx @tailwindcss/cli -i ./assets/styles/input.css -o ./assets/styles/theme.min.css --minify",
-    "build:js": "esbuild ./assets/js/app.js --bundle --minify --outfile=./assets/js/app.min.js"
+    "build:js": "node ./build-js.mjs"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.1",

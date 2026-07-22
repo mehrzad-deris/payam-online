@@ -36,4 +36,9 @@
     <symbol id="top-shape" viewBox="0 0 142 2">
         <path d="M0 0H140C140 0 97.4016 1.5 70 1.5C42.5984 1.5 0 0 0 0Z" fill-opacity="0.4"/>
     </symbol>
+
+    <!-- Right Shape of service -->
+    <symbol id="right-shape" viewBox="0 0 1 48">
+        <path d="M1 48V0S0 14.605 0 24s1 24 1 24" fill-opacity="1"/>
+    </symbol>
 </svg>

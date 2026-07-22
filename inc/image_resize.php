@@ -3,9 +3,9 @@ defined( 'ABSPATH' ) || exit;
 
 /* Image Resize */
 add_action( 'after_setup_theme', function () {
-	/* Hero Section */
-	add_image_size( 'hero_section', 385, 441, true ); // Hero
-	add_image_size( 'hero_section_2x', 770, 882, true ); // Hero x2
+	/* Tab Image */
+	add_image_size( 'tab_image', 290, 290, true );
+	add_image_size( 'tab_image_2x', 580, 580, true ); // x2
 } );
 
 /* SVG Support */

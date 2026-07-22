@@ -66,9 +66,28 @@ class StarField {
         this.createStars();
         this.draw(performance.now());
 
-        if (!this.reducedMotion && !this.animationFrame) {
-            this.animationFrame = requestAnimationFrame(this.animate);
+    }
+
+    start() {
+        if (
+            this.reducedMotion ||
+            this.animationFrame ||
+            document.hidden
+        ) {
+            return;
         }
+
+        this.lastFrameTime = performance.now();
+        this.animationFrame = requestAnimationFrame(this.animate);
+    }
+
+    stop() {
+        if (!this.animationFrame) {
+            return;
+        }
+
+        cancelAnimationFrame(this.animationFrame);
+        this.animationFrame = null;
     }
 
     createStars() {
@@ -247,6 +266,10 @@ class StarField {
     }
 
     animate(time) {
+        if (!this.animationFrame) {
+            return;
+        }
+
         this.animationFrame = requestAnimationFrame(this.animate);
 
         if (
@@ -268,10 +291,7 @@ class StarField {
     }
 
     destroy() {
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
-
+        this.stop();
         this.resizeObserver.disconnect();
     }
 }
@@ -279,7 +299,7 @@ class StarField {
 const canvas = document.getElementById('hero-stars');
 
 if (canvas) {
-    new StarField(canvas, {
+    const starField = new StarField(canvas, {
         minStars: 80,
         maxStars: 100,
 
@@ -288,6 +308,33 @@ if (canvas) {
 
         meteorInterval: 5000,
         meteorDuration: 850,
+    });
+
+    let isCanvasVisible = false;
+
+    const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+            isCanvasVisible = entry.isIntersecting;
+
+            if (isCanvasVisible && !document.hidden) {
+                starField.start();
+            } else {
+                starField.stop();
+            }
+        },
+        {
+            threshold: 0.01,
+        }
+    );
+
+    visibilityObserver.observe(canvas);
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden || !isCanvasVisible) {
+            starField.stop();
+        } else {
+            starField.start();
+        }
     });
 }
 
