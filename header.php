@@ -35,7 +35,7 @@
                     <span class="hidden lg:inline">مشاوره رایگان</span>
                     <span aria-hidden="true"><?= icon( 'call', 'w-5 h-5 duration-200' ) ?></span>
                 </a>
-                <a href="#" class="flex items-center gap-1.5 fill-white hover:fill-blue-primary duration-200 hover:text-blue-primary px-2.5 lg:pe-2 py-1.75 border rounded-[30px] hover:bg-white hover:border-white  group-[.site-header--light]:fill-blue-primary group-[.site-header--light]:hover:bg-blue-primary group-[.site-header--light]:hover:text-white group-[.site-header--light]:hover:fill-white group-[.site-header--light]:hover:border-blue-primary">
+                <a href="#" class="flex items-center gap-1.5 fill-white hover:fill-blue-primary duration-200 hover:text-blue-primary px-2.5 lg:pe-2 py-1.75 border rounded-[30px] hover:bg-white hover:border-white  group-[.site-header--light]:fill-blue-primary group-[.site-header--light]:text-blue-primary group-[.site-header--light]:hover:bg-blue-primary group-[.site-header--light]:hover:text-white group-[.site-header--light]:hover:fill-white group-[.site-header--light]:hover:border-blue-primary">
                     <span>پنل کاربری</span>
                     <span aria-hidden="true"><?= icon( 'user', 'w-5 h-5 duration-200 hidden lg:inline' ) ?></span>
                 </a>

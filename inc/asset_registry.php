@@ -57,6 +57,14 @@ function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
 		'feature_section' => [],
+		'infrastructure_section' => [
+			'styles' => [
+				'payam-section-feature',
+			],
+			'scripts' => [
+				'payam-bundle-feature',
+			],
+		],
 
 		'services_section' => [
 			'styles' => [
@@ -203,6 +211,14 @@ function payam_register_assets(): void {
 	payam_register_theme_script(
 		'payam-bundle-cards',
 		'/assets/js/bundles/cards.min.js',
+		[
+			'payam-app',
+		]
+	);
+
+	payam_register_theme_script(
+		'payam-bundle-feature',
+		'/assets/js/bundles/feature.min.js',
 		[
 			'payam-app',
 		]

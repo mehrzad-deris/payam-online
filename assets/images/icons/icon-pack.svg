@@ -41,4 +41,29 @@
     <symbol id="right-shape" viewBox="0 0 1 48">
         <path d="M1 48V0S0 14.605 0 24s1 24 1 24" fill-opacity="1"/>
     </symbol>
+
+    <!-- Canada Flag -->
+    <symbol id="canada-flag" viewBox="0 0 18 18">
+        <g clip-path="url(#a)"><rect width="18" height="18" fill="#fff" rx="9"/><path fill="#f93939" d="M9.247 13.941h-.494l.124-1.976c-.007-.104-.057-.132-.247-.124l-1.977.247s.37-.494.37-.74c0-.248-2.223-1.854-2.223-1.854s.494-.123.618-.247c.123-.123-.494-1.482-.494-1.482s1.255.494 1.358.37c.104-.123.248-.617.248-.617s.988 1.111 1.235 1.111-.494-2.717-.494-2.717.617.494.864.494S9 4.8 9 4.8s.618 1.606.741 1.606c.124 0 .989-.494.989-.494s-.618 2.594-.495 2.717c.124.124 1.236-1.111 1.236-1.111s.123.494.247.617c.123.124 1.359-.37 1.359-.37s-.618 1.359-.495 1.482c.124.124.618.247.618.247s-2.223 1.606-2.223 1.853.247.741.247.741l-1.853-.247c-.15-.042-.2-.01-.247.124zM15.6 0h6v18h-6zM-3.6 0h6v18h-6z"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+    </symbol>
+
+    <!-- Uk Flag -->
+    <symbol id="uk-flag" viewBox="0 0 18 18">
+        <g clip-path="url(#a)"><rect width="18" height="18" fill="#1a47b8" rx="9"/><path fill="#fff" fill-rule="evenodd" d="M-.92 0H-3.6v3l22.504 15H21.6v-3z" clip-rule="evenodd"/><path fill="#f93939" d="M-2.706 0 21.6 16.243V18h-.873L-3.6 1.74V0z"/><path fill="#fff" fill-rule="evenodd" d="M19.2 0h2.4v3S6.01 12.994-1.2 18h-2.4v-3z" clip-rule="evenodd"/><path fill="#f93939" d="M21.6 0h-.814L-3.6 16.256V18h.894L21.6 1.754z"/><path fill="#fff" fill-rule="evenodd" d="M5.564 0h6.892v5.552H21.6v6.892h-9.144V18H5.564v-5.556H-3.6V5.552h9.164z" clip-rule="evenodd"/><path fill="#f93939" fill-rule="evenodd" d="M7.01 0h3.98v6.923H21.6v4.154H10.99V18H7.01v-6.923H-3.6V6.923H7.01z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+    </symbol>
+
+    <!-- Germany Flag -->
+    <symbol id="germany-flag" viewBox="0 0 18 18">
+        <g clip-path="url(#a)"><rect width="18" height="18" fill="#f93939" rx="9"/><path fill="#ffda2c" fill-rule="evenodd" d="M-3.6 12h25.2v6H-3.6z" clip-rule="evenodd"/><path fill="#151515" fill-rule="evenodd" d="M-3.6 0h25.2v6H-3.6z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+    </symbol>
+
+    <!-- Turkey Flag -->
+    <symbol id="turkey-flag" viewBox="0 0 18 18">
+        <rect width="18" height="18" fill="#f93939" rx="9"/><path fill="#fff" fill-rule="evenodd" d="m13.202 10.382-1.394.732.266-1.551-1.128-1.1 1.56-.229.696-1.41.696 1.411 1.56.228-1.128 1.098.267 1.552" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="M7.8 13.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4M9 12a3.001 3.001 0 0 0 0-6 3.001 3.001 0 0 0 0 6" clip-rule="evenodd"/>
+    </symbol>
+
+    <!-- France Flag -->
+    <symbol id="france-flag" viewBox="0 0 18 18">
+        <g clip-path="url(#a)"><rect width="18" height="18" fill="#fff" rx="9"/><path fill="#1a47b8" fill-rule="evenodd" d="M-3.6 0h8.4v18h-8.4z" clip-rule="evenodd"/><path fill="#f93939" fill-rule="evenodd" d="M13.2 0h8.4v18h-8.4z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+    </symbol>
 </svg>

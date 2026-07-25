@@ -42,7 +42,7 @@ if ( ! $icon_id && '' === $title && '' === $subtitle ) {
     return;
 }
 
-$wrapper_class = trim( 'section-heading flex flex-col items-center text-center lg:gap-4 gap-2 mb-10' . (string) $args['class'] );
+$wrapper_class = trim( 'section-heading flex flex-col items-center text-center lg:gap-4 gap-2 mb-10 ' . (string) $args['class'] );
 
 $icon_class = trim( 'w-8 h-8 object-contain ' . (string) $args['icon_class'] );
 
