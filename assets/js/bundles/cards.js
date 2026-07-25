@@ -11,7 +11,7 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
         return;
     }
 
-    const mobileQuery = window.matchMedia('(max-width: 767px)');
+    const mobileQuery = window.matchMedia('(max-width: 1279px)');
 
     const activateTab = (activeButton, moveFocus = false) => {
         tabButtons.forEach((button) => {

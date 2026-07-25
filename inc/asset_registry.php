@@ -56,6 +56,7 @@ function payam_get_section_slug( string $layout ): string {
 function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
+		'feature_section' => [],
 
 		'services_section' => [
 			'styles' => [

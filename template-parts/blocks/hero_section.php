@@ -43,7 +43,7 @@ $visible_items_count = min( 3, count( $domain_prices ) );
 ?>
 
 <section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="hero-section <?= esc_attr( $sectionStyle ) == 'dark' ? 'text-white' : '' ?> min-h-screen bottom-fade  relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
-    <div class="container relative z-2 lg:pt-56 pt-39 pb-27">
+    <div class="container relative z-2 lg:pt-56 pt-39 pb-16">
         <?php if ( $sectionTitle ) : ?>
         <<?= esc_attr( $sectionTitleTag ) ?> class="whitespace-pre-line mb-15 text-center lg:text-[36px] font-bold lg:leading-14 text-[24px] leading-12"><?= esc_html( $sectionTitle ) ?></<?= esc_attr( $sectionTitleTag ) ?>>
     <?php endif; ?>

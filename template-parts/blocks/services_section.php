@@ -13,7 +13,7 @@ if ( is_array( $serviceTabs ) ) {
 }
 ?>
 
-<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="py-32 relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
+<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="lg:py-32 py-24 relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
     <div class="container">
         <?php section_heading( [
                 'title'     => $sectionTitle,
@@ -47,7 +47,7 @@ if ( is_array( $serviceTabs ) ) {
                                             'alt'      => '',
                                             'loading'  => 'lazy',
                                             'decoding' => 'async',
-                                    ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped      ?>
+                                    ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped        ?>
 								</span>
                             <?php endif; ?>
 
@@ -83,14 +83,7 @@ if ( is_array( $serviceTabs ) ) {
                         $imageAlt    = $tabImage ? get_post_meta( $tabImage, '_wp_attachment_image_alt', true ) : '';
 
                         ?>
-                        <div
-                                class="services-tabs__panel"
-                                id="<?= esc_attr( $panelId ); ?>"
-                                role="tabpanel"
-                                aria-labelledby="<?= esc_attr( $tabId ); ?>"
-                                tabindex="0"
-                                <?= 0 !== $index ? 'hidden' : ''; ?>
-                        >
+                        <div class="services-tabs__panel p-4 xl:p-10" id="<?= esc_attr( $panelId ); ?>" role="tabpanel" aria-labelledby="<?= esc_attr( $tabId ); ?>" tabindex="0"<?= 0 !== $index ? 'hidden' : ''; ?>>
                             <div class="services-tabs__panel-layout">
                                 <div class="services-tabs__panel-content">
                                     <div class="flex gap-5">
@@ -100,10 +93,10 @@ if ( is_array( $serviceTabs ) ) {
                                                     <?php if ( $tabIcon ) : ?>
                                                         <span class="services-tabs__title-icon inline-grid xl:hidden" aria-hidden="true">
 														<?= wp_get_attachment_image( $tabIcon, 'thumbnail', false, [
-                                                                    'alt'      => '',
-                                                                    'loading'  => 'lazy',
-                                                                    'decoding' => 'async',
-                                                            ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped      ?>
+                                                                'alt'      => '',
+                                                                'loading'  => 'lazy',
+                                                                'decoding' => 'async',
+                                                        ] );?>
                                                         </span>
                                                     <?php endif; ?>
                                                 </span>
@@ -111,18 +104,13 @@ if ( is_array( $serviceTabs ) ) {
                                             </div>
                                             <?php if ( '' !== $tabContent ) : ?>
                                                 <div class="services-tabs__description">
-                                                    <?= apply_filters( 'the_content', $tabContent ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped      ?>
+                                                    <?= apply_filters( 'the_content', $tabContent ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped        ?>
                                                 </div>
                                             <?php endif; ?>
 
                                             <?php if ( '' !== $ctaUrl ) : ?>
                                                 <div class="hidden xl:block mt-5">
-                                                    <a
-                                                            class="services-tabs__cta"
-                                                            href="<?= esc_url( $ctaUrl ); ?>"
-                                                            target="<?= esc_attr( $ctaTarget ); ?>"
-                                                            <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>
-                                                    >
+                                                    <a class="services-tabs__cta" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>" <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
                                                         <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
                                                         <span class="services-tabs__cta__icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
                                                     </a>
@@ -133,25 +121,14 @@ if ( is_array( $serviceTabs ) ) {
                                         <?php if ( $imageSrc ) : ?>
                                             <div class="services-tabs__image flex-none">
                                                 <picture>
-                                                    <source
-                                                            media="(min-width: 768px)"
-                                                            srcset="<?= esc_attr( $imageSrcset ?: $imageSrc[0] ); ?>"
-                                                            sizes="290px"
-                                                    >
-                                                    <img
-                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
-                                                            width="<?= esc_attr( $imageSrc[1] ); ?>"
-                                                            height="<?= esc_attr( $imageSrc[2] ); ?>"
-                                                            alt="<?= esc_attr( $imageAlt ); ?>"
-                                                            loading="lazy"
-                                                            decoding="async"
-                                                    >
+                                                    <source media="(min-width: 768px)" srcset="<?= esc_attr( $imageSrcset ?: $imageSrc[0] ); ?>" sizes="290px">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" width="<?= esc_attr( $imageSrc[1] ); ?>" height="<?= esc_attr( $imageSrc[2] ); ?>" alt="<?= esc_attr( $imageAlt ); ?>" loading="lazy" decoding="async">
                                                 </picture>
                                             </div>
                                         <?php endif; ?>
                                     </div>
                                     <?php if ( ! empty( $features ) ) : ?>
-                                        <ul class="services-tabs__features">
+                                        <ul class="services-tabs__features xl:pt-10 pt-4 mt-4 xl:mt-10 mb-4 xl:mb-0">
                                             <?php foreach ( $features as $feature ) :
                                                 $featureTitle = $feature['feature_title'] ?? '';
                                                 $featureDescription = $feature['feature_description'] ?? '';
@@ -160,7 +137,7 @@ if ( is_array( $serviceTabs ) ) {
                                                     continue;
                                                 }
                                                 ?>
-                                                <li class="services-tabs__feature">
+                                                <li class="services-tabs__feature text-center xl:text-start xlpy-6 xlpx-5 p-3 xl:leading-[30px]">
                                                     <?php if ( '' !== $featureTitle ) : ?>
                                                         <span><?= esc_html( $featureTitle ); ?></span>
                                                     <?php endif; ?>
@@ -174,13 +151,8 @@ if ( is_array( $serviceTabs ) ) {
                                     <?php endif; ?>
 
                                     <?php if ( '' !== $ctaUrl ) : ?>
-                                        <div class="xl:hidden block">
-                                            <a
-                                                    class="services-tabs__cta"
-                                                    href="<?= esc_url( $ctaUrl ); ?>"
-                                                    target="<?= esc_attr( $ctaTarget ); ?>"
-                                                    <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>
-                                            >
+                                        <div class="xl:hidden flex justify-center">
+                                            <a class="services-tabs__cta" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>"<?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
                                                 <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
                                                 <span class="services-tabs__cta__icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
                                             </a>

@@ -1,0 +1,129 @@
+.feature-section {
+  padding-bottom: 96px;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 287px));
+    justify-content: center;
+    gap: 40px;
+  }
+
+  &__item {
+    position: relative;
+    min-width: 0;
+    min-height: 182px;
+    overflow: hidden;
+  }
+
+  &__shape {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 50%;
+    width: 233px;
+    max-width: none;
+    height: 148px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  &__content {
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 10px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+
+  &__icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__title,
+  &__description {
+    margin: 0;
+  }
+
+  &__title {
+    color: var(--color-dark);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+
+  &__description {
+    color: var(--color-description);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+
+  &--dark {
+    .feature-section__title {
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .feature-section {
+    padding-block: 64px;
+
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 175px));
+      gap: 32px 8px;
+    }
+
+    &__item {
+      min-height: 124px;
+    }
+
+    &__shape {
+      bottom: -45px;
+    }
+
+    &__content {
+      top: 50%;
+      gap: 10px;
+    }
+
+    &__text {
+      gap: 4px;
+    }
+
+    &__title {
+      font-size: 14px;
+      line-height: normal;
+      white-space: nowrap;
+    }
+
+    &__description {
+      font-size: 12px;
+      line-height: 24px;
+    }
+  }
+}
