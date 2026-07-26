@@ -1,3 +1,4 @@
+/* Services Tab Section */
 .services-tabs {
   display: grid;
   grid-template-areas: "panels tabs";
@@ -281,25 +282,6 @@
   padding-bottom: 128px;
   background: var(--testimonials-background, #f6f8fe);
 
-  .testimonials-heading {
-    gap: 16px;
-    width: min(720px, 100%);
-    margin: 0 auto 40px;
-  }
-
-  .testimonials-title,
-  .testimonials-subtitle {
-    margin: 0;
-  }
-
-  .testimonials-title {
-    color: #07041d;
-  }
-
-  .testimonials-subtitle {
-    color: #9595b1;
-  }
-
   .testimonials-slider {
     width: min(980px, 100%);
     overflow: visible;
@@ -311,6 +293,7 @@
     overflow: hidden;
     border-radius: 32px;
     background: #07041d;
+    box-shadow: var(--shadow-mellow);
   }
 
   .testimonial-background {
@@ -481,17 +464,11 @@
   .testimonials-section {
     padding-bottom: 136px;
 
-    .testimonials-heading {
-      gap: 8px;
-      margin-bottom: 40px;
-    }
-
     .testimonials-slider {
       width: min(358px, 100%);
     }
 
     .testimonial-card {
-      height: 428px;
       border-radius: 24px;
     }
 

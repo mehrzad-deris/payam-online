@@ -117,125 +117,216 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
     mobileQuery.addEventListener('change', syncTabsMode);
 });
 
-const hydrateTestimonialSlide = (slide) => {
-    slide?.querySelectorAll('[data-testimonial-srcset]').forEach((source) => {
-        source.srcset = source.dataset.testimonialSrcset;
-        source.removeAttribute('data-testimonial-srcset');
+const swiperPresets = {
+    blog: ({ slideCount }) => ({
+        slidesPerView: 1,
+        spaceBetween: 16,
+        speed: 600,
+        loop: slideCount > 3,
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            1280: {
+                slidesPerView: 3,
+                spaceBetween: 24,
+            },
+        },
+    }),
+    testimonials: ({ slideCount }) => ({
+        slidesPerView: 1,
+        speed: 650,
+        loop: slideCount > 1,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true,
+        },
+        autoplay:
+            slideCount > 1
+                ? {
+                      delay: 5500,
+                      disableOnInteraction: false,
+                      pauseOnMouseEnter: true,
+                  }
+                : false,
+    }),
+};
+
+const parseSwiperOptions = (slider) => {
+    if (!slider.dataset.swiperOptions) {
+        return {};
+    }
+
+    try {
+        return JSON.parse(slider.dataset.swiperOptions);
+    } catch (error) {
+        console.warn('Invalid Swiper options:', slider, error);
+        return {};
+    }
+};
+
+const hydrateSwiperSlide = (slide) => {
+    slide?.querySelectorAll('[data-swiper-srcset]').forEach((source) => {
+        source.srcset = source.dataset.swiperSrcset;
+        source.removeAttribute('data-swiper-srcset');
     });
 
-    slide?.querySelectorAll('[data-testimonial-src]').forEach((image) => {
-        image.src = image.dataset.testimonialSrc;
-        image.removeAttribute('data-testimonial-src');
+    slide?.querySelectorAll('[data-swiper-src]').forEach((image) => {
+        image.src = image.dataset.swiperSrc;
+        image.removeAttribute('data-swiper-src');
     });
 };
 
-const hydrateTestimonialNeighbors = (swiper) => {
-    const slides = swiper.slides;
+const getVisibleSlideCount = (swiper) => {
+    if (swiper.params.slidesPerView === 'auto') {
+        return Math.max(1, swiper.slidesPerViewDynamic());
+    }
 
-    [-1, 0, 1].forEach((distance) => {
-        const index = (swiper.activeIndex + distance + slides.length) % slides.length;
-        hydrateTestimonialSlide(slides[index]);
-    });
+    return Math.max(1, Math.ceil(Number(swiper.params.slidesPerView) || 1));
 };
 
-const initTestimonialSliders = () => {
+const hydrateSwiperNeighbors = (swiper) => {
+    const { slides } = swiper;
+
+    if (!slides.length) {
+        return;
+    }
+
+    const visibleCount = getVisibleSlideCount(swiper);
+
+    for (let distance = -1; distance <= visibleCount; distance += 1) {
+        const index =
+            (swiper.activeIndex + distance + slides.length) % slides.length;
+        hydrateSwiperSlide(slides[index]);
+    }
+};
+
+const resolveSwiperControls = (slider, options) => {
+    const resolved = { ...options };
+
+    if (slider.querySelector('[data-swiper-pagination]')) {
+        resolved.pagination = {
+            clickable: true,
+            ...(options.pagination || {}),
+            el: slider.querySelector('[data-swiper-pagination]'),
+        };
+    }
+
+    const nextEl = slider.querySelector('[data-swiper-next]');
+    const prevEl = slider.querySelector('[data-swiper-prev]');
+
+    if (nextEl || prevEl) {
+        resolved.navigation = {
+            ...(options.navigation || {}),
+            nextEl,
+            prevEl,
+        };
+    }
+
+    return resolved;
+};
+
+const initSwipers = () => {
     if (typeof window.Swiper !== 'function') {
         return false;
     }
 
-    document.querySelectorAll('[data-testimonials-slider]').forEach((slider) => {
-    if (slider.dataset.testimonialsReady === 'true') {
-        return;
-    }
-
-    slider.dataset.testimonialsReady = 'true';
-    const slides = slider.querySelectorAll('.swiper-slide');
-
-    if (!slides.length) {
-        hydrateTestimonialSlide(slides[0]);
-        return;
-    }
-
-    let swiper = null;
-
-    const initSlider = () => {
-        if (swiper) {
+    document.querySelectorAll('[data-swiper]').forEach((slider) => {
+        if (slider.dataset.swiperReady === 'true') {
             return;
         }
 
-        hydrateTestimonialSlide(slides[0]);
-        hydrateTestimonialSlide(slides[1]);
+        const slides = slider.querySelectorAll('.swiper-wrapper > .swiper-slide');
 
-        swiper = new window.Swiper(slider, {
-            slidesPerView: 1,
-            speed: 650,
-            loop: slides.length > 1,
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true,
-            },
-            pagination: {
-                el: slider.querySelector('.testimonials-pagination'),
-                clickable: true,
-            },
-            autoplay:
-                slides.length > 1
-                    ? {
-                          delay: 5500,
-                          disableOnInteraction: false,
-                          pauseOnMouseEnter: true,
-                      }
-                    : false,
-            on: {
-                init() {
-                    hydrateTestimonialNeighbors(this);
-                },
-                slideChangeTransitionStart() {
-                    hydrateTestimonialNeighbors(this);
-                },
-            },
-        });
+        if (!slides.length) {
+            return;
+        }
 
-        const visibilityObserver = new IntersectionObserver(
-            ([entry]) => {
-                if (!swiper?.autoplay) {
-                    return;
-                }
+        slider.dataset.swiperReady = 'true';
+        let swiper = null;
 
-                entry.isIntersecting
-                    ? swiper.autoplay.start()
-                    : swiper.autoplay.stop();
-            },
-            { threshold: 0.15 }
-        );
-
-        visibilityObserver.observe(slider);
-    };
-
-    const initObserver = new IntersectionObserver(
-        ([entry]) => {
-            if (!entry.isIntersecting) {
+        const initSlider = () => {
+            if (swiper) {
                 return;
             }
 
-            initSlider();
-            initObserver.disconnect();
-        },
-        {
-            rootMargin: '300px 0px',
-            threshold: 0,
-        }
-    );
+            const presetName = slider.dataset.swiper;
+            const preset = swiperPresets[presetName]?.({
+                slider,
+                slideCount: slides.length,
+            }) || {};
+            const customOptions = parseSwiperOptions(slider);
+            const userEvents = {
+                ...(preset.on || {}),
+                ...(customOptions.on || {}),
+            };
+            const options = resolveSwiperControls(slider, {
+                ...preset,
+                ...customOptions,
+                loop:
+                    slides.length > 1 &&
+                    (customOptions.loop ?? preset.loop ?? false),
+                autoplay:
+                    slides.length > 1
+                        ? (customOptions.autoplay ?? preset.autoplay ?? false)
+                        : false,
+                on: {
+                    ...userEvents,
+                    init() {
+                        hydrateSwiperNeighbors(this);
+                        userEvents.init?.call(this);
+                    },
+                    slideChangeTransitionStart() {
+                        hydrateSwiperNeighbors(this);
+                        userEvents.slideChangeTransitionStart?.call(this);
+                    },
+                },
+            });
 
-    initObserver.observe(slider);
+            hydrateSwiperSlide(slides[0]);
+            swiper = new window.Swiper(slider, options);
+
+            const visibilityObserver = new IntersectionObserver(
+                ([entry]) => {
+                    if (!swiper?.autoplay) {
+                        return;
+                    }
+
+                    entry.isIntersecting
+                        ? swiper.autoplay.start()
+                        : swiper.autoplay.stop();
+                },
+                { threshold: 0.15 }
+            );
+
+            visibilityObserver.observe(slider);
+        };
+
+        const initObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                initSlider();
+                initObserver.disconnect();
+            },
+            {
+                rootMargin: '300px 0px',
+                threshold: 0,
+            }
+        );
+
+        initObserver.observe(slider);
     });
 
     return true;
 };
 
-if (!initTestimonialSliders()) {
-    document.addEventListener('DOMContentLoaded', initTestimonialSliders, {
+if (!initSwipers()) {
+    document.addEventListener('DOMContentLoaded', initSwipers, {
         once: true,
     });
-    window.addEventListener('load', initTestimonialSliders, { once: true });
+    window.addEventListener('load', initSwipers, { once: true });
 }

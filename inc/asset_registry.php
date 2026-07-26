@@ -102,6 +102,17 @@ function payam_get_section_config(): array {
 				'payam-bundle-cards',
 			],
 		],
+
+		'blog_section' => [
+			'styles'  => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+			'scripts' => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+		],
 	];
 }
 

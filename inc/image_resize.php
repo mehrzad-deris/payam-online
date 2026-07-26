@@ -22,6 +22,10 @@ add_action( 'after_setup_theme', function () {
 	/* Testimonials Section */
 	add_image_size( 'testimonial_avatar', 56, 56, true );
 	add_image_size( 'testimonial_avatar_x2', 112, 112, true ); // x2
+
+	/* Blog Section */
+	add_image_size( 'blog_card', 389, 218, true );
+	add_image_size( 'blog_card_x2', 778, 436, true ); // x2
 } );
 
 /* SVG Support */

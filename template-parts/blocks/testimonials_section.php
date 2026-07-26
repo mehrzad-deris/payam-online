@@ -40,15 +40,13 @@ $testimonials = array_values(
 				'title'          => $sectionTitle,
 				'title_tag'      => $sectionTitleTag,
 				'subtitle'       => $sectionSubtitle,
-				'class'          => 'testimonials-heading',
-				'title_class'    => 'testimonials-title',
-				'subtitle_class' => 'testimonials-subtitle',
+                'title_class' => $sectionStyle === 'dark' ? 'text-white' : '',
 			]
 		);
 		?>
 
 		<?php if ( ! empty( $testimonials ) ) : ?>
-			<div class="swiper testimonials-slider" data-testimonials-slider>
+			<div class="swiper testimonials-slider" data-swiper="testimonials">
 				<div class="swiper-wrapper">
 					<?php foreach ( $testimonials as $item ) :
 						$authorImage = absint( $item['author_image'] ?? 0 );
@@ -58,8 +56,8 @@ $testimonials = array_values(
 						?>
 						<article class="swiper-slide testimonial-card">
 							<picture class="testimonial-background" aria-hidden="true">
-								<source media="(max-width: 767px)" data-testimonial-srcset="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg-mobile.webp' ) ); ?>">
-								<img src="<?= esc_attr( $transparent ); ?>" data-testimonial-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bfg.webp' ) ); ?>" alt="" width="979" height="416" decoding="async">
+								<source media="(max-width: 767px)" data-swiper-srcset="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg-mobile.webp' ) ); ?>">
+								<img src="<?= esc_attr( $transparent ); ?>" data-swiper-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bfg.webp' ) ); ?>" alt="" width="979" height="416" decoding="async">
 							</picture>
 
 							<div class="testimonial-content">
@@ -93,7 +91,7 @@ $testimonials = array_values(
 				</div>
 
 				<?php if ( count( $testimonials ) > 1 ) : ?>
-					<div class="swiper-pagination testimonials-pagination"></div>
+					<div class="swiper-pagination testimonials-pagination" data-swiper-pagination></div>
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
