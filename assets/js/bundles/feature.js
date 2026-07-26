@@ -22,6 +22,13 @@ const hydrateFeatureImages = (section) => {
     }
 
     section
+        .querySelectorAll('[data-feature-desktop-srcset]')
+        .forEach((image) => {
+            image.srcset = image.dataset.featureDesktopSrcset;
+            image.removeAttribute('data-feature-desktop-srcset');
+        });
+
+    section
         .querySelectorAll('[data-feature-desktop-src]')
         .forEach((image) => {
             image.src = image.dataset.featureDesktopSrc;
@@ -59,6 +66,99 @@ const animateFeatureCounter = (counter) => {
 
     requestAnimationFrame(update);
 };
+
+const initBrands = (section) => {
+    const stage = section.querySelector('[data-brand-stage]');
+    const track = section.querySelector('[data-brand-track]');
+    const firstGroup = track?.querySelector('.brands-group');
+    const items = section.querySelectorAll('[data-brand-item]');
+
+    if (!stage || !track || !firstGroup || !items.length) {
+        return;
+    }
+
+    let frameId = 0;
+    let lastTime = 0;
+    let offset = -firstGroup.offsetWidth;
+    const speed = 52;
+
+    track.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+    const updateMarquee = (time) => {
+        const groupWidth = firstGroup.offsetWidth;
+        const elapsed = lastTime ? Math.min(time - lastTime, 64) : 0;
+
+        lastTime = time;
+        offset += (speed * elapsed) / 1000;
+
+        if (offset >= 0 && groupWidth > 0) {
+            offset -= groupWidth;
+        }
+
+        track.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+        const center = stage.getBoundingClientRect().left + stage.offsetWidth / 2;
+
+        items.forEach((item) => {
+            const bounds = item.getBoundingClientRect();
+            const hasPassedCenter = bounds.left + bounds.width / 2 >= center;
+
+            item.classList.toggle('brand-color', hasPassedCenter);
+        });
+
+        frameId = requestAnimationFrame(updateMarquee);
+    };
+
+    const start = () => {
+        if (frameId) {
+            return;
+        }
+
+        lastTime = 0;
+        section.classList.add('brands-running');
+        frameId = requestAnimationFrame(updateMarquee);
+    };
+
+    const stop = () => {
+        section.classList.remove('brands-running');
+
+        if (frameId) {
+            cancelAnimationFrame(frameId);
+            frameId = 0;
+        }
+
+        lastTime = 0;
+    };
+
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            const shouldRun = entry.isIntersecting && featureDesktopQuery.matches;
+
+            shouldRun ? start() : stop();
+        },
+        {
+            rootMargin: '120px 0px',
+            threshold: 0,
+        }
+    );
+
+    observer.observe(section);
+
+    featureDesktopQuery.addEventListener('change', () => {
+        if (!featureDesktopQuery.matches) {
+            stop();
+            return;
+        }
+
+        const bounds = section.getBoundingClientRect();
+
+        if (bounds.bottom >= -120 && bounds.top <= window.innerHeight + 120) {
+            start();
+        }
+    });
+};
+
+document.querySelectorAll('[data-brands-section]').forEach(initBrands);
 
 document.querySelectorAll('[data-feature-module]').forEach((section) => {
     let isActivated = false;
@@ -109,7 +209,9 @@ document.querySelectorAll('[data-feature-module]').forEach((section) => {
             imageObserver.disconnect();
         },
         {
-            rootMargin: '200px 0px',
+            rootMargin: section.matches('[data-brands-section]')
+                ? '600px 0px'
+                : '200px 0px',
             threshold: 0,
         }
     );

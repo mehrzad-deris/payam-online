@@ -27,9 +27,7 @@ function payam_asset_version( string $relative_path ): string {
  * Checks whether a theme asset exists.
  */
 function payam_asset_exists( string $relative_path ): bool {
-	return file_exists(
-		get_theme_file_path( $relative_path )
-	);
+	return file_exists( get_theme_file_path( $relative_path ) );
 }
 
 /**
@@ -38,9 +36,7 @@ function payam_asset_exists( string $relative_path ): bool {
 function payam_get_section_slug( string $layout ): string {
 	$slug = preg_replace( '/_section$/', '', $layout );
 
-	return sanitize_key(
-		str_replace( '_', '-', (string) $slug )
-	);
+	return sanitize_key( str_replace( '_', '-', (string) $slug ) );
 }
 
 /**
@@ -56,9 +52,15 @@ function payam_get_section_slug( string $layout ): string {
 function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
-		'feature_section' => [],
-		'infrastructure_section' => [
+
+		'feature_section' => [
 			'styles' => [
+				'payam-section-feature',
+			],
+		],
+
+		'infrastructure_section' => [
+			'styles'  => [
 				'payam-section-feature',
 			],
 			'scripts' => [
@@ -66,9 +68,35 @@ function payam_get_section_config(): array {
 			],
 		],
 
+		'about_section' => [
+			'styles'  => [
+				'payam-section-feature',
+			],
+		],
+
+		'brands_section' => [
+			'styles'  => [
+				'payam-section-feature',
+			],
+			'scripts' => [
+				'payam-bundle-feature',
+			],
+		],
+
+		'testimonials_section' => [
+			'styles'  => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+			'scripts' => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+		],
+
 		'services_section' => [
-			'styles' => [
-				'payam-bundle-cards'
+			'styles'  => [
+				'payam-bundle-cards',
 			],
 			'scripts' => [
 				'payam-bundle-cards',
@@ -86,15 +114,9 @@ function payam_get_section_assets(): array {
 	foreach ( payam_get_section_config() as $layout => $config ) {
 		$slug = payam_get_section_slug( $layout );
 
-		$style_path = sprintf(
-			'/assets/styles/scss/sections/%s.css',
-			$slug
-		);
+		$style_path = sprintf( '/assets/styles/scss/sections/%s.css', $slug );
 
-		$script_path = sprintf(
-			'/assets/js/sections/%s.min.js',
-			$slug
-		);
+		$script_path = sprintf( '/assets/js/sections/%s.min.js', $slug );
 
 		$styles  = $config['styles'] ?? [];
 		$scripts = $config['scripts'] ?? [];
@@ -120,44 +142,29 @@ function payam_get_section_assets(): array {
  * Registers a theme stylesheet when its file exists.
  */
 function payam_register_theme_style(
-	string $handle,
-	string $relative_path,
-	array $dependencies = []
+	string $handle, string $relative_path, array $dependencies = []
 ): bool {
 	if ( ! payam_asset_exists( $relative_path ) ) {
 		return false;
 	}
 
-	return wp_register_style(
-		$handle,
-		get_theme_file_uri( $relative_path ),
-		$dependencies,
-		payam_asset_version( $relative_path )
-	);
+	return wp_register_style( $handle, get_theme_file_uri( $relative_path ), $dependencies, payam_asset_version( $relative_path ) );
 }
 
 /**
  * Registers a theme script when its file exists.
  */
 function payam_register_theme_script(
-	string $handle,
-	string $relative_path,
-	array $dependencies = []
+	string $handle, string $relative_path, array $dependencies = []
 ): bool {
 	if ( ! payam_asset_exists( $relative_path ) ) {
 		return false;
 	}
 
-	return wp_register_script(
-		$handle,
-		get_theme_file_uri( $relative_path ),
-		$dependencies,
-		payam_asset_version( $relative_path ),
-		[
+	return wp_register_script( $handle, get_theme_file_uri( $relative_path ), $dependencies, payam_asset_version( $relative_path ), [
 			'strategy'  => 'defer',
 			'in_footer' => true,
-		]
-	);
+		] );
 }
 
 /**
@@ -171,15 +178,9 @@ function payam_register_assets(): void {
 	|--------------------------------------------------------------------------
 	*/
 
-	payam_register_theme_style(
-		'payam-app',
-		'/assets/styles/theme.min.css'
-	);
+	payam_register_theme_style( 'payam-app', '/assets/styles/theme.min.css' );
 
-	payam_register_theme_script(
-		'payam-app',
-		'/assets/js/app.min.js'
-	);
+	payam_register_theme_script( 'payam-app', '/assets/js/app.min.js' );
 
 	/*
 	|--------------------------------------------------------------------------
@@ -187,15 +188,9 @@ function payam_register_assets(): void {
 	|--------------------------------------------------------------------------
 	*/
 
-	payam_register_theme_style(
-		'payam-vendor-swiper',
-		'/assets/scripts/swiper/swiper-bundle.min.css'
-	);
+	payam_register_theme_style( 'payam-vendor-swiper', '/assets/scripts/swiper/swiper-bundle.min.css' );
 
-	payam_register_theme_script(
-		'payam-vendor-swiper',
-		'/assets/scripts/swiper/swiper-bundle.min.js'
-	);
+	payam_register_theme_script( 'payam-vendor-swiper', '/assets/scripts/swiper/swiper-bundle.min.js' );
 
 	/*
 	|--------------------------------------------------------------------------
@@ -203,26 +198,15 @@ function payam_register_assets(): void {
 	|--------------------------------------------------------------------------
 	*/
 
-	payam_register_theme_style(
-		'payam-bundle-cards',
-		'/assets/styles/scss/bundles/cards.css'
-	);
+	payam_register_theme_style( 'payam-bundle-cards', '/assets/styles/scss/bundles/cards.css' );
 
-	payam_register_theme_script(
-		'payam-bundle-cards',
-		'/assets/js/bundles/cards.min.js',
-		[
+	payam_register_theme_script( 'payam-bundle-cards', '/assets/js/bundles/cards.min.js', [
 			'payam-app',
-		]
-	);
+		] );
 
-	payam_register_theme_script(
-		'payam-bundle-feature',
-		'/assets/js/bundles/feature.min.js',
-		[
+	payam_register_theme_script( 'payam-bundle-feature', '/assets/js/bundles/feature.min.js', [
 			'payam-app',
-		]
-	);
+		] );
 
 	/*
 	|--------------------------------------------------------------------------
@@ -233,31 +217,17 @@ function payam_register_assets(): void {
 	foreach ( array_keys( payam_get_section_config() ) as $layout ) {
 		$slug = payam_get_section_slug( $layout );
 
-		$style_path = sprintf(
-			'/assets/styles/scss/sections/%s.css',
-			$slug
-		);
+		$style_path = sprintf( '/assets/styles/scss/sections/%s.css', $slug );
 
-		$script_path = sprintf(
-			'/assets/js/sections/%s.min.js',
-			$slug
-		);
+		$script_path = sprintf( '/assets/js/sections/%s.min.js', $slug );
 
-		payam_register_theme_style(
-			'payam-section-' . $slug,
-			$style_path,
-			[
+		payam_register_theme_style( 'payam-section-' . $slug, $style_path, [
 				'payam-app',
-			]
-		);
+			] );
 
-		payam_register_theme_script(
-			'payam-section-' . $slug,
-			$script_path,
-			[
+		payam_register_theme_script( 'payam-section-' . $slug, $script_path, [
 				'payam-app',
-			]
-		);
+			] );
 	}
 }
 
@@ -267,10 +237,7 @@ add_action( 'wp_enqueue_scripts', 'payam_register_assets', 5 );
  * Returns the layouts used in the current page builder.
  */
 function payam_get_current_page_layouts(): array {
-	if (
-		! is_singular() ||
-		! function_exists( 'get_field' )
-	) {
+	if ( ! is_singular() || ! function_exists( 'get_field' ) ) {
 		return [];
 	}
 
@@ -280,10 +247,7 @@ function payam_get_current_page_layouts(): array {
 		return [];
 	}
 
-	$sections = get_field(
-		PAYAM_PAGE_BUILDER_FIELD,
-		$post_id
-	);
+	$sections = get_field( PAYAM_PAGE_BUILDER_FIELD, $post_id );
 
 	if ( ! is_array( $sections ) ) {
 		return [];
@@ -325,24 +289,32 @@ function payam_enqueue_assets(): void {
 			continue;
 		}
 
-		$style_handles = array_merge(
-			$style_handles,
-			$registry[ $layout ]['styles'] ?? []
-		);
+		$style_handles = array_merge( $style_handles, $registry[ $layout ]['styles'] ?? [] );
 
-		$script_handles = array_merge(
-			$script_handles,
-			$registry[ $layout ]['scripts'] ?? []
-		);
+		$script_handles = array_merge( $script_handles, $registry[ $layout ]['scripts'] ?? [] );
 	}
 
-	foreach ( array_unique( $style_handles ) as $handle ) {
+	$style_handles  = array_values( array_unique( $style_handles ) );
+	$script_handles = array_values( array_unique( $script_handles ) );
+
+	// Vendor assets must precede bundles even when another section requested the bundle first.
+	if ( in_array( 'payam-vendor-swiper', $style_handles, true ) ) {
+		$style_handles = array_values( array_diff( $style_handles, [ 'payam-vendor-swiper' ] ) );
+		array_unshift( $style_handles, 'payam-vendor-swiper' );
+	}
+
+	if ( in_array( 'payam-vendor-swiper', $script_handles, true ) ) {
+		$script_handles = array_values( array_diff( $script_handles, [ 'payam-vendor-swiper' ] ) );
+		array_unshift( $script_handles, 'payam-vendor-swiper' );
+	}
+
+	foreach ( $style_handles as $handle ) {
 		if ( wp_style_is( $handle, 'registered' ) ) {
 			wp_enqueue_style( $handle );
 		}
 	}
 
-	foreach ( array_unique( $script_handles ) as $handle ) {
+	foreach ( $script_handles as $handle ) {
 		if ( wp_script_is( $handle, 'registered' ) ) {
 			wp_enqueue_script( $handle );
 		}

@@ -124,13 +124,6 @@ $serverPins = [
                 <?php foreach ( $serverPins as $index => $serverPin ) : ?>
                     <div class="infrastructure-section__pin infrastructure-section__pin--<?= esc_attr( $serverPin['class'] ); ?>" style="--pin-delay: <?= esc_attr( $index * 110 ); ?>ms">
                         <?= icon(esc_attr( $serverPin['class'] ) . '-flag', 'flag w-8 h-8 ') ?>
-<!--                        <img src="--><?php //= esc_url( $transparentPixel ); ?><!--"-->
-<!--                             data-feature-desktop-src="--><?php //= esc_url( get_theme_file_uri( '/assets/images/' . $serverPin['asset'] ) ); ?><!--"-->
-<!--                             alt=""-->
-<!--                             width="32"-->
-<!--                             height="32"-->
-<!--                             decoding="async"-->
-<!--                        >-->
                         <span class="infrastructure-section__pin-copy">
 							<strong><?= esc_html( $serverPin['label'] ); ?></strong>
 							<small><?= esc_html( $serverPin['latency'] ); ?></small>

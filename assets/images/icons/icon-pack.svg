@@ -44,26 +44,83 @@
 
     <!-- Canada Flag -->
     <symbol id="canada-flag" viewBox="0 0 18 18">
-        <g clip-path="url(#a)"><rect width="18" height="18" fill="#fff" rx="9"/><path fill="#f93939" d="M9.247 13.941h-.494l.124-1.976c-.007-.104-.057-.132-.247-.124l-1.977.247s.37-.494.37-.74c0-.248-2.223-1.854-2.223-1.854s.494-.123.618-.247c.123-.123-.494-1.482-.494-1.482s1.255.494 1.358.37c.104-.123.248-.617.248-.617s.988 1.111 1.235 1.111-.494-2.717-.494-2.717.617.494.864.494S9 4.8 9 4.8s.618 1.606.741 1.606c.124 0 .989-.494.989-.494s-.618 2.594-.495 2.717c.124.124 1.236-1.111 1.236-1.111s.123.494.247.617c.123.124 1.359-.37 1.359-.37s-.618 1.359-.495 1.482c.124.124.618.247.618.247s-2.223 1.606-2.223 1.853.247.741.247.741l-1.853-.247c-.15-.042-.2-.01-.247.124zM15.6 0h6v18h-6zM-3.6 0h6v18h-6z"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+        <g clip-path="url(#a)">
+            <rect width="18" height="18" fill="#fff" rx="9"/>
+            <path fill="#f93939"
+                  d="M9.247 13.941h-.494l.124-1.976c-.007-.104-.057-.132-.247-.124l-1.977.247s.37-.494.37-.74c0-.248-2.223-1.854-2.223-1.854s.494-.123.618-.247c.123-.123-.494-1.482-.494-1.482s1.255.494 1.358.37c.104-.123.248-.617.248-.617s.988 1.111 1.235 1.111-.494-2.717-.494-2.717.617.494.864.494S9 4.8 9 4.8s.618 1.606.741 1.606c.124 0 .989-.494.989-.494s-.618 2.594-.495 2.717c.124.124 1.236-1.111 1.236-1.111s.123.494.247.617c.123.124 1.359-.37 1.359-.37s-.618 1.359-.495 1.482c.124.124.618.247.618.247s-2.223 1.606-2.223 1.853.247.741.247.741l-1.853-.247c-.15-.042-.2-.01-.247.124zM15.6 0h6v18h-6zM-3.6 0h6v18h-6z"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <rect width="18" height="18" fill="#fff" rx="9"/>
+            </clipPath>
+        </defs>
     </symbol>
 
     <!-- Uk Flag -->
     <symbol id="uk-flag" viewBox="0 0 18 18">
-        <g clip-path="url(#a)"><rect width="18" height="18" fill="#1a47b8" rx="9"/><path fill="#fff" fill-rule="evenodd" d="M-.92 0H-3.6v3l22.504 15H21.6v-3z" clip-rule="evenodd"/><path fill="#f93939" d="M-2.706 0 21.6 16.243V18h-.873L-3.6 1.74V0z"/><path fill="#fff" fill-rule="evenodd" d="M19.2 0h2.4v3S6.01 12.994-1.2 18h-2.4v-3z" clip-rule="evenodd"/><path fill="#f93939" d="M21.6 0h-.814L-3.6 16.256V18h.894L21.6 1.754z"/><path fill="#fff" fill-rule="evenodd" d="M5.564 0h6.892v5.552H21.6v6.892h-9.144V18H5.564v-5.556H-3.6V5.552h9.164z" clip-rule="evenodd"/><path fill="#f93939" fill-rule="evenodd" d="M7.01 0h3.98v6.923H21.6v4.154H10.99V18H7.01v-6.923H-3.6V6.923H7.01z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+        <g clip-path="url(#a)">
+            <rect width="18" height="18" fill="#1a47b8" rx="9"/>
+            <path fill="#fff" fill-rule="evenodd" d="M-.92 0H-3.6v3l22.504 15H21.6v-3z" clip-rule="evenodd"/>
+            <path fill="#f93939" d="M-2.706 0 21.6 16.243V18h-.873L-3.6 1.74V0z"/>
+            <path fill="#fff" fill-rule="evenodd" d="M19.2 0h2.4v3S6.01 12.994-1.2 18h-2.4v-3z" clip-rule="evenodd"/>
+            <path fill="#f93939" d="M21.6 0h-.814L-3.6 16.256V18h.894L21.6 1.754z"/>
+            <path fill="#fff" fill-rule="evenodd"
+                  d="M5.564 0h6.892v5.552H21.6v6.892h-9.144V18H5.564v-5.556H-3.6V5.552h9.164z" clip-rule="evenodd"/>
+            <path fill="#f93939" fill-rule="evenodd"
+                  d="M7.01 0h3.98v6.923H21.6v4.154H10.99V18H7.01v-6.923H-3.6V6.923H7.01z" clip-rule="evenodd"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <rect width="18" height="18" fill="#fff" rx="9"/>
+            </clipPath>
+        </defs>
     </symbol>
 
     <!-- Germany Flag -->
     <symbol id="germany-flag" viewBox="0 0 18 18">
-        <g clip-path="url(#a)"><rect width="18" height="18" fill="#f93939" rx="9"/><path fill="#ffda2c" fill-rule="evenodd" d="M-3.6 12h25.2v6H-3.6z" clip-rule="evenodd"/><path fill="#151515" fill-rule="evenodd" d="M-3.6 0h25.2v6H-3.6z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+        <g clip-path="url(#a)">
+            <rect width="18" height="18" fill="#f93939" rx="9"/>
+            <path fill="#ffda2c" fill-rule="evenodd" d="M-3.6 12h25.2v6H-3.6z" clip-rule="evenodd"/>
+            <path fill="#151515" fill-rule="evenodd" d="M-3.6 0h25.2v6H-3.6z" clip-rule="evenodd"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <rect width="18" height="18" fill="#fff" rx="9"/>
+            </clipPath>
+        </defs>
     </symbol>
 
     <!-- Turkey Flag -->
     <symbol id="turkey-flag" viewBox="0 0 18 18">
-        <rect width="18" height="18" fill="#f93939" rx="9"/><path fill="#fff" fill-rule="evenodd" d="m13.202 10.382-1.394.732.266-1.551-1.128-1.1 1.56-.229.696-1.41.696 1.411 1.56.228-1.128 1.098.267 1.552" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="M7.8 13.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4M9 12a3.001 3.001 0 0 0 0-6 3.001 3.001 0 0 0 0 6" clip-rule="evenodd"/>
+        <rect width="18" height="18" fill="#f93939" rx="9"/>
+        <path fill="#fff" fill-rule="evenodd"
+              d="m13.202 10.382-1.394.732.266-1.551-1.128-1.1 1.56-.229.696-1.41.696 1.411 1.56.228-1.128 1.098.267 1.552"
+              clip-rule="evenodd"/>
+        <path fill="#fff" fill-rule="evenodd"
+              d="M7.8 13.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4M9 12a3.001 3.001 0 0 0 0-6 3.001 3.001 0 0 0 0 6"
+              clip-rule="evenodd"/>
     </symbol>
 
     <!-- France Flag -->
     <symbol id="france-flag" viewBox="0 0 18 18">
-        <g clip-path="url(#a)"><rect width="18" height="18" fill="#fff" rx="9"/><path fill="#1a47b8" fill-rule="evenodd" d="M-3.6 0h8.4v18h-8.4z" clip-rule="evenodd"/><path fill="#f93939" fill-rule="evenodd" d="M13.2 0h8.4v18h-8.4z" clip-rule="evenodd"/></g><defs><clipPath id="a"><rect width="18" height="18" fill="#fff" rx="9"/></clipPath></defs>
+        <g clip-path="url(#a)">
+            <rect width="18" height="18" fill="#fff" rx="9"/>
+            <path fill="#1a47b8" fill-rule="evenodd" d="M-3.6 0h8.4v18h-8.4z" clip-rule="evenodd"/>
+            <path fill="#f93939" fill-rule="evenodd" d="M13.2 0h8.4v18h-8.4z" clip-rule="evenodd"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <rect width="18" height="18" fill="#fff" rx="9"/>
+            </clipPath>
+        </defs>
+    </symbol>
+
+    <!-- Quote -->
+    <symbol id="quote" viewBox="0 0 49 45">
+        <path d="m48.012.456-1.09 8.592q-3.992-.277-6.171 1.478t-2.904 4.896q-.726 3.141-.273 7.113h10.439V44.8h-20.06V20.688q0-10.902 5.083-16.444Q38.21-1.392 48.012.456m-27.955 0-1.088 8.592q-3.994-.277-6.172 1.478t-2.905 4.896q-.726 3.141-.272 7.113h10.438V44.8H0V20.688Q0 9.786 5.082 4.244 10.256-1.392 20.058.456z"/>
+    </symbol>
+
+    <!-- Star -->
+    <symbol id="star" viewBox="0 0 20 20"><g clip-path="url(#clip0_5053_1815)"><path d="M9.08893 1.30865C9.19133 1.16195 9.32763 1.04214 9.48626 0.95942C9.64488 0.876695 9.82114 0.833496 10 0.833496C10.1789 0.833496 10.3552 0.876695 10.5138 0.95942C10.6724 1.04214 10.8088 1.16195 10.9112 1.30865L13.7312 5.35643C13.8739 5.56109 14.0813 5.71177 14.32 5.7842L19.0412 7.2142C19.2126 7.26615 19.3689 7.35876 19.4968 7.48415C19.6247 7.60954 19.7204 7.76399 19.7757 7.93434C19.831 8.10469 19.8443 8.28589 19.8145 8.4625C19.7847 8.63911 19.7127 8.8059 19.6045 8.94865L16.6267 12.8809C16.4757 13.08 16.3962 13.3243 16.4012 13.5742L16.4989 18.5053C16.5024 18.6843 16.4626 18.8616 16.3828 19.0219C16.303 19.1822 16.1857 19.3208 16.0407 19.426C15.8958 19.5312 15.7276 19.5998 15.5505 19.626C15.3734 19.6522 15.1925 19.6352 15.0234 19.5764L10.3645 17.9598C10.1284 17.8778 9.87165 17.8778 9.6356 17.9598L4.9756 19.5764C4.80651 19.635 4.62579 19.6518 4.4488 19.6255C4.27181 19.5992 4.10379 19.5306 3.95902 19.4254C3.81425 19.3203 3.69703 19.1817 3.61731 19.0215C3.53759 18.8613 3.49774 18.6842 3.50115 18.5053L3.59893 13.5742C3.60419 13.3244 3.52512 13.0802 3.37448 12.8809L0.396706 8.94865C0.288755 8.80598 0.216848 8.63936 0.1871 8.46295C0.157351 8.28654 0.170641 8.10555 0.225839 7.93538C0.281036 7.7652 0.37651 7.61087 0.504142 7.48551C0.631775 7.36014 0.787791 7.26745 0.958929 7.21531L5.68004 5.7842C5.9188 5.71177 6.12623 5.56109 6.26893 5.35643L9.08893 1.30865Z"/></g><defs><clipPath id="clip0_5053_1815"><rect width="20" height="20"/></clipPath></defs>
     </symbol>
 </svg>
