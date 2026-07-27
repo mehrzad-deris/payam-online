@@ -120,17 +120,16 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
 const swiperPresets = {
     blog: ({ slideCount }) => ({
         slidesPerView: 1,
-        spaceBetween: 16,
-        speed: 600,
-        loop: slideCount > 3,
+        spaceBetween: 21,
+        autoplay: false,
         breakpoints: {
             768: {
                 slidesPerView: 2,
-                spaceBetween: 20,
+                spaceBetween: 21,
             },
             1280: {
                 slidesPerView: 3,
-                spaceBetween: 24,
+                spaceBetween: 21,
             },
         },
     }),
@@ -167,15 +166,9 @@ const parseSwiperOptions = (slider) => {
 };
 
 const hydrateSwiperSlide = (slide) => {
-    slide?.querySelectorAll('[data-swiper-srcset]').forEach((source) => {
-        source.srcset = source.dataset.swiperSrcset;
-        source.removeAttribute('data-swiper-srcset');
-    });
-
-    slide?.querySelectorAll('[data-swiper-src]').forEach((image) => {
-        image.src = image.dataset.swiperSrc;
-        image.removeAttribute('data-swiper-src');
-    });
+    if (slide) {
+        window.payamLazyImages?.hydrate(slide);
+    }
 };
 
 const getVisibleSlideCount = (swiper) => {
@@ -287,20 +280,18 @@ const initSwipers = () => {
             hydrateSwiperSlide(slides[0]);
             swiper = new window.Swiper(slider, options);
 
-            const visibilityObserver = new IntersectionObserver(
-                ([entry]) => {
-                    if (!swiper?.autoplay) {
-                        return;
-                    }
+            if (options.autoplay && swiper.autoplay) {
+                const visibilityObserver = new IntersectionObserver(
+                    ([entry]) => {
+                        entry.isIntersecting
+                            ? swiper.autoplay.start()
+                            : swiper.autoplay.stop();
+                    },
+                    { threshold: 0.15 }
+                );
 
-                    entry.isIntersecting
-                        ? swiper.autoplay.start()
-                        : swiper.autoplay.stop();
-                },
-                { threshold: 0.15 }
-            );
-
-            visibilityObserver.observe(slider);
+                visibilityObserver.observe(slider);
+            }
         };
 
         const initObserver = new IntersectionObserver(

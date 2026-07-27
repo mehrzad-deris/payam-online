@@ -67,6 +67,41 @@
   }
 }
 
+.cta-link {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 15px 8px 8px;
+  border-radius: 999px;
+  background: var(--color-blue-primary);
+  color: white;
+  text-decoration: none;
+  transition: 200ms background-color;
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    stroke: var(--color-blue-primary);
+    transition: 200ms;
+  }
+
+  &:hover {
+    background: var(--color-primary-600);
+
+    .icon {
+      stroke: var(--color-primary-600);
+      transform: rotate(45deg);
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {

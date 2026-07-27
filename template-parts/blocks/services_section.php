@@ -110,9 +110,9 @@ if ( is_array( $serviceTabs ) ) {
 
                                             <?php if ( '' !== $ctaUrl ) : ?>
                                                 <div class="hidden xl:block mt-5">
-                                                    <a class="services-tabs__cta" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>" <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
+                                                    <a class="cta-link" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>" <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
                                                         <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
-                                                        <span class="services-tabs__cta__icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
+                                                        <span class="icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
                                                     </a>
                                                 </div>
                                             <?php endif; ?>
@@ -152,9 +152,9 @@ if ( is_array( $serviceTabs ) ) {
 
                                     <?php if ( '' !== $ctaUrl ) : ?>
                                         <div class="xl:hidden flex justify-center">
-                                            <a class="services-tabs__cta" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>"<?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
+                                            <a class="cta-link" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>"<?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
                                                 <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
-                                                <span class="services-tabs__cta__icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
+                                                <span class="icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
                                             </a>
                                         </div>
                                     <?php endif; ?>

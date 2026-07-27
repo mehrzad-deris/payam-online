@@ -56,8 +56,8 @@ $testimonials = array_values(
 						?>
 						<article class="swiper-slide testimonial-card">
 							<picture class="testimonial-background" aria-hidden="true">
-								<source media="(max-width: 767px)" data-swiper-srcset="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg-mobile.webp' ) ); ?>">
-								<img src="<?= esc_attr( $transparent ); ?>" data-swiper-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bfg.webp' ) ); ?>" alt="" width="979" height="416" decoding="async">
+								<source media="(max-width: 767px)" data-lazy-srcset="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg-mobile.webp' ) ); ?>">
+								<img src="<?= esc_attr( $transparent ); ?>" data-lazy-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bfg.webp' ) ); ?>" alt="" width="979" height="416" decoding="async">
 							</picture>
 
 							<div class="testimonial-content">

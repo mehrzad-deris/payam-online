@@ -67,15 +67,15 @@ if ( $sectionAboutUsImage ) {
         <?php if ( $sectionAboutLink_1 || $sectionAboutLink_2 ) : ?>
             <div class="about-section-links">
                 <?php if ( $sectionAboutLink_1 ) : ?>
-                    <a href="<?= esc_html($sectionAboutLink_1['url']) ?: '' ?>" class="primary-cta">
+                    <a href="<?= esc_html($sectionAboutLink_1['url']) ?: '' ?>" class="cta-link primary-cta">
                         <?= esc_html($sectionAboutLink_1['title']) ?: '' ?>
-                        <span class="icon"><?= icon('arrow-linear') ?></span>
+                        <span class="icon"><?= icon('arrow-linear', 'w-3.5 h-2.5') ?></span>
                     </a>
                 <?php endif; ?>
                 <?php if ( $sectionAboutLink_2 ) : ?>
-                    <a href="<?= esc_html($sectionAboutLink_2['url']) ?: '' ?>" class="secondary-cta">
+                    <a href="<?= esc_html($sectionAboutLink_2['url']) ?: '' ?>" class="cta-link secondary-cta">
                         <?= esc_html($sectionAboutLink_2['title']) ?: '' ?>
-                        <span class="icon"><?= icon('arrow-linear') ?></span>
+                        <span class="icon"><?= icon('arrow-linear', 'w-3.5 h-2.5 stroke-yellow-primary') ?></span>
                     </a>
                 <?php endif; ?>
             </div>

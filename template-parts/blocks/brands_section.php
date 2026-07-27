@@ -84,8 +84,8 @@ $centerLogo2x = $centerLogo ? wp_get_attachment_image_url( $centerLogo, 'brand_l
 									<div class="brand-item" data-brand-item>
 										<img
 											src="<?= esc_url( $transparent ); ?>"
-											data-feature-desktop-src="<?= esc_url( $logoUrl ); ?>"
-											<?= $logo2x ? 'data-feature-desktop-srcset="' . esc_url( $logoUrl ) . ' 1x, ' . esc_url( $logo2x ) . ' 2x"' : ''; ?>
+											data-lazy-desktop-src="<?= esc_url( $logoUrl ); ?>"
+											<?= $logo2x ? 'data-lazy-desktop-srcset="' . esc_url( $logoUrl ) . ' 1x, ' . esc_url( $logo2x ) . ' 2x"' : ''; ?>
 											alt="<?= 0 === $copy && $brandIndex < count( $brands ) ? esc_attr( $logoAlt ) : ''; ?>"
 											width="173"
 											height="36"
@@ -104,8 +104,8 @@ $centerLogo2x = $centerLogo ? wp_get_attachment_image_url( $centerLogo, 'brand_l
 					<span class="brand-ring ring-three"></span>
 					<img
 						src="<?= esc_url( $transparent ); ?>"
-						data-feature-desktop-src="<?= esc_url( $centerLogo1x ); ?>"
-						<?= $centerLogo2x ? 'data-feature-desktop-srcset="' . esc_url( $centerLogo1x ) . ' 1x, ' . esc_url( $centerLogo2x ) . ' 2x"' : ''; ?>
+						data-lazy-desktop-src="<?= esc_url( $centerLogo1x ); ?>"
+						<?= $centerLogo2x ? 'data-lazy-desktop-srcset="' . esc_url( $centerLogo1x ) . ' 1x, ' . esc_url( $centerLogo2x ) . ' 2x"' : ''; ?>
 						alt=""
 						width="64"
 						height="64"

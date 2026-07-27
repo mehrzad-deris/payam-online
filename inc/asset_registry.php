@@ -53,6 +53,8 @@ function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
 
+		'banner_section' => [],
+
 		'feature_section' => [
 			'styles' => [
 				'payam-section-feature',

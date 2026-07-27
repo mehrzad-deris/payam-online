@@ -2,12 +2,23 @@
 
 /* Theme Setup */
 function theme_setup() {
+	add_theme_support( 'post-thumbnails' );
+
 	register_nav_menus( [
 		'main_menu' => 'فهرست سربرگ',
 	] );
 }
 
 add_action( 'after_setup_theme', 'theme_setup' );
+
+add_action( 'after_setup_theme', function () {
+	register_nav_menus( [
+		'footer_company'     => 'فوتر — پیام آنلاین',
+		'footer_services'    => 'فوتر — خدمات',
+		'footer_solutions'   => 'فوتر — راهکارها',
+		'footer_quick_links' => 'فوتر — دسترسی‌های سریع',
+	] );
+} );
 
 require_once get_theme_file_path('/inc/asset_registry.php');
 require_once get_theme_file_path('/inc/image_resize.php');

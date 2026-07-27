@@ -113,7 +113,7 @@ $visible_items_count = min( 3, count( $domain_prices ) );
                             </span>
                         </span>
                     </a>
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 z-2 fill-white group-hover:fill-blue-primary duration-300 md:block hidden">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 z-2 fill-white/40 group-hover:fill-blue-primary duration-300 md:block hidden">
                         <?= icon( 'top-shape', 'w-40 h-1' ) ?>
                     </div>
                 </div>

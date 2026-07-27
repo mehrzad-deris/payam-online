@@ -398,14 +398,6 @@
     gap: 20px;
 
     a {
-      padding: 8px;
-      padding-right: 15px;
-      color: white;
-      border-radius: 30px;
-      gap: 12px;
-      display: flex;
-      align-items: center;
-
       &.primary-cta {
         background: var(--color-blue-primary);
         stroke: var(--color-blue-primary);
@@ -414,22 +406,7 @@
       &.secondary-cta {
         background: var(--color-yellow-primary);
         stroke: var(--color-yellow-primary);
-      }
-
-      .icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 100%;
-        background: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        svg {
-          width: 13px;
-          height: 13px;
-        }
-      }
+     }
     }
   }
 }

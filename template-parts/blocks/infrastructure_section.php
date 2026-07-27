@@ -65,7 +65,7 @@ $serverPins = [
 >
     <?php if ( $backgroundSrc ) : ?>
         <div class="infrastructure-section__background" aria-hidden="true">
-            <img src="<?= esc_url( $transparentPixel ); ?>" data-feature-src="<?= esc_url( $backgroundSrc ); ?>" alt="" decoding="async">
+            <img src="<?= esc_url( $transparentPixel ); ?>" data-lazy-src="<?= esc_url( $backgroundSrc ); ?>" alt="" decoding="async">
         </div>
     <?php endif; ?>
 
@@ -95,7 +95,7 @@ $serverPins = [
                     $displayValue = number_format_i18n( (float) $value, $decimals );
                     ?>
                     <div class="infrastructure-section__stat">
-                        <?= icon('top-shape', 'w-10 h-1 infrastructure-section__stat-line fill-white') ?>
+                        <?= icon('top-shape', 'w-10 h-1 infrastructure-section__stat-line fill-white/40') ?>
 
                         <div class="infrastructure-section__stat-value" dir="ltr">
                             <?php if ( '' !== $prefix ) : ?><span><?= esc_html( $prefix ); ?></span><?php endif; ?>
@@ -115,7 +115,7 @@ $serverPins = [
             <div class="infrastructure-section__map" aria-hidden="true">
                 <picture>
                     <source media="(min-width: 1280px)"
-                            data-feature-srcset="<?= esc_attr( $mapImageSrcset ?: $mapImageSrc[0] ); ?>"
+                            data-lazy-srcset="<?= esc_attr( $mapImageSrcset ?: $mapImageSrc[0] ); ?>"
                             sizes="1440px"
                     >
                     <img src="<?= esc_url( $transparentPixel ); ?>" alt="" width="1440" height="908" decoding="async">

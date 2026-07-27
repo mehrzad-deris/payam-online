@@ -26,6 +26,12 @@ add_action( 'after_setup_theme', function () {
 	/* Blog Section */
 	add_image_size( 'blog_card', 389, 218, true );
 	add_image_size( 'blog_card_x2', 778, 436, true ); // x2
+
+	/* Banner Section */
+	add_image_size( 'banner_desktop', 1144, 591, true );
+	add_image_size( 'banner_desktop_x2', 2288, 1182, true ); // x2
+	add_image_size( 'banner_mobile', 358, 585, true );
+	add_image_size( 'banner_mobile_x2', 716, 1170, true ); // x2
 } );
 
 /* SVG Support */

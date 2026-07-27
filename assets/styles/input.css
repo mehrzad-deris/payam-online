@@ -53,6 +53,8 @@ input:focus {
 @theme {
     --color-dark: #07041D;
     --color-blue-primary: #1844DA;
+    --color-primary-600: #0830B8;
+    --color-primary-700: #002296;
     --color-yellow-primary: #FFA500;
     --color-description: #8585A5;
 

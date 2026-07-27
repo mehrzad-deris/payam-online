@@ -7,33 +7,7 @@ const formatFeatureCounter = (value, decimals) =>
     }).format(value);
 
 const hydrateFeatureImages = (section) => {
-    section.querySelectorAll('[data-feature-srcset]').forEach((source) => {
-        source.srcset = source.dataset.featureSrcset;
-        source.removeAttribute('data-feature-srcset');
-    });
-
-    section.querySelectorAll('[data-feature-src]').forEach((image) => {
-        image.src = image.dataset.featureSrc;
-        image.removeAttribute('data-feature-src');
-    });
-
-    if (!featureDesktopQuery.matches) {
-        return;
-    }
-
-    section
-        .querySelectorAll('[data-feature-desktop-srcset]')
-        .forEach((image) => {
-            image.srcset = image.dataset.featureDesktopSrcset;
-            image.removeAttribute('data-feature-desktop-srcset');
-        });
-
-    section
-        .querySelectorAll('[data-feature-desktop-src]')
-        .forEach((image) => {
-            image.src = image.dataset.featureDesktopSrc;
-            image.removeAttribute('data-feature-desktop-src');
-        });
+    window.payamLazyImages?.hydrate(section);
 };
 
 const animateFeatureCounter = (counter) => {
