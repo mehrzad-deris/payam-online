@@ -102,6 +102,20 @@
   }
 }
 
+.site-footer {
+  .copyright {
+    &:after {
+      content: '';
+      height: 1px;
+      top: 0;
+      right: -20px;
+      left: -20px;
+      position: absolute;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.26) 50%, rgba(255, 255, 255, 0.02) 100%);
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {

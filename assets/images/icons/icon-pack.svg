@@ -215,4 +215,21 @@
               fill="white"/>
     </symbol>
 
+    <!-- Footer Shape -->
+    <symbol id="footer-shape" viewBox="0 0 632 101">
+        <svg width="632" height="101" viewBox="0 0 632 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M512.374 0.5H-102.504L-103.495 100.5H631.18C629.585 97.4004 628.19 94.5328 626.813 91.6973C625.336 88.6554 623.88 85.6503 622.208 82.4268L564.441 15.1846C558.078 10.4409 549.056 6.76936 539.611 4.28223C530.743 1.94692 521.541 0.665599 513.884 0.514648L512.374 0.5Z" fill="url(#paint0_linear_5007_273)" stroke="url(#paint1_linear_5007_273)"/>
+            <defs>
+                <linearGradient id="paint0_linear_5007_273" x1="406.016" y1="1.65127e-08" x2="405.886" y2="100.873" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3B56FF" stop-opacity="0.08"/>
+                    <stop offset="0.497712" stop-color="#3B56FF" stop-opacity="0.03"/>
+                    <stop offset="0.772" stop-color="#3B56FF" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_5007_273" x1="264" y1="101" x2="264" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3B56FF" stop-opacity="0"/>
+                    <stop offset="1" stop-color="#3B56FF" stop-opacity="0.14"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    </symbol>
 </svg>
