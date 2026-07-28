@@ -111,6 +111,7 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
                 <?php endforeach; ?>
             </ul>
 
+
             <?= icon( 'footer-shape', 'w-[632px] h-[101] absolute -bottom-20 xl:left-0 lg:-left-40 md:-left-80 -left-125' ) ?>
             <?= icon( 'footer-shape', 'w-[632px] h-[101] absolute -bottom-20 xl:right-0 lg:-right-40 md:-right-80 -right-125 scale-x-[-1]' ) ?>
         </div>
