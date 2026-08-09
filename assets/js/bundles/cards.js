@@ -12,6 +12,7 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
     }
 
     const mobileQuery = window.matchMedia('(max-width: 1279px)');
+    const stackOnMobile = tabs.dataset.tabsMobile !== 'tabs';
 
     const activateTab = (activeButton, moveFocus = false) => {
         tabButtons.forEach((button) => {
@@ -78,7 +79,7 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
     });
 
     const syncTabsMode = (event) => {
-        const isMobile = event.matches;
+        const isMobile = event.matches && stackOnMobile;
 
         tabList.hidden = isMobile;
 

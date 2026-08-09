@@ -53,6 +53,15 @@ function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
 
+		'hero_section_on_page' => [
+			'styles'  => [
+				'payam-bundle-cards',
+			],
+			'scripts' => [
+				'payam-bundle-cards',
+			],
+		],
+
 		'banner_section' => [],
 
 		'feature_section' => [
@@ -211,7 +220,7 @@ function payam_register_assets(): void {
 	|--------------------------------------------------------------------------
 	*/
 
-	payam_register_theme_style( 'payam-bundle-cards', '/assets/styles/scss/bundles/cards.css' );
+	payam_register_theme_style( 'payam-bundle-cards', '/assets/styles/scss/bundles/cards.min.css' );
 
 	payam_register_theme_script( 'payam-bundle-cards', '/assets/js/bundles/cards.min.js', [
 			'payam-app',

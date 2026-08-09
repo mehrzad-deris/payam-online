@@ -1,3 +1,110 @@
+/* Service Tab */
+.server-tabs {
+  .server-tabs-list {
+    display: flex;
+    justify-content: center;
+
+    .server-tab-list-inner {
+      border: solid 1px #ffffff12;
+      border-radius: 30px;
+      font-size: var(--text-body-3);
+      line-height: var(--text-body-3--line-height);
+    }
+
+    .server-tab-button {
+      cursor: pointer;
+      width: 150px;
+      position: relative;
+      height: 52px;
+      transition: 200ms;
+
+      &:first-child {
+        &:after {
+          content: '';
+          position: absolute;
+          width: 1px;
+          height: 20px;
+          background-color: #ffffff12;
+          left: 0;
+          top: 16px;
+        }
+      }
+
+      &[aria-selected=true] {
+        color: var(--color-blue-primary);
+
+        .top-shape {
+          opacity: 1;
+        }
+      }
+
+      .top-shape {
+        position: absolute;
+        width: 80px;
+        height: 2px;
+        fill: var(--color-blue-primary);
+        top: 0;
+        right: 50%;
+        transform: translateX(50%);
+        opacity: 0;
+        transition: 200ms;
+      }
+    }
+  }
+
+  .server-tab-panel {
+    .server-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20PX;
+
+      .server-card {
+        border-radius: 20px;
+        border: 1px solid #ffffff12;
+        background: linear-gradient(to top, #161476, #0b0a44);
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 237px;
+          height: 150px;
+          background: radial-gradient(46.22% 100.89% at 50.91% -0.89%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 68.03%);
+          right: 50%;
+          transform: translateX(50%);
+          top: 0;
+        }
+
+        .server-card-inner {
+          position: relative;
+          z-index: 1;
+        }
+
+        .card-shape-left,
+        .card-shape-right {
+          position: absolute;
+          bottom: 0;
+          right: -2px;
+          aspect-ratio: 152 / 256;
+          max-width: 50%;
+          height: 100%;
+          pointer-events: none;
+          max-height: 256px;
+        }
+
+        .card-shape-left {
+          right: auto;
+          left: -2px;
+          transform: scaleX(-1);
+        }
+      }
+    }
+  }
+}
+
+
 /* Services Tab Section */
 .services-tabs {
   display: grid;
