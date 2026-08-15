@@ -40,6 +40,11 @@ add_action( 'after_setup_theme', function () {
 	/* Content Image Section */
 	add_image_size( 'content_image', 630, 420, true );
 	add_image_size( 'content_image_x2', 1260, 840, true ); // x2
+
+	/* OS Logo Image */
+	add_image_size( 'os_logo_image', 96, 0, false);
+	add_image_size( 'os_logo_image_2', 192, 0, false);
+
 } );
 
 /* SVG Support */

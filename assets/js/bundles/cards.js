@@ -119,6 +119,25 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
 });
 
 const swiperPresets = {
+    'os-logos': () => ({
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        autoplay: false,
+        loop: true,
+        watchOverflow: true,
+        centerInsufficientSlides: true,
+        centeredSlides: true,
+        breakpoints: {
+            768: {
+                slidesPerView: 'auto',
+                spaceBetween: 20,
+            },
+            1280: {
+                slidesPerView: 'auto',
+                spaceBetween: 24,
+            },
+        },
+    }),
     blog: ({ slideCount }) => ({
         slidesPerView: 1,
         spaceBetween: 21,

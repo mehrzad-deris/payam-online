@@ -58,7 +58,7 @@ $serverPins = [
 ?>
 
 <section
-        class="infrastructure-section infrastructure-section--<?= esc_attr( $sectionStyle ); ?> pt-20"
+        class="infrastructure-section infrastructure-section--<?= esc_attr( $sectionStyle ); ?> pt-20 -mb-32"
         data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
         data-feature-module
         style="background-color: <?= esc_attr( $sectionColor ); ?>"

@@ -115,7 +115,7 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                     <?php if ( $sectionLoadMore ) : ?>
                         <a href="<?= esc_html($sectionLoadMore['url']) ?: '' ?>" class="cta-link primary-cta">
                             <?= esc_html($sectionLoadMore['title']) ?: '' ?>
-                            <span class="icon"><?= icon('arrow-linear', 'w-3.5 h-2.5') ?></span>
+                            <span class="icon"><?= icon('arrow-linear-2', 'w-3.5 h-2.5') ?></span>
                         </a>
                     <?php endif; ?>
                 </div>

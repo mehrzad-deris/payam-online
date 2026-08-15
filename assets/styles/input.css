@@ -37,7 +37,7 @@ body {
     max-width: 100% !important;
     color: var(--color-black);
     font-size: 16px;
-    background: #F6F8FE;
+    background: var(--color-light-bg);
 }
 
 input:focus {
@@ -51,15 +51,28 @@ input:focus {
 }
 
 @theme {
+    --color-light-bg: #F6F8FE;
+
     --color-dark: #07041D;
     --color-blue-primary: #1844DA;
+
+    --color-primary-50: #EAEEFF;
     --color-primary-600: #0830B8;
     --color-primary-700: #002296;
+
+    --color-neutral-500: #454C58;
+    --color-neutral-900: #121316;
+
     --color-yellow-primary: #FFA500;
     --color-description: #8585A5;
     --color-description-light: #9595B1;
 
     /* Typography */
+    --text-body-2: 18px;
+    --text-body-2--line-height: 32px;
+    --text-body-mobile-2: 14px;
+    --text-body-mobile-2--line-height: 24px;
+
     --text-body-3: 1rem;
     --text-body-3--line-height: 1.75rem;
 
@@ -72,6 +85,8 @@ input:focus {
 
     --text-caption: 14px;
     --text-caption--line-height: 32px;
+    --text-caption-mobile: 12px;
+    --text-caption-mobile--line-height: 20px;
 
     --shadow-mellow: 0px 1.85px 3.15px rgba(24, 77, 218, 0.0048),
     0px 8.15px 6.52px rgba(24, 77, 218, 0.0079),

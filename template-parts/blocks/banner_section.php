@@ -43,7 +43,7 @@ $mobileUrl = $mobileImage ? $mobileImage[0] : false;
 $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
 ?>
 
-<section class="banner-section banner-section-<?= esc_attr( $bannerSize ); ?> mb-24 md:mb-32" data-lazy-root>
+<section class="banner-section banner-section-<?= esc_attr( $bannerSize ); ?> pb-24 md:pb-32" data-lazy-root>
 	<div class="container banner-container flex justify-center">
 		<?php if ( $linkUrl ) : ?>
 			<a class="banner-link block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>" href="<?= esc_url( $linkUrl ); ?>" target="<?= esc_attr( $linkTarget ); ?>"<?= '_blank' === $linkTarget ? ' rel="noopener noreferrer"' : ''; ?><?= $linkTitle ? ' aria-label="' . esc_attr( $linkTitle ) . '"' : ''; ?>>

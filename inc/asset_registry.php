@@ -64,7 +64,24 @@ function payam_get_section_config(): array {
 
 		'banner_section' => [],
 
+		'os_logo_section' => [
+			'styles'  => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+			'scripts' => [
+				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+		],
+
 		'feature_section' => [
+			'styles' => [
+				'payam-section-feature',
+			],
+		],
+
+		'feature_section_card_style' => [
 			'styles' => [
 				'payam-section-feature',
 			],
