@@ -7,6 +7,10 @@ add_action( 'after_setup_theme', function () {
 	add_image_size( 'tab_image', 290, 290, true );
 	add_image_size( 'tab_image_2x', 580, 580, true ); // x2
 
+	/* Content Image Section */
+	add_image_size( 'content_image_section', 630, 420, true );
+	add_image_size( 'content_image_section_x2', 1260, 840, true ); // x2
+
 	/* About Us Section */
 	add_image_size( 'about_image_section', 1280, 400, true );
 	add_image_size( 'about_image_section_2x', 2560, 800, true ); // x2

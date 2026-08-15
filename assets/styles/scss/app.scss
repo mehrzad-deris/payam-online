@@ -116,6 +116,39 @@
   }
 }
 
+.gradient-shape {
+  position: absolute;
+  width: 1000px;
+  height: 99px;
+  background: linear-gradient(180deg, rgba(59, 86, 255, 0.12) 0%, rgba(59, 86, 255, 0.03) 50%, rgba(35, 52, 153, 0) 77%);
+
+
+  .rounded-shape {
+    width: 102px;
+    height: 99px;
+    position: absolute;
+  }
+
+  &.shape-right {
+    left: 100%;
+    margin-left: 240px;
+
+    .rounded-shape {
+      right: 100%;
+    }
+  }
+
+  &.shape-left {
+    right: 100%;
+    transform: scaleX(-1);
+    margin-right: 240px;
+
+    .rounded-shape {
+      right: 100%;
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {

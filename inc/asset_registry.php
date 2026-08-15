@@ -70,6 +70,12 @@ function payam_get_section_config(): array {
 			],
 		],
 
+		'content_image_section' => [
+			'styles' => [
+				'payam-section-feature',
+			],
+		],
+
 		'infrastructure_section' => [
 			'styles'  => [
 				'payam-section-feature',

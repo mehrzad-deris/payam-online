@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "./scss/app.css";
+@import "./scss/app.min.css";
 
 @font-face {
     font-family: "Peyda";
@@ -57,10 +57,21 @@ input:focus {
     --color-primary-700: #002296;
     --color-yellow-primary: #FFA500;
     --color-description: #8585A5;
+    --color-description-light: #9595B1;
 
     /* Typography */
     --text-body-3: 1rem;
     --text-body-3--line-height: 1.75rem;
+
+    --text-desktop-h3: 28px;
+    --text-desktop-h3--line-height: 40px;
+    --text-desktop-h3--font-weight: semibold;
+
+    --text-desktop-h5: 20px;
+    --text-desktop-h5--line-height: 28px;
+
+    --text-caption: 14px;
+    --text-caption--line-height: 32px;
 
     --shadow-mellow: 0px 1.85px 3.15px rgba(24, 77, 218, 0.0048),
     0px 8.15px 6.52px rgba(24, 77, 218, 0.0079),
