@@ -54,6 +54,10 @@
   }
 
   &.content-image-section-right {
+    .content-image-container {
+      grid-template-columns: minmax(0, 618px) minmax(0, 630px);
+    }
+
     .content-image-media {
       grid-column: 2;
     }
@@ -78,6 +82,10 @@
     .content-image-container {
       grid-template-columns: minmax(0, 1fr);
       gap: 24px;
+    }
+
+    &.content-image-section-right .content-image-container {
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .content-image-media,

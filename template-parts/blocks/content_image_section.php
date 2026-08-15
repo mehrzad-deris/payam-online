@@ -23,8 +23,8 @@ if ( ! in_array( $sectionTitleTag, [ 'h2', 'h3', 'h4', 'h5', 'h6' ], true ) ) {
 	$sectionTitleTag = 'h2';
 }
 
-$imageUrl    = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'content_image_section' ) : false;
-$imageUrl2x  = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'content_image_section_x2' ) : false;
+$imageUrl    = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'content_image' ) : false;
+$imageUrl2x  = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'content_image_x2' ) : false;
 $imageAlt    = $sectionImage ? (string) get_post_meta( $sectionImage, '_wp_attachment_image_alt', true ) : '';
 $hasContent  = '' !== $sectionTitle || '' !== trim( wp_strip_all_tags( $sectionDescription ) );
 
