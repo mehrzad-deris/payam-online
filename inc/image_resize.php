@@ -32,6 +32,10 @@ add_action( 'after_setup_theme', function () {
 	add_image_size( 'banner_desktop_x2', 2288, 1182, true ); // x2
 	add_image_size( 'banner_mobile', 358, 585, true );
 	add_image_size( 'banner_mobile_x2', 716, 1170, true ); // x2
+	add_image_size( 'banner_full', 1280, 0, false );
+	add_image_size( 'banner_full_x2', 2560, 0, false ); // x2
+	add_image_size( 'banner_full_mobile', 358, 0, false );
+	add_image_size( 'banner_full_mobile_x2', 716, 0, false ); // mobile x2
 
 	/* Content Image Section */
 	add_image_size( 'content_image', 630, 420, true );

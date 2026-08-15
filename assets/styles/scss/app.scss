@@ -149,6 +149,12 @@
   }
 }
 
+.banner-section {
+  .banner-picture {
+    border-radius: 32px;
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {
