@@ -118,6 +118,116 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
     mobileQuery.addEventListener('change', syncTabsMode);
 });
 
+document.querySelectorAll('[data-faq]').forEach((faq) => {
+    if (faq.dataset.faqReady === 'true') {
+        return;
+    }
+
+    const items = Array.from(faq.querySelectorAll('[data-faq-item]'));
+
+    if (!items.length) {
+        return;
+    }
+
+    faq.dataset.faqReady = 'true';
+    const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    );
+
+    const getParts = (item) => ({
+        button: item.querySelector('[data-faq-toggle]'),
+        panel: item.querySelector('[data-faq-panel]'),
+        symbol: item.querySelector('[data-faq-symbol]'),
+    });
+
+    const setSymbol = (symbol, shouldOpen) => {
+        const svg = symbol?.querySelector('svg');
+        const use = svg?.querySelector('use');
+
+        if (!svg || !use) {
+            return;
+        }
+
+        const href = use.getAttribute('href') || '';
+        const iconName = shouldOpen ? 'minus' : 'plus';
+
+        use.setAttribute('href', `${href.replace(/#.*$/, '')}#${iconName}`);
+        svg.classList.toggle('fill-white', shouldOpen);
+        svg.classList.toggle('stroke-blue-primary', !shouldOpen);
+    };
+
+    const setState = async (item, shouldOpen) => {
+        const { button, panel, symbol } = getParts(item);
+
+        if (!button || !panel) {
+            return;
+        }
+
+        const transitionId = String(
+            Number(panel.dataset.faqTransition || 0) + 1
+        );
+
+        panel.dataset.faqTransition = transitionId;
+        panel.getAnimations().forEach((animation) => animation.cancel());
+        button.setAttribute('aria-expanded', String(shouldOpen));
+        item.classList.toggle('is-open', shouldOpen);
+
+        setSymbol(symbol, shouldOpen);
+
+        if (reducedMotion.matches) {
+            panel.hidden = !shouldOpen;
+            return;
+        }
+
+        if (shouldOpen) {
+            panel.hidden = false;
+        }
+
+        const startHeight = shouldOpen ? 0 : panel.scrollHeight;
+        const endHeight = shouldOpen ? panel.scrollHeight : 0;
+        const animation = panel.animate(
+            [
+                { height: `${startHeight}px`, opacity: shouldOpen ? 0 : 1 },
+                { height: `${endHeight}px`, opacity: shouldOpen ? 1 : 0 },
+            ],
+            {
+                duration: 280,
+                easing: 'ease-out',
+            }
+        );
+
+        await animation.finished.catch(() => {});
+
+        if (panel.dataset.faqTransition !== transitionId) {
+            return;
+        }
+
+        if (!shouldOpen) {
+            panel.hidden = true;
+        }
+    };
+
+    faq.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-faq-toggle]');
+
+        if (!button || !faq.contains(button)) {
+            return;
+        }
+
+        const activeItem = button.closest('[data-faq-item]');
+        const shouldOpen = button.getAttribute('aria-expanded') !== 'true';
+
+        items.forEach((item) => {
+            const itemButton = item.querySelector('[data-faq-toggle]');
+            const isOpen = itemButton?.getAttribute('aria-expanded') === 'true';
+
+            if (item === activeItem || isOpen) {
+                setState(item, item === activeItem && shouldOpen);
+            }
+        });
+    });
+});
+
 const swiperPresets = {
     'os-logos': () => ({
         slidesPerView: 'auto',

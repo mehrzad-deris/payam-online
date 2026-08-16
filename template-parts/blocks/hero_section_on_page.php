@@ -230,7 +230,7 @@ $tabsId               = wp_unique_id( 'server-tabs-' );
                <span class="gradient-shape shape-left top-2"><?= icon( 'rounded-shape', 'rounded-shape' ) ?></span>
             </span>
         </<?= esc_attr( $sectionTitleTag ); ?>>
-        </div>
+    </div>
     <?php endif; ?>
 
     <?php if ( '' !== $sectionDesc ) : ?>
@@ -287,8 +287,10 @@ $tabsId               = wp_unique_id( 'server-tabs-' );
                                                 <span class="server-card-icon" aria-hidden="true">
                                                     <?= icon( $serverIcon, 'server-card-icon-svg' ); ?>
                                                 </span>
-                                                <h3 id="<?= esc_attr( $titleId ); ?>" class="server-card-title text-desktop-h5"><?= esc_html( $serverTitle ); ?></h3>
-                                                <?php if ( '' !== $serverItem['desc'] ) : ?><p class="server-card-description text-caption"><?= esc_html( $serverItem['desc'] ); ?></p><?php endif; ?>
+                                                <span class="caption-block">
+                                                    <h3 id="<?= esc_attr( $titleId ); ?>" class="server-card-title text-mobile-h3 md:text-desktop-h5"><?= esc_html( $serverTitle ); ?></h3>
+                                                    <?php if ( '' !== $serverItem['desc'] ) : ?><p class="server-card-description text-caption-mobile md:text-caption"><?= esc_html( $serverItem['desc'] ); ?></p><?php endif; ?>
+                                                </span>
                                             </header>
 
                                             <?php if ( ! empty( $serverItem['config'] ) ) : ?>

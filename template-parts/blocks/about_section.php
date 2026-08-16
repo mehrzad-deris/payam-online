@@ -57,7 +57,7 @@ $hasMedia = $aboutDesktop1x && ! empty( $aboutDesktop1x[0] );
 ?>
 
 <section class="about-section about-section-<?= esc_attr( $sectionStyle ); ?>" data-header-theme="<?= esc_attr( $sectionStyle ); ?>" data-feature-module style="<?= esc_attr( implode( '; ', $sectionStyles ) ); ?>">
-	<div class="container">
+	<div class="container z-1 relative">
 		<?php
 		section_heading( [
 			'icon'        => $sectionIcon,
@@ -100,7 +100,7 @@ $hasMedia = $aboutDesktop1x && ! empty( $aboutDesktop1x[0] );
 		<?php endif; ?>
 
 		<?php if ( $hasMedia && $sectionAboutUsDesc ) : ?>
-			<div class="<?= 'dark' === $sectionStyle ? 'text-white' : ''; ?> leading-[35px] lg:px-37 md:px-10 md:text-center mt-10">
+			<div class="<?= 'dark' === $sectionStyle ? 'text-white' : ''; ?> text-body-mobile-3 md:text-desktop-h6 lg:px-37 md:px-10 md:text-center mt-10">
 				<?= wp_kses_post( $sectionAboutUsDesc ); ?>
 			</div>
 		<?php endif; ?>

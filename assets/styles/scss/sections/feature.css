@@ -1,7 +1,4 @@
 /* Content Image Section */
-.content-image-section {
-  padding-block: 32px;
-}
 .content-image-section:not(:has(~ .content-image-section)) {
   margin-bottom: 128px;
 }
@@ -30,23 +27,6 @@
 }
 .content-image-section .content-image-title {
   margin: 0 0 16px;
-  color: var(--color-dark);
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 44px;
-}
-.content-image-section .content-image-description {
-  color: var(--color-description);
-  font-size: var(--text-body-3);
-  font-weight: 400;
-  line-height: var(--text-body-3--line-height);
-  text-align: justify;
-}
-.content-image-section .content-image-description > :first-child {
-  margin-top: 0;
-}
-.content-image-section .content-image-description > :last-child {
-  margin-bottom: 0;
 }
 .content-image-section.content-image-section-right .content-image-container {
   grid-template-columns: minmax(0, 618px) minmax(0, 630px);
@@ -90,9 +70,6 @@
   }
 }
 /* Feature Section */
-.feature-section {
-  padding-bottom: 96px;
-}
 .feature-section__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 287px));
@@ -103,12 +80,11 @@
   position: relative;
   min-width: 0;
   min-height: 182px;
-  overflow: hidden;
 }
 .feature-section__shape {
   position: absolute;
   z-index: 0;
-  bottom: 0;
+  bottom: 10px;
   left: 50%;
   width: 233px;
   max-width: none;
@@ -130,9 +106,9 @@
   transform: translateY(-50%);
 }
 .feature-section__icon {
-  flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
   overflow: hidden;
 }
 .feature-section__icon img {
@@ -148,14 +124,8 @@
   gap: 8px;
   width: 100%;
 }
-.feature-section__title, .feature-section__description {
-  margin: 0;
-}
 .feature-section__title {
-  color: var(--color-dark);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 30px;
+  color: var(--color-neutral-900);
 }
 .feature-section__description {
   color: var(--color-description);
@@ -596,7 +566,7 @@
 
 @media (max-width: 767px) {
   .feature-section {
-    padding-block: 64px;
+    margin-bottom: 96px !important;
   }
   .feature-section__grid {
     grid-template-columns: repeat(2, minmax(0, 175px));
@@ -873,6 +843,9 @@
   position: relative;
   z-index: 3;
   cursor: pointer;
+}
+.feature-card .feature-card__toggle .feature-card__toggle-icon {
+  fill: currentColor;
 }
 .feature-card .feature-card__toggle .feature-card__toggle-icon svg {
   width: 20px;

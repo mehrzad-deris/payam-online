@@ -5,13 +5,28 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$sectionColor    = get_sub_field( 'section_color' ) ?: '';
-$sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon     = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle    = get_sub_field( 'section_title' );
-$sectionTitleTag = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubtitle = get_sub_field( 'section_subtitle' );
-$featureItems    = get_sub_field( 'features' );
+$sectionColor      = get_sub_field( 'section_color' ) ?: '';
+$sectionStyle      = get_sub_field( 'section_style' ) ?: 'light';
+$sectionIcon       = absint( get_sub_field( 'section_icon' ) );
+$sectionTitle      = get_sub_field( 'section_title' );
+$sectionTitleTag   = get_sub_field( 'title_tag' ) ?: 'h2';
+$sectionSubtitle   = get_sub_field( 'section_subtitle' );
+$featureItems      = get_sub_field( 'features' );
+$marginTopField    = get_sub_field( 'section_margin_top' );
+$marginBottomField = get_sub_field( 'section_margin_bottom' );
+$sectionStyles     = [];
+
+if ( '' !== $sectionColor ) {
+	$sectionStyles[] = 'background-color: ' . $sectionColor;
+}
+
+if ( is_numeric( $marginTopField ) ) {
+	$sectionStyles[] = 'margin-top: ' . max( -1000, min( 1000, (int) $marginTopField ) ) . 'px';
+}
+
+if ( is_numeric( $marginBottomField ) ) {
+	$sectionStyles[] = 'margin-bottom: ' . max( -1000, min( 1000, (int) $marginBottomField ) ) . 'px';
+}
 
 if ( is_array( $featureItems ) ) {
 	$featureItems = array_values(
@@ -30,7 +45,7 @@ if ( is_array( $featureItems ) ) {
 <section
 	class="feature-section feature-section--<?= esc_attr( $sectionStyle ); ?>"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
-	<?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>
+	<?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >
 	<div class="container">
 		<?php
@@ -81,7 +96,7 @@ if ( is_array( $featureItems ) ) {
 
 							<div class="feature-section__text">
 								<?php if ( '' !== $featureTitle ) : ?>
-									<h3 class="feature-section__title"><?= esc_html( $featureTitle ); ?></h3>
+									<h3 class="feature-section__title md:text-body-2 text-body-mobile-2"><?= esc_html( $featureTitle ); ?></h3>
 								<?php endif; ?>
 
 								<?php if ( '' !== $featureDescription ) : ?>

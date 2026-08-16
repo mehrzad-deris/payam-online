@@ -39,7 +39,7 @@
 
     <!-- Arrow Down -->
     <symbol id="arrow-down" viewBox="0 0 20 20">
-        <path fill="#1844da" fill-rule="evenodd" d="M3.692 7.093a.625.625 0 0 1 .882-.068L10 11.677l5.427-4.652a.625.625 0 0 1 .813.95l-5.833 5c-.234.2-.58.2-.814 0l-5.833-5a.625.625 0 0 1-.068-.882" clip-rule="evenodd"/>
+        <path fill-rule="evenodd" d="M3.692 7.093a.625.625 0 0 1 .882-.068L10 11.677l5.427-4.652a.625.625 0 0 1 .813.95l-5.833 5c-.234.2-.58.2-.814 0l-5.833-5a.625.625 0 0 1-.068-.882" clip-rule="evenodd"/>
     </symbol>
 
     <!-- Top Shape of service -->
@@ -321,5 +321,15 @@
     <!-- About Shape left -->
     <symbol id="about-shape-left" viewBox="0 0 373 850" fill="none">
         <g clip-path="url(#clip0_6001_363)"><path fill="url(#paint0_linear_6001_363)" d="M372.451 763.384C109.742 674.118-13.524 166.093-1.712.001L-272.614 974.41 149.972 1118c46.654-169.528 221.433-354.972 222.479-354.616"/><path stroke="url(#paint1_linear_6001_363)" d="M-1.712 0C-13.524 166.093 109.742 674.118 372.45 763.385"/><path fill="url(#paint2_linear_6001_363)" d="M288.244 763.384C25.535 674.118-97.725 166.093-85.927.001L-356.824 974.41 65.765 1118c46.653-169.528 221.431-354.972 222.479-354.616"/><path stroke="url(#paint3_linear_6001_363)" d="M-85.928 0c-11.797 166.093 111.463 674.118 374.17 763.385"/></g><defs><linearGradient id="paint0_linear_6001_363" x1="313.505" x2="-131.737" y1="-25.6" y2="1016.1" gradientUnits="userSpaceOnUse"><stop stop-color="#3b56ff" stop-opacity=".1"/><stop offset=".74" stop-color="#3b56ff" stop-opacity="0"/></linearGradient><linearGradient id="paint1_linear_6001_363" x1="-8.592" x2="395.322" y1="60.513" y2="729.223" gradientUnits="userSpaceOnUse"><stop stop-color="#003bff" stop-opacity=".35"/><stop offset="1" stop-color="#003bff" stop-opacity="0"/></linearGradient><linearGradient id="paint2_linear_6001_363" x1="125.37" x2="-199.495" y1="71.796" y2="1027.87" gradientUnits="userSpaceOnUse"><stop stop-color="#3b56ff" stop-opacity=".1"/><stop offset=".727" stop-color="#3b56ff" stop-opacity="0"/></linearGradient><linearGradient id="paint3_linear_6001_363" x1="-92.804" x2="311.115" y1="60.513" y2="729.223" gradientUnits="userSpaceOnUse"><stop stop-color="#003bff" stop-opacity=".35"/><stop offset="1" stop-color="#003bff" stop-opacity="0"/></linearGradient><clipPath id="clip0_6001_363"><path fill="#fff" d="M373 0H0v850h373z"/></clipPath></defs>
+    </symbol>
+
+    <!-- Plus -->
+    <symbol id="plus" viewBox="0 0 24 24" fill="none">
+        <path d="M20 12.0001L12 12.0001M12 12.0001L4 12.0001M12 12.0001L12 4M12 12.0001L12 20" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Minus -->
+    <symbol id="minus" viewBox="0 0 24 24">
+        <path d="M19.2 13.5C20.1941 13.5 21 12.9404 21 12.25C21 11.5596 20.1941 11 19.2 11H4.8C3.80589 11 3 11.5596 3 12.25C3 12.9404 3.80589 13.5 4.8 13.5H19.2Z"/>
     </symbol>
 </svg>

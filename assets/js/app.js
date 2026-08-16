@@ -113,6 +113,133 @@ document.querySelectorAll('[data-lazy-root]').forEach((root) => {
     lazyRootObserver.observe(root);
 });
 
+/* Expandable SEO content */
+document.querySelectorAll('[data-seo-box]').forEach((box) => {
+    if (box.dataset.seoBoxReady === 'true') {
+        return;
+    }
+
+    const content = box.querySelector('[data-seo-box-content]');
+    const toggle = box.querySelector('[data-seo-box-toggle]');
+    const label = toggle?.querySelector('[data-seo-box-label]');
+    const icon = toggle?.querySelector('[data-seo-box-icon]');
+
+    if (!content || !toggle || !label) {
+        return;
+    }
+
+    box.dataset.seoBoxReady = 'true';
+    const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    );
+    const collapsedLines = Math.max(
+        1,
+        Number.parseInt(box.dataset.collapsedLines || '6', 10)
+    );
+    let isExpanded = false;
+    let collapsedHeight = 0;
+    let resizeFrame = 0;
+    let transitionId = 0;
+
+    const getCollapsedHeight = () => {
+        const styles = window.getComputedStyle(content);
+        const lineHeight = Number.parseFloat(styles.lineHeight);
+        const fallbackLineHeight =
+            Number.parseFloat(styles.fontSize || '16') * 1.75;
+
+        return Math.ceil(
+            (Number.isFinite(lineHeight) ? lineHeight : fallbackLineHeight) *
+                collapsedLines
+        );
+    };
+
+    const syncCollapsedSize = () => {
+        collapsedHeight = getCollapsedHeight();
+
+        if (content.scrollHeight <= collapsedHeight + 1) {
+            content.style.removeProperty('height');
+            content.style.removeProperty('overflow');
+            toggle.hidden = true;
+            return;
+        }
+
+        toggle.hidden = false;
+
+        if (!isExpanded) {
+            content.style.height = `${collapsedHeight}px`;
+            content.style.overflow = 'hidden';
+        }
+    };
+
+    const setState = async (shouldExpand) => {
+        const currentTransition = ++transitionId;
+
+        content.getAnimations().forEach((animation) => animation.cancel());
+        const startHeight = content.getBoundingClientRect().height;
+
+        if (shouldExpand) {
+            content.style.height = 'auto';
+        }
+
+        const endHeight = shouldExpand
+            ? content.scrollHeight
+            : collapsedHeight;
+
+        isExpanded = shouldExpand;
+        toggle.setAttribute('aria-expanded', String(shouldExpand));
+        label.textContent = shouldExpand
+            ? toggle.dataset.expandedLabel
+            : toggle.dataset.collapsedLabel;
+        box.classList.toggle('is-expanded', shouldExpand);
+        icon?.classList.toggle('rotate-180', shouldExpand);
+        content.style.overflow = 'hidden';
+
+        if (!reducedMotion.matches) {
+            const animation = content.animate(
+                [
+                    { height: `${startHeight}px` },
+                    { height: `${endHeight}px` },
+                ],
+                {
+                    duration: 300,
+                    easing: 'ease-out',
+                }
+            );
+
+            await animation.finished.catch(() => {});
+        }
+
+        if (currentTransition !== transitionId) {
+            return;
+        }
+
+        if (shouldExpand) {
+            content.style.removeProperty('height');
+            content.style.removeProperty('overflow');
+        } else {
+            content.style.height = `${collapsedHeight}px`;
+        }
+    };
+
+    toggle.addEventListener('click', () => setState(!isExpanded));
+    window.addEventListener(
+        'resize',
+        () => {
+            if (resizeFrame) {
+                return;
+            }
+
+            resizeFrame = requestAnimationFrame(() => {
+                resizeFrame = 0;
+                syncCollapsedSize();
+            });
+        },
+        { passive: true }
+    );
+
+    syncCollapsedSize();
+});
+
 /* Mobile footer accordions */
 document.querySelectorAll('[data-footer-accordion]').forEach((accordion) => {
     const desktopQuery = window.matchMedia('(min-width: 1280px)');

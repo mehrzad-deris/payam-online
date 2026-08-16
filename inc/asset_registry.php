@@ -64,6 +64,8 @@ function payam_get_section_config(): array {
 
 		'banner_section' => [],
 
+		'seo_box_section' => [],
+
 		'os_logo_section' => [
 			'styles'  => [
 				'payam-vendor-swiper',
@@ -71,6 +73,15 @@ function payam_get_section_config(): array {
 			],
 			'scripts' => [
 				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+		],
+
+		'faq_section' => [
+			'styles' => [
+				'payam-bundle-cards',
+			],
+			'scripts' => [
 				'payam-bundle-cards',
 			],
 		],

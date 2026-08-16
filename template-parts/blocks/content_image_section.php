@@ -57,13 +57,13 @@ if ( ! $imageUrl && ! $hasContent ) {
 		<?php if ( $hasContent ) : ?>
 			<div class="content-image-copy">
 				<?php if ( '' !== $sectionTitle ) : ?>
-					<<?= esc_attr( $sectionTitleTag ); ?> class="content-image-title">
+					<<?= esc_attr( $sectionTitleTag ); ?> class="content-image-title text-neutral-900 md:text-desktop-h2 text-mobile-h2">
 						<?= esc_html( $sectionTitle ); ?>
 					</<?= esc_attr( $sectionTitleTag ); ?>>
 				<?php endif; ?>
 
 				<?php if ( '' !== trim( wp_strip_all_tags( $sectionDescription ) ) ) : ?>
-					<div class="content-image-description">
+					<div class="content-image-description text-neutral-500 md:text-body-3 text-body-mobile-3 text-justify">
 						<?= wp_kses_post( $sectionDescription ); ?>
 					</div>
 				<?php endif; ?>

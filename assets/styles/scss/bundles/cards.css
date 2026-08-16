@@ -63,6 +63,7 @@
   text-align: center;
   padding: 20px 20px 34px;
   display: inline-block;
+  width: 100%;
 }
 .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-header {
   margin-bottom: 16px;
@@ -73,7 +74,7 @@
   margin-bottom: 16px;
 }
 .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-header .server-card-icon .server-card-icon-svg {
-  width: 46px;
+  width: 48px;
   height: 48px;
   fill: #1C1A55;
 }
@@ -119,6 +120,8 @@
 .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-price .price-caption {
   margin-bottom: 4px;
   display: inline-block;
+  width: 100%;
+  text-align: center;
 }
 .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-price .price-amount {
   display: flex;
@@ -559,13 +562,10 @@
 
 /* Blog Section */
 .blog-section {
-  margin-bottom: 200px;
+  margin-bottom: 10px;
 }
 .blog-section .blog-slider {
-  margin-bottom: -40px;
-}
-.blog-section .blog-slider .blog-card {
-  margin-bottom: 80px;
+  padding-bottom: 110px;
 }
 .blog-section .blog-slider .blog-card .blog-link {
   display: inline-block;
@@ -573,11 +573,11 @@
   background: white;
   border-radius: 32px;
   box-shadow: var(--shadow-mellow);
-  padding: 12px;
+  padding: 8px;
 }
 .blog-section .blog-slider .blog-card .blog-link .blog-image {
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   position: relative;
   width: 100%;
 }
@@ -599,60 +599,34 @@
   height: 3px;
 }
 .blog-section .blog-slider .blog-card .blog-link .card-caption {
+  padding: 0 16px 16px;
+  width: 100%;
   display: inline-block;
-  padding: 0 12px 8px;
 }
 .blog-section .blog-slider .blog-card .blog-link .card-caption .blog-title {
-  color: var(--color-description);
-  line-height: 30px;
-  font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   display: inline-block;
   transition: 0.3s;
-}
-.blog-section .blog-slider .blog-card .blog-link .card-caption .blog-date {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  font-size: 14px;
-  background: white;
-  border-radius: 20px;
-  padding: 6px 20px 3px;
 }
 .blog-section .blog-slider .blog-card .blog-link .card-caption .read-more {
   display: flex;
   gap: 4px;
   align-items: center;
-  color: var(--color-description);
   transition: 0.3s;
 }
 .blog-section .blog-slider .blog-card .blog-link .card-caption .read-more .icon {
-  stroke: var(--color-description);
-  border-radius: 50%;
-  border: 1px solid var(--color-description);
-  width: 24px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  stroke: currentColor;
   transition: 0.3s;
 }
 .blog-section .blog-slider .blog-card .blog-link .card-caption .read-more .icon svg {
-  width: 10px;
-  height: 8px;
+  width: 15px;
+  height: 11px;
 }
 .blog-section .blog-slider .blog-card .blog-link:hover .blog-image .shape {
   fill: var(--color-blue-primary);
 }
 .blog-section .blog-slider .blog-card .blog-link:hover .blog-title {
   color: var(--color-dark);
-}
-.blog-section .blog-slider .blog-card .blog-link:hover .read-more {
-  color: var(--color-yellow-primary);
-}
-.blog-section .blog-slider .blog-card .blog-link:hover .read-more .icon {
-  border-color: var(--color-yellow-primary);
-  stroke: var(--color-yellow-primary);
 }
 
 /* OS Logo Image */
@@ -692,10 +666,118 @@
   height: 1px;
   opacity: 0.4;
 }
+/* Swiper Pagination Card Style */
+.swiper-pagination-card-style .swiper-pagination-bullet {
+  background: #1844DA;
+  opacity: 0.12;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+.swiper-pagination-card-style .swiper-pagination-bullet:hover {
+  opacity: 0.3;
+}
+.swiper-pagination-card-style .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
+  width: 24px;
+}
+
+/* FAQ Section */
+.faq-section .faq-list-block {
+  display: flex;
+  justify-content: center;
+}
+.faq-section .faq-list-block .faq-list {
+  width: 846px;
+  max-width: 100%;
+}
+.faq-section .faq-list-block .faq-list .faq-item {
+  border-radius: 32px;
+  margin-bottom: 20px;
+  background: white;
+  overflow: hidden;
+}
+.faq-section .faq-list-block .faq-list .faq-item.is-open {
+  background: var(--color-dark);
+  color: #fff;
+}
+.faq-section .faq-list-block .faq-list .faq-item.is-open .faq-question .faq-button .faq-symbol {
+  background: var(--color-neutral-300);
+}
+.faq-section .faq-list-block .faq-list .faq-item .faq-question .faq-button {
+  padding: 12px 32px 12px 12px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  text-align: right;
+}
+.faq-section .faq-list-block .faq-list .faq-item .faq-question .faq-button .faq-symbol {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-primary-50);
+  transition: 0.3s;
+  flex: none;
+}
+.faq-section .faq-list-block .faq-list .faq-item .faq-answer .faq-answer-content {
+  text-align: justify;
+  position: relative;
+  padding: 10px 32px 20px;
+}
+.faq-section .faq-list-block .faq-list .faq-item .faq-answer .faq-answer-content:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(241, 242, 243, 0) 0%, rgba(241, 242, 243, 0.1) 10%, rgba(241, 242, 243, 0.1) 50%, rgba(241, 242, 243, 0.1) 90%, rgba(241, 242, 243, 0) 100%);
+}
+.faq-section .faq-list-block .faq-list .faq-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 32px;
+  margin-bottom: 20px;
+  background: white;
+  overflow: hidden;
+  padding: 12px 32px 12px 12px;
+}
+
 @media (max-width: 767px) {
-  .server-tabs .server-tab-panel .server-list {
+  .hero-section-on-page {
+    margin-bottom: 96px;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list {
     grid-template-columns: 1fr;
     gap: 50px;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner {
+    text-align: right;
+    padding: 24px 24px 38px;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-header .server-card-icon {
+    margin-bottom: 0;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-config {
+    margin-bottom: 24px;
+  }
+  .hero-section-on-page .server-tabs .server-tab-panel .server-list .server-card-item .server-card .server-card-inner .server-card-config .server-card-config-item {
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
   }
   .os-logo-section .os-logo-container {
     padding: 0;
@@ -732,6 +814,9 @@
   }
   .blog-section {
     margin-bottom: 96px;
+  }
+  .blog-section .blog-slider .blog-card .blog-link .blog-image {
+    margin-bottom: 16px;
   }
 }
 @keyframes services-tab-panel-in {

@@ -68,9 +68,7 @@ $renderMenu = static function ( string $location ): string {
 $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets/images/' . $file );
 ?>
 
-<footer class="site-footer relative overflow-hidden bg-dark pt-16 text-white xl:pt-[107px]" data-footer>
-<!--    <img class="pointer-events-none absolute left-0" src="--><?php //= esc_url( $footerAsset( 'footer-shape.webp' ) ); ?><!--" alt="" width="504" height="403" loading="lazy" decoding="async">-->
-
+<footer class="site-footer relative overflow-hidden bg-dark pt-16 text-white xl:pt-[107px]" data-footer data-header-theme="dark">
     <div class="container relative z-10 flex flex-col items-center mb-16">
         <a class="flex flex-col items-center" href="<?= esc_url( home_url( '/' ) ); ?>" aria-label="<?= esc_attr( get_bloginfo( 'name' ) ); ?>">
             <img class="h-[108px] w-[89px] object-contain" src="<?= esc_url( $footerAsset( 'payamava-logo-vertical-light.svg' ) ); ?>" alt="<?= esc_attr( get_bloginfo( 'name' ) ); ?>" width="89" height="108" loading="lazy" decoding="async">
@@ -84,45 +82,47 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
     </div>
 
     <?php if ( ! empty( $footerSocials ) ) : ?>
-        <div class="relative">
-            <ul class="mt-6 flex items-center justify-center gap-6 xl:mt-8 xl:gap-9" aria-label="شبکه‌های اجتماعی">
-                <?php foreach ( $footerSocials as $social ) :
-                    if ( ! is_array( $social ) ) {
-                        continue;
-                    }
+        <div class="flex justify-center">
 
-                    $socialTypeField = $social['type'] ?? '';
-                    $socialType      = sanitize_key( is_array( $socialTypeField ) ? ( $socialTypeField['value'] ?? '' ) : $socialTypeField );
-                    $socialName      = (string) ( is_array( $socialTypeField ) ? ( $socialTypeField['label'] ?? $socialType ) : $socialType );
-                    $socialSlug      = $socialType;
-                    $socialLink      = $social['link'] ?? $social['url'] ?? '';
-                    $socialUrl       = is_array( $socialLink ) ? ( $socialLink['url'] ?? '' ) : $socialLink;
-                    $socialTarget    = is_array( $socialLink ) ? ( $socialLink['target'] ?? '_blank' ) : '_blank';
+            <div class="relative flex">
+                <ul class="mt-6 flex items-center justify-center gap-6 xl:mt-8 xl:gap-9" aria-label="شبکه‌های اجتماعی">
+                    <?php foreach ( $footerSocials as $social ) :
+                        if ( ! is_array( $social ) ) {
+                            continue;
+                        }
 
-                    if ( ! $socialSlug || ! $socialUrl ) {
-                        continue;
-                    }
-                    ?>
-                    <li>
-                        <a class="block rounded-lg transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow-primary" href="<?= esc_url( $socialUrl ); ?>" target="<?= esc_attr( $socialTarget ); ?>"<?= '_blank' === $socialTarget ? ' rel="noopener noreferrer"' : ''; ?> aria-label="<?= esc_attr( $socialName ); ?>">
-                            <?= icon( 'social-' . $socialSlug, 'size-8 xl:size-6' ); ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                        $socialTypeField = $social['type'] ?? '';
+                        $socialType      = sanitize_key( is_array( $socialTypeField ) ? ( $socialTypeField['value'] ?? '' ) : $socialTypeField );
+                        $socialName      = (string) ( is_array( $socialTypeField ) ? ( $socialTypeField['label'] ?? $socialType ) : $socialType );
+                        $socialSlug      = $socialType;
+                        $socialLink      = $social['link'] ?? $social['url'] ?? '';
+                        $socialUrl       = is_array( $socialLink ) ? ( $socialLink['url'] ?? '' ) : $socialLink;
+                        $socialTarget    = is_array( $socialLink ) ? ( $socialLink['target'] ?? '_blank' ) : '_blank';
 
+                        if ( ! $socialSlug || ! $socialUrl ) {
+                            continue;
+                        }
+                        ?>
+                        <li>
+                            <a class="block rounded-lg transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow-primary" href="<?= esc_url( $socialUrl ); ?>" target="<?= esc_attr( $socialTarget ); ?>"<?= '_blank' === $socialTarget ? ' rel="noopener noreferrer"' : ''; ?> aria-label="<?= esc_attr( $socialName ); ?>">
+                                <?= icon( 'social-' . $socialSlug, 'size-8 xl:size-6' ); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
 
-            <?= icon( 'footer-shape', 'w-[632px] h-[101] absolute -bottom-20 xl:left-0 lg:-left-40 md:-left-80 -left-125' ) ?>
-            <?= icon( 'footer-shape', 'w-[632px] h-[101] absolute -bottom-20 xl:right-0 lg:-right-40 md:-right-80 -right-125 scale-x-[-1]' ) ?>
+                <span class="gradient-shape shape-right top-2"><?= icon( 'rounded-shape', 'rounded-shape' ) ?></span>
+                <span class="gradient-shape shape-left top-2"><?= icon( 'rounded-shape', 'rounded-shape' ) ?></span>
+            </div>
         </div>
     <?php endif; ?>
 
     <div class="container relative z-10 flex flex-col items-center mb-5 ">
         <div class="mt-[136px] w-full  xl:mt-24 flex xl:flex-row flex-col gap-4 xl:gap-12" data-footer-accordion>
-            <section class="overflow-hidden rounded-xl flex-none bg-white/[0.03] backdrop-blur-[22px] xl:overflow-visible xl:rounded-none xl:bg-transparent xl:backdrop-blur-none pl-15" data-footer-item>
+            <section class="overflow-hidden rounded-xl flex-none bg-white/[0.03] backdrop-blur-[22px] xl:overflow-visible xl:rounded-none xl:bg-transparent xl:backdrop-blur-none" data-footer-item>
                 <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-[#575775]" type="button" aria-expanded="false" aria-controls="footer-contact" data-footer-toggle>
                     <span>اطلاعات تماس</span>
-                    <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'footer-arrow', 'size-5' ); ?></span>
+                    <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'arrow-down', 'size-5 fill-white' ); ?></span>
                 </button>
                 <div class="px-5 pb-5 xl:mt-2.5 xl:px-0 xl:pb-0" id="footer-contact" hidden data-footer-panel>
                     <span class="mb-2.5 hidden h-px w-[27px] bg-description xl:block"></span>
@@ -169,11 +169,11 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
                     <section class="overflow-hidden rounded-xl bg-white/[0.03] backdrop-blur-[22px] xl:overflow-visible xl:rounded-none xl:bg-transparent xl:backdrop-blur-none" data-footer-item>
                         <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-[#575775]" type="button" aria-expanded="false" aria-controls="<?= esc_attr( $panelId ); ?>" data-footer-toggle>
                             <span><?= esc_html( $menuName ); ?></span>
-                            <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'footer-arrow', 'size-5' ); ?></span>
+                            <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'arrow-down', 'size-5 fill-white' ); ?></span>
                         </button>
                         <div class="px-5 pb-5 xl:mt-2.5 xl:px-0 xl:pb-0" id="<?= esc_attr( $panelId ); ?>" hidden data-footer-panel>
                             <span class="mb-2.5 hidden h-px w-[27px] bg-description xl:block"></span>
-                            <?= $menuHtml; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped   ?>
+                            <?= $menuHtml;?>
                         </div>
                     </section>
                 <?php endforeach; ?>

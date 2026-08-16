@@ -155,6 +155,36 @@
   }
 }
 
+.seo-box-section {
+  .seco-box-block {
+    width: 846px;
+    max-width: 100%;
+
+    .seo-box-title {
+      color: var(--color-neutral-900);
+      margin-bottom: 16px;
+    }
+
+    .seo-box-content {
+      text-align: justify;
+      color: var(--color-neutral-500);
+      margin-bottom: 20px;
+    }
+
+    .seo-box-toggle {
+      display: flex;
+      align-items: center;
+      color: var(--color-blue-primary);
+      cursor: pointer;
+      gap: 9px;
+
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header {
     &:after {

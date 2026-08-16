@@ -60,6 +60,7 @@ input:focus {
     --color-primary-600: #0830B8;
     --color-primary-700: #002296;
 
+    --color-neutral-300: #8B94A4;
     --color-neutral-500: #454C58;
     --color-neutral-900: #121316;
 
@@ -67,21 +68,43 @@ input:focus {
     --color-description: #8585A5;
     --color-description-light: #9595B1;
 
+    --color-secondry-700: #AD7000;
+
+
     /* Typography */
     --text-body-2: 18px;
     --text-body-2--line-height: 32px;
+    --text-body-2--font-weight: 400;
     --text-body-mobile-2: 14px;
     --text-body-mobile-2--line-height: 24px;
+    --text-body-mobile-2--font-weight: 400;
 
     --text-body-3: 1rem;
     --text-body-3--line-height: 1.75rem;
+    --text-body-mobile-3: 14px;
+    --text-body-mobile-3--line-height: 32px;
+
+    --text-desktop-h2: 32px;
+    --text-desktop-h2--line-height: 44px;
+    --text-desktop-h2--font-weight: 600;
+    --text-mobile-h2: 22px;
+    --text-mobile-h2--line-height: 32px;
+    --text-mobile-h2--font-weight: 600;
 
     --text-desktop-h3: 28px;
     --text-desktop-h3--line-height: 40px;
-    --text-desktop-h3--font-weight: semibold;
+    --text-desktop-h3--font-weight: 600;
+    --text-mobile-h3: 18px;
+    --text-mobile-h3--line-height: 24px;
+    --text-mobile-h3--font-weight: 600;
 
     --text-desktop-h5: 20px;
     --text-desktop-h5--line-height: 28px;
+
+    --text-desktop-h6: 16px;
+    --text-desktop-h6--line-height: 32px;
+    --text-mobile-h6: 16px;
+    --text-mobile-h6--line-height: 32px;
 
     --text-caption: 14px;
     --text-caption--line-height: 32px;

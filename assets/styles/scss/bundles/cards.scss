@@ -74,6 +74,7 @@
             text-align: center;
             padding: 20px 20px 34px;
             display: inline-block;
+            width: 100%;
 
             .server-card-header {
               margin-bottom: 16px;
@@ -84,7 +85,7 @@
                 margin-bottom: 16px;
 
                 .server-card-icon-svg {
-                  width: 46px;
+                  width: 48px;
                   height: 48px;
                   fill: #1C1A55;
                 }
@@ -145,6 +146,8 @@
               .price-caption {
                 margin-bottom: 4px;
                 display: inline-block;
+                width: 100%;
+                text-align: center;
               }
 
               .price-amount {
@@ -385,9 +388,6 @@
     > :last-child {
       margin-bottom: 0;
     }
-  }
-
-  &__panel-layout {
   }
 
   &__panel-content {
@@ -668,25 +668,23 @@
 
 /* Blog Section */
 .blog-section {
-  margin-bottom: 200px;
+  margin-bottom: 10px;
 
   .blog-slider {
-    margin-bottom: -40px;
+    padding-bottom: 110px;
 
     .blog-card {
-      margin-bottom: 80px;
-
       .blog-link {
         display: inline-block;
         width: 100%;
         background: white;
         border-radius: 32px;
         box-shadow: var(--shadow-mellow);
-        padding: 12px;
+        padding: 8px;
 
         .blog-image {
           display: inline-block;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
           position: relative;
           width: 100%;
 
@@ -712,49 +710,29 @@
         }
 
         .card-caption {
+          padding: 0 16px 16px;
+          width: 100%;
           display: inline-block;
-          padding: 0 12px 8px;
 
           .blog-title {
-            color: var(--color-description);
-            line-height: 30px;
-            font-weight: 500;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
             display: inline-block;
             transition: .3s;
-          }
-
-          .blog-date {
-            position: absolute;
-            top: 24px;
-            left: 24px;
-            font-size: 14px;
-            background: white;
-            border-radius: 20px;
-            padding: 6px 20px 3px;
           }
 
           .read-more {
             display: flex;
             gap: 4px;
             align-items: center;
-            color: var(--color-description);
             transition: .3s;
 
             .icon {
-              stroke: var(--color-description);
-              border-radius: 50%;
-              border: 1px solid var(--color-description);
-              width: 24px;
-              height: 24px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+              stroke: currentColor;
               transition: .3s;
 
               svg {
-                width: 10px;
-                height: 8px;
+                width: 15px;
+                height: 11px;
               }
             }
           }
@@ -770,20 +748,10 @@
           .blog-title {
             color: var(--color-dark);
           }
-
-          .read-more {
-            color: var(--color-yellow-primary);
-
-            .icon {
-              border-color: var(--color-yellow-primary);
-              stroke: var(--color-yellow-primary);
-            }
-          }
         }
       }
     }
   }
-
 }
 
 /* OS Logo Image */
@@ -832,14 +800,153 @@
   }
 }
 
+/* Swiper Pagination Card Style */
+.swiper-pagination-card-style {
+  .swiper-pagination-bullet {
+    background: #1844DA;
+    opacity: .12;
+    border-radius: 4px;
+    transition: .3s;
+
+    &:hover {
+      opacity: .3;
+    }
+
+    &.swiper-pagination-bullet-active {
+      opacity: 1;
+      width: 24px;
+    }
+  }
+}
+
+/* FAQ Section */
+.faq-section {
+  .faq-list-block {
+    display: flex;
+    justify-content: center;
+
+    .faq-list {
+      width: 846px;
+      max-width: 100%;
+
+      .faq-item {
+        border-radius: 32px;
+        margin-bottom: 20px;
+        background: white;
+        overflow: hidden;
+
+        &.is-open {
+          background: var(--color-dark);
+          color: #fff;
+
+          .faq-question {
+            .faq-button {
+              .faq-symbol {
+                background: var(--color-neutral-300);
+              }
+            }
+          }
+        }
+
+        .faq-question {
+          .faq-button {
+            padding: 12px 32px 12px 12px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            text-align: right;
+
+            .faq-symbol {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: var(--color-primary-50);
+              transition: .3s;
+              flex: none;
+            }
+          }
+        }
+
+        .faq-answer {
+          .faq-answer-content {
+            text-align: justify;
+            position: relative;
+            padding: 10px 32px 20px;
+
+            &:after {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              height: 1px;
+              width: 100%;
+              background: linear-gradient(90deg, rgba(241, 242, 243, 0) 0%, rgba(241, 242, 243, 0.1) 10%, rgba(241, 242, 243, 0.1) 50%, rgba(241, 242, 243, 0.1) 90%, rgba(241, 242, 243, 0) 100%);
+            }
+          }
+        }
+      }
+
+      .faq-cta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 32px;
+        margin-bottom: 20px;
+        background: white;
+        overflow: hidden;
+        padding: 12px 32px 12px 12px;
+      }
+    }
+  }
+}
+
 @media (max-width: 767px) {
-  .server-tabs {
-    .server-tab-panel {
-      .server-list {
-        grid-template-columns: 1fr;
-        gap: 50px;
+  .hero-section-on-page {
+    margin-bottom: 96px;
 
+    .server-tabs {
+      .server-tab-panel {
+        .server-list {
+          grid-template-columns: 1fr;
+          gap: 50px;
 
+          .server-card-item {
+            .server-card {
+              .server-card-inner {
+                text-align: right;
+                padding: 24px 24px 38px;
+
+                .server-card-header {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 16px;
+                  margin-bottom: 24px;
+
+                  .server-card-icon {
+                    margin-bottom: 0;
+                  }
+                }
+
+                .server-card-config {
+                  margin-bottom: 24px;
+
+                  .server-card-config-item {
+                    flex-direction: row-reverse;
+                    justify-content: center;
+                    gap: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -890,6 +997,10 @@
 
   .blog-section {
     margin-bottom: 96px;
+
+    .blog-slider .blog-card .blog-link .blog-image {
+      margin-bottom: 16px;
+    }
   }
 }
 

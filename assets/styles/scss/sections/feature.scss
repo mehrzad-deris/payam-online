@@ -1,6 +1,5 @@
 /* Content Image Section */
 .content-image-section {
-  padding-block: 32px;
 
   &:not(:has(~ .content-image-section)) {
     margin-bottom: 128px;
@@ -35,26 +34,6 @@
 
   .content-image-title {
     margin: 0 0 16px;
-    color: var(--color-dark);
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 44px;
-  }
-
-  .content-image-description {
-    color: var(--color-description);
-    font-size: var(--text-body-3);
-    font-weight: 400;
-    line-height: var(--text-body-3--line-height);
-    text-align: justify;
-
-    > :first-child {
-      margin-top: 0;
-    }
-
-    > :last-child {
-      margin-bottom: 0;
-    }
   }
 
   &.content-image-section-right {
@@ -119,7 +98,6 @@
 
 /* Feature Section */
 .feature-section {
-  padding-bottom: 96px;
 
   &__grid {
     display: grid;
@@ -132,13 +110,12 @@
     position: relative;
     min-width: 0;
     min-height: 182px;
-    overflow: hidden;
   }
 
   &__shape {
     position: absolute;
     z-index: 0;
-    bottom: 0;
+    bottom: 10px;
     left: 50%;
     width: 233px;
     max-width: none;
@@ -162,9 +139,9 @@
   }
 
   &__icon {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
     overflow: hidden;
 
     img {
@@ -183,16 +160,8 @@
     width: 100%;
   }
 
-  &__title,
-  &__description {
-    margin: 0;
-  }
-
   &__title {
-    color: var(--color-dark);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 30px;
+    color: var(--color-neutral-900);
   }
 
   &__description {
@@ -711,7 +680,7 @@
 
 @media (max-width: 767px) {
   .feature-section {
-    padding-block: 64px;
+    margin-bottom: 96px !important;
 
     &__grid {
       grid-template-columns: repeat(2, minmax(0, 175px));
@@ -992,7 +961,6 @@
   }
 }
 
-
 /* Feature Card */
 .feature-card {
   position: relative;
@@ -1057,6 +1025,8 @@
     cursor: pointer;
 
     .feature-card__toggle-icon {
+      fill: currentColor;
+
       svg {
         width: 20px;
         height: 20px;

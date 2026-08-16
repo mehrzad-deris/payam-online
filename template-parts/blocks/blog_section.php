@@ -22,29 +22,29 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
 
     if ( ! empty( $selectedPostIds ) ) {
         $blogPosts = get_posts( [
-                        'post_type'              => 'post',
-                        'post_status'            => 'publish',
-                        'post__in'               => $selectedPostIds,
-                        'orderby'                => 'post__in',
-                        'posts_per_page'         => count( $selectedPostIds ),
-                        'no_found_rows'          => true,
-                        'ignore_sticky_posts'    => true,
-                        'update_post_meta_cache' => true,
-                        'update_post_term_cache' => false,
-                ] );
+                'post_type'              => 'post',
+                'post_status'            => 'publish',
+                'post__in'               => $selectedPostIds,
+                'orderby'                => 'post__in',
+                'posts_per_page'         => count( $selectedPostIds ),
+                'no_found_rows'          => true,
+                'ignore_sticky_posts'    => true,
+                'update_post_meta_cache' => true,
+                'update_post_term_cache' => false,
+        ] );
     }
 } else {
     $blogPosts = get_posts( [
-                    'post_type'              => 'post',
-                    'post_status'            => 'publish',
-                    'posts_per_page'         => $postsCount,
-                    'orderby'                => 'date',
-                    'order'                  => 'DESC',
-                    'no_found_rows'          => true,
-                    'ignore_sticky_posts'    => true,
-                    'update_post_meta_cache' => true,
-                    'update_post_term_cache' => false,
-            ] );
+            'post_type'              => 'post',
+            'post_status'            => 'publish',
+            'posts_per_page'         => $postsCount,
+            'orderby'                => 'date',
+            'order'                  => 'DESC',
+            'no_found_rows'          => true,
+            'ignore_sticky_posts'    => true,
+            'update_post_meta_cache' => true,
+            'update_post_term_cache' => false,
+    ] );
 }
 
 ?>
@@ -76,7 +76,7 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                         $thumbnailAlt = $thumbnailId ? get_post_meta( $thumbnailId, '_wp_attachment_image_alt', true ) : '';
                         ?>
                         <article class="swiper-slide blog-card">
-                            <a class="blog-link" href="<?= esc_url( get_permalink( $postId ) ); ?>">
+                            <a class="blog-link group" href="<?= esc_url( get_permalink( $postId ) ); ?>">
                                 <?php if ( $thumbnail ) : ?>
                                     <span class="blog-image">
 									<img
@@ -93,13 +93,15 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                                 <?php endif; ?>
 
                                 <span class="card-caption">
-                                    <span class="blog-title"><?= esc_html( get_the_title( $postId ) ); ?></span>
-                                    <time class="blog-date" datetime="<?= esc_html( payamava_jalali_date( 'Y/m/d', get_post_datetime() ) ); ?>">
-                                        <?= esc_html( payamava_jalali_date( 'Y.m.d', get_post_datetime() ) ); ?>
-                                    </time>
-                                    <span class="read-more">
-                                        <span>بیشتر بخوانید...</span>
-                                        <span class="icon" aria-hidden="true"><?= icon( 'arrow-linear' ) ?></span>
+                                    <span class="blog-title text-neutral-900 md:text-body-2 text-body-mobile-2"><?= esc_html( get_the_title( $postId ) ); ?></span>
+                                    <span class="flex justify-between items-center gap-2">
+                                        <time class="blog-date text-neutral-500" datetime="<?= esc_html( payamava_jalali_date( 'Y/m/d', get_post_datetime() ) ); ?>">
+                                            <?= esc_html( payamava_jalali_date( 'Y.m.d', get_post_datetime() ) ); ?>
+                                        </time>
+                                        <span class="read-more text-yellow-primary text-body-3 group-hover:text-secondry-700">
+                                            <span>مطالعه بیشتر</span>
+                                            <span class="icon" aria-hidden="true"><?= icon( 'arrow-linear' ) ?></span>
+                                        </span>
                                     </span>
                                 </span>
                             </a>
@@ -108,14 +110,14 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                 </div>
 
                 <?php if ( count( $blogPosts ) > 1 ) : ?>
-                    <div class="swiper-pagination blog-pagination" data-swiper-pagination></div>
+                    <div class="swiper-pagination blog-pagination swiper-pagination-card-style bottom-7! relative" data-swiper-pagination></div>
                 <?php endif; ?>
 
                 <div class="justify-center hidden xl:flex">
                     <?php if ( $sectionLoadMore ) : ?>
-                        <a href="<?= esc_html($sectionLoadMore['url']) ?: '' ?>" class="cta-link primary-cta">
-                            <?= esc_html($sectionLoadMore['title']) ?: '' ?>
-                            <span class="icon"><?= icon('arrow-linear-2', 'w-3.5 h-2.5') ?></span>
+                        <a href="<?= esc_html( $sectionLoadMore['url'] ) ?: '' ?>" class="cta-link primary-cta">
+                            <?= esc_html( $sectionLoadMore['title'] ) ?: '' ?>
+                            <span class="icon"><?= icon( 'arrow-linear-2', 'w-3.5 h-2.5' ) ?></span>
                         </a>
                     <?php endif; ?>
                 </div>
