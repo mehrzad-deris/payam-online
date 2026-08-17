@@ -276,7 +276,7 @@ $tabsId               = wp_unique_id( 'server-tabs-' );
                                     $serverIcon = 'server';
                                 }
                                 ?>
-                                <article class="server-card-item" aria-labelledby="<?= esc_attr( $titleId ); ?>" <?php if ( $serverId ) : ?>data-server-id="<?= esc_attr( $serverId ); ?>"<?php endif; ?>>
+                                <article class="server-card-item group" aria-labelledby="<?= esc_attr( $titleId ); ?>" <?php if ( $serverId ) : ?>data-server-id="<?= esc_attr( $serverId ); ?>"<?php endif; ?>>
                                     <div class="server-card">
                                         <?php if ( '' !== $serverUrl ) : ?>
                                         <a href="<?= esc_url( $serverUrl ); ?>" class="server-card-inner">
@@ -359,7 +359,7 @@ $tabsId               = wp_unique_id( 'server-tabs-' );
                                     </div>
 
                                     <?php if ( '' !== $serverUrl ) : ?>
-                                        <a href="<?= esc_url( $serverUrl ); ?>" class="server-card-link text-caption" aria-hidden="true">مشاهده و خرید <?= icon( 'arrow-linear-2', 'fill-white w-5 h-5' ); ?> </a>
+                                        <a href="<?= esc_url( $serverUrl ); ?>" class="server-card-link text-caption" aria-hidden="true">مشاهده و خرید <?= icon( 'arrow-linear-2', 'fill-white w-5 h-5 group-hover:rotate-45 duration-200' ); ?> </a>
                                     <?php endif; ?>
                                 </article>
                             <?php endforeach; ?>

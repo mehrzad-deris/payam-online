@@ -41,7 +41,7 @@ $extraItemsCount = is_array( $featureItems ) ? max( 0, count( $featureItems ) - 
 ?>
 
 <section
-	class="feature-card feature-card--<?= esc_attr( $sectionStyle ); ?>"
+	class="feature-card feature-card--<?= esc_attr( $sectionStyle ); ?><?= $extraItemsCount > 0 ? ' feature-card--collapsible' : ''; ?>"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
 	data-feature-card
 	<?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>

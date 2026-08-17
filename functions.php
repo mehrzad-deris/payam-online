@@ -34,10 +34,16 @@ add_action( 'wp_enqueue_scripts', function () {
 
 /* Icon Component */
 function icon( $name, $class = '' ) {
-	$sprite = get_template_directory_uri() . '/assets/images/icons/icon-pack.svg';
+	$sprite_path = '/assets/images/icons/icon-pack.svg';
+	$sprite      = add_query_arg(
+		'ver',
+		payam_asset_version( $sprite_path ),
+		get_theme_file_uri( $sprite_path )
+	);
+	$icon_name   = sanitize_key( $name );
 
-	return '<svg class="' . $class . '">
-                <use href="' . $sprite . '#' . $name . '"></use>
+	return '<svg class="' . esc_attr( $class ) . '">
+                <use href="' . esc_url( $sprite ) . '#' . esc_attr( $icon_name ) . '"></use>
             </svg>';
 }
 

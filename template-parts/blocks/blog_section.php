@@ -100,7 +100,7 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                                         </time>
                                         <span class="read-more text-yellow-primary text-body-3 group-hover:text-secondry-700">
                                             <span>مطالعه بیشتر</span>
-                                            <span class="icon" aria-hidden="true"><?= icon( 'arrow-linear' ) ?></span>
+                                            <span class="icon group-hover:rotate-45" aria-hidden="true"><?= icon( 'arrow-linear' ) ?></span>
                                         </span>
                                     </span>
                                 </span>
@@ -113,7 +113,7 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                     <div class="swiper-pagination blog-pagination swiper-pagination-card-style bottom-7! relative" data-swiper-pagination></div>
                 <?php endif; ?>
 
-                <div class="justify-center hidden xl:flex">
+                <div class="justify-center hidden xl:flex mt-10">
                     <?php if ( $sectionLoadMore ) : ?>
                         <a href="<?= esc_html( $sectionLoadMore['url'] ) ?: '' ?>" class="cta-link primary-cta">
                             <?= esc_html( $sectionLoadMore['title'] ) ?: '' ?>

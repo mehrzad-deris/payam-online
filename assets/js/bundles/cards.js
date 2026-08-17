@@ -236,7 +236,6 @@ const swiperPresets = {
         loop: true,
         watchOverflow: true,
         centerInsufficientSlides: true,
-        centeredSlides: true,
         breakpoints: {
             768: {
                 slidesPerView: 'auto',
