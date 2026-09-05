@@ -55,20 +55,25 @@ input:focus {
 
     --color-dark: #07041D;
     --color-blue-primary: #1844DA;
+    --color-yellow-primary: #FFA500;
 
     --color-primary-50: #EAEEFF;
+    --color-primary-500: #1844DA;
     --color-primary-600: #0830B8;
     --color-primary-700: #002296;
 
+    --color-scondary-50: #FFF6E5;
+    --color-scondary-500: #FFA500;
+    --color-secondry-700: #AD7000;
+
+    --color-neutral-100: #DDDFE3;
     --color-neutral-300: #8B94A4;
     --color-neutral-500: #454C58;
     --color-neutral-900: #121316;
 
-    --color-yellow-primary: #FFA500;
     --color-description: #8585A5;
     --color-description-light: #9595B1;
 
-    --color-secondry-700: #AD7000;
 
 
     /* Typography */
@@ -117,6 +122,17 @@ input:focus {
     0px 38.52px 25.48px rgba(24, 77, 218, 0.0121),
     0px 64.81px 46.85px rgba(24, 77, 218, 0.0152),
     0px 100px 80px rgba(24, 77, 218, 0.02);
+
+    --shadow-mellow-blue: 0px 100px 80px rgba(24, 68, 218, 0.02),
+    0px 65px 47px rgba(24, 68, 218, 0.0151852),
+    0px 39px 25px rgba(24, 68, 218, 0.0121481),
+    0px 20px 13px rgba(24, 68, 218, 0.01),
+    0px 8px 7px rgba(24, 68, 218, 0.00785185),
+    0px 2px 3px rgba(24, 68, 218, 0.00481481);
+
+    --radius-1: 12px;
+    --radius-1_5: 16px;
+    --radius-2: 24px;
 }
 
 @layer utilities {

@@ -39,10 +39,9 @@ $domain_prices       = [
         ],
 ];
 $visible_items_count = min( 3, count( $domain_prices ) );
-
 ?>
 
-<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="hero-section <?= esc_attr( $sectionStyle ) == 'dark' ? 'text-white' : '' ?> min-h-screen bottom-fade  relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
+<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="hero-section <?= esc_attr( $sectionStyle ) == 'dark' ? 'text-white' : '' ?> min-h-screen  relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
     <div class="container relative z-2 lg:pt-56 pt-39 pb-16">
         <?php if ( $sectionTitle ) : ?>
         <<?= esc_attr( $sectionTitleTag ) ?> class="whitespace-pre-line mb-15 text-center lg:text-[36px] font-bold lg:leading-14 text-[24px] leading-12"><?= esc_html( $sectionTitle ) ?></<?= esc_attr( $sectionTitleTag ) ?>>
@@ -51,10 +50,10 @@ $visible_items_count = min( 3, count( $domain_prices ) );
     <div class="flex justify-center">
         <div class="w-197.5 max-w-full relative">
             <div class="domain-whois mb-4 lg:mb-5 relative">
-                <input type="text" class="h-16 text-[14px] lg:text-[16px] rounded-[30px] w-full bg-[#0D052A]/60 backdrop-blur-[5px] border border-white/10 py-5 placeholder:text-description pe-14 ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="دامنه موردنظر خود را وارد کنید ..."/>
-                <?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-description' ) ?>
+                <input type="text" class="h-16 text-[14px] lg:text-[16px] rounded-2 w-full shadow-mellow-blue py-5 placeholder:text-neutral-500 pe-14 ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="دامنه موردنظر خود را وارد کنید ..."/>
+                <?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-neutral-500' ) ?>
 
-                <button type="submit" class="absolute bg-yellow-primary hover:bg-yellow-primary/90 duration-200 text-white font-semibold top-2 bottom-2 left-2 rounded-[30px] px-6 lg:px-8 cursor-pointer text-[14px] lg:text-[16px]">جستجو</button>
+                <button type="submit" class="absolute cta-link cta-btn-secondary w-[112px] h-[48px] font-semibold top-2 bottom-2 left-2 text-[14px] lg:text-[16px] ">جستجو</button>
             </div>
 
             <div id="domain-prices" class="domain-prices gap-2 lg:gap-5 scrollbar-none" data-domain-prices="<?= esc_attr( wp_json_encode( $domain_prices ) ) ?>">
@@ -121,14 +120,5 @@ $visible_items_count = min( 3, count( $domain_prices ) );
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
-    </div>
-
-    <div class="hero-visual absolute inset-0 will-change-transform ease-out duration-300">
-        <picture class="pointer-events-none absolute inset-0" aria-hidden="true">
-            <source media="(max-width: 767px)" srcset="<?= esc_url( get_template_directory_uri() ) ?>/assets/images/hero-bg-mobile.webp">
-            <source media="(min-width: 768px)" srcset="<?= esc_url( get_template_directory_uri() ) ?>/assets/images/hero-bg.webp">
-            <img class="absolute inset-0 w-full object-cover top-0" src="<?= esc_url( get_template_directory_uri() ) ?>/assets/images/hero-bg.webp" alt="" fetchpriority="high" decoding="async">
-        </picture>
-        <canvas id="hero-stars" class="pointer-events-none absolute inset-0 z-[1] h-full w-full" aria-hidden="true"></canvas>
     </div>
 </section>

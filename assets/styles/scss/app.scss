@@ -1,58 +1,49 @@
 .site-header {
-  &:after {
-    content: '';
-    height: 1px;
-    bottom: 0;
-    right: 20px;
-    left: 20px;
-    position: absolute;
+  .header-inner {
+    &:after {
+      content: '';
+      height: 1px;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: absolute;
+    }
   }
 
   &.site-header--dark {
-    color: white;
+    .header-inner {
+      color: white;
 
-    &:after {
-      background: linear-gradient(to right, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.26) 50%, rgba(255, 255, 255, 0.02) 100%);
-    }
+      &:after {
+        background: var(--color-neutral-100);
+      }
 
-    .logo-dark {
-      display: block;
-    }
+      .logo-dark {
+        display: block;
+      }
 
-    .logo-light {
-      display: none;
+      .logo-light {
+        display: none;
+      }
     }
   }
 
   &.site-header--light {
-    background: #F6F8FE;
-    fill: var(--color-blue-primary);
-    color: var(--color-dark);
+    background: var(--color-light-bg);
 
-    &:after {
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.02) 100%);
+    .header-inner {
+      &:after {
+        background: var(--color-neutral-100);
+      }
+
+      .logo-dark {
+        display: none;
+      }
+
+      .logo-light {
+        display: block;
+      }
     }
-
-    .logo-dark {
-      display: none;
-    }
-
-    .logo-light {
-      display: block;
-    }
-  }
-}
-
-.bottom-fade {
-  &:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 200px;
-    background: linear-gradient(to bottom, rgba(7, 4, 29, 0) 0%, rgba(7, 4, 29, 0) 68%, rgba(7, 4, 29, 1) 100%);
-    z-index: 2;
   }
 }
 
@@ -72,13 +63,38 @@
   gap: 12px;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  padding: 8px 15px 8px 8px;
-  border-radius: 999px;
-  background: var(--color-blue-primary);
+  min-height: 38px;
+  padding: 7px;
+  border-radius: 12px;
   color: white;
   text-decoration: none;
   transition: 200ms background-color;
+  border: 1px solid;
+  cursor: pointer;
+
+  &.cta-has-icon {
+    padding: 7px 14px 7px 7px;
+  }
+
+  &.cta-btn-primary {
+    background: var(--color-blue-primary);
+    border-color: var(--color-blue-primary);
+  }
+
+  &.cta-btn-secondary {
+    background: var(--color-yellow-primary);
+    border-color: var(--color-yellow-primary);
+
+    &.cta-opacity-style {
+      background: var(--color-scondary-50);
+      color: var(--color-yellow-primary);
+
+      &:hover {
+        background: var(--color-scondary-500);
+        color: white;
+      }
+    }
+  }
 
   .icon {
     width: 32px;
