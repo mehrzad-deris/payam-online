@@ -1,7 +1,9 @@
 /* Header Style */
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.site-header');
-    const sections = document.querySelectorAll('[data-header-theme]');
+    const sections = Array.from(
+        document.querySelectorAll('[data-header-theme]')
+    );
 
     if (!header || !sections.length) {
         return;
@@ -9,20 +11,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ticking = false;
     let currentTheme = '';
+    const darkThemeOffset = 32;
+
+    const getSectionAt = (position) => {
+        for (let index = 0; index < sections.length; index += 1) {
+            const section = sections[index];
+            const rect = section.getBoundingClientRect();
+
+            if (rect.top <= position && rect.bottom > position) {
+                return {
+                    index,
+                    rect,
+                    theme: section.dataset.headerTheme || '',
+                };
+            }
+        }
+
+        return null;
+    };
 
     const updateHeaderTheme = () => {
         const headerHeight = header.offsetHeight;
-        let nextTheme = '';
+        const activeSection = getSectionAt(headerHeight);
+        let nextTheme = activeSection?.theme || '';
 
-        for (const section of sections) {
-            const rect = section.getBoundingClientRect();
+        if (activeSection?.theme === 'dark') {
+            const darkEnterLine = Math.max(
+                0,
+                headerHeight - darkThemeOffset
+            );
+            const darkExitLine = headerHeight + darkThemeOffset;
 
-            if (
-                rect.top <= headerHeight &&
-                rect.bottom > headerHeight
-            ) {
-                nextTheme = section.dataset.headerTheme || '';
-                break;
+            if (activeSection.rect.top > darkEnterLine) {
+                nextTheme =
+                    getSectionAt(darkEnterLine)?.theme ||
+                    sections[activeSection.index - 1]?.dataset.headerTheme ||
+                    nextTheme;
+            } else if (activeSection.rect.bottom <= darkExitLine) {
+                nextTheme =
+                    getSectionAt(darkExitLine)?.theme ||
+                    sections[activeSection.index + 1]?.dataset.headerTheme ||
+                    nextTheme;
             }
         }
 

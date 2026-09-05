@@ -202,7 +202,7 @@
   display: grid;
   grid-template-areas: "panels tabs";
   grid-template-columns: minmax(0, 1fr) minmax(380px, 413px);
-  gap: 48px;
+  gap: 20px;
   direction: ltr;
   margin-bottom: -100px;
 }

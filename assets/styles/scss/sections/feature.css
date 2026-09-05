@@ -412,6 +412,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-left: 2px;
 }
 .about-section .about-video-trigger .about-play {
   position: absolute;
@@ -822,9 +823,6 @@
   box-shadow: var(--shadow-mellow);
   transition: 0.3s;
   cursor: default;
-}
-.feature-card .feature-card__grid .feature-card__item:hover {
-  transform: scale(1.05);
 }
 .feature-card .feature-card__grid .feature-card__item .feature-card__content {
   display: flex;

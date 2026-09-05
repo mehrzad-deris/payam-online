@@ -441,6 +441,15 @@
   .h-px {
     height: 1px;
   }
+  .h-screen {
+    height: 100vh;
+  }
+  .max-h-\[800px\] {
+    max-height: 800px;
+  }
+  .max-h-\[920px\] {
+    max-height: 920px;
+  }
   .min-h-screen {
     min-height: 100vh;
   }

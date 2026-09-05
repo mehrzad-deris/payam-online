@@ -507,6 +507,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      margin-left: 2px;
     }
 
 
@@ -997,10 +998,6 @@
       box-shadow: var(--shadow-mellow);
       transition: .3s;
       cursor: default;
-
-      &:hover {
-        transform: scale(1.05);
-      }
 
       .feature-card__content {
         display: flex;

@@ -218,7 +218,7 @@ $availableServerTypes = array_values( array_unique( array_column( $serverItems, 
 $tabsId               = wp_unique_id( 'server-tabs-' );
 ?>
 
-<section class="hero-section-on-page mb-32 <?= 'dark' === $sectionStyle ? 'text-white' : ''; ?> min-h-screen bottom-fade relative overflow-hidden" data-header-theme="<?= esc_attr( $sectionStyle ); ?>" <?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>>
+<section class="hero-section-on-page mb-32 <?= 'dark' === $sectionStyle ? 'text-white' : ''; ?> h-screen max-h-[920px] bottom-fade relative overflow-hidden" data-header-theme="<?= esc_attr( $sectionStyle ); ?>" <?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>>
     <div class="container relative z-2 pb-16 pt-39 lg:pt-43">
         <?php if ( '' !== $sectionTitle ) : ?>
         <div class="relative">

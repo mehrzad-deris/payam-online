@@ -108,7 +108,7 @@ $visible_items_count = min( 3, count( $domain_prices ) );
                         <span class="link-block md:right-0 left-3 md:left-0 bottom-1/2 md:translate-y-0 translate-y-1/2 md:-bottom-5">
                             <span class="flex gap-2 items-center rounded-[30px] md:bg-blue-primary px-4 py-1">
                                 <span class="md:inline hidden">مشاهده و خرید</span>
-                                <?= icon( 'arrow-linear', 'w-4.25 h-2 stroke-white' ) ?>
+                                <?= icon( 'arrow-linear', 'w-4.25 h-2 stroke-white group-hover:rotate-45 duration-200' ) ?>
                             </span>
                         </span>
                     </a>
