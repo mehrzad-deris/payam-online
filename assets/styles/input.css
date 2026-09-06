@@ -100,8 +100,8 @@ input:focus {
     --text-desktop-h3: 28px;
     --text-desktop-h3--line-height: 40px;
     --text-desktop-h3--font-weight: 600;
-    --text-mobile-h3: 18px;
-    --text-mobile-h3--line-height: 24px;
+    --text-mobile-h3: 20px;
+    --text-mobile-h3--line-height: 28px;
     --text-mobile-h3--font-weight: 600;
 
     --text-desktop-h4: 24px;

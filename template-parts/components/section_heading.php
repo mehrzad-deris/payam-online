@@ -56,9 +56,9 @@ if ( '' !== $icon_alt ) {
     $icon_attributes['alt'] = $icon_alt;
 }
 
-$title_class = trim( 'text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
+$title_class = trim( 'text-mobile-h3 md:text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
 
-$subtitle_class = trim( 'max-w-180 text-desktop-h6 text-neutral-500 ' . (string) $args['subtitle_class'] );
+$subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-neutral-500 ' . (string) $args['subtitle_class'] );
 ?>
 
 <div class="<?= esc_attr( $wrapper_class ); ?>">

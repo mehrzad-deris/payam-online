@@ -65,8 +65,8 @@
     --text-desktop-h3: 28px;
     --text-desktop-h3--line-height: 40px;
     --text-desktop-h3--font-weight: 600;
-    --text-mobile-h3: 18px;
-    --text-mobile-h3--line-height: 24px;
+    --text-mobile-h3: 20px;
+    --text-mobile-h3--line-height: 28px;
     --text-mobile-h3--font-weight: 600;
     --text-desktop-h4: 24px;
     --text-desktop-h4--line-height: 32px;
@@ -367,6 +367,9 @@
   .mb-32 {
     margin-bottom: calc(var(--spacing) * 32);
   }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
+  }
   .block {
     display: block;
   }
@@ -614,9 +617,6 @@
   .border-transparent\! {
     border-color: transparent !important;
   }
-  .bg-dark {
-    background-color: var(--color-dark);
-  }
   .bg-description {
     background-color: var(--color-description);
   }
@@ -686,9 +686,6 @@
   .px-8\! {
     padding-inline: calc(var(--spacing) * 8) !important;
   }
-  .px-27 {
-    padding-inline: calc(var(--spacing) * 27);
-  }
   .py-2\.5 {
     padding-block: calc(var(--spacing) * 2.5);
   }
@@ -750,11 +747,6 @@
     font-size: var(--text-body-mobile-2);
     line-height: var(--tw-leading, var(--text-body-mobile-2--line-height));
     font-weight: var(--tw-font-weight, var(--text-body-mobile-2--font-weight));
-  }
-  .text-desktop-h2 {
-    font-size: var(--text-desktop-h2);
-    line-height: var(--tw-leading, var(--text-desktop-h2--line-height));
-    font-weight: var(--tw-font-weight, var(--text-desktop-h2--font-weight));
   }
   .text-desktop-h3 {
     font-size: var(--text-desktop-h3);
@@ -993,11 +985,6 @@
       outline-color: var(--color-yellow-primary);
     }
   }
-  .md\:inline {
-    @media (width >= 48rem) {
-      display: inline;
-    }
-  }
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1144,6 +1131,11 @@
       padding-inline: calc(var(--spacing) * 10);
     }
   }
+  .lg\:px-27 {
+    @media (width >= 64rem) {
+      padding-inline: calc(var(--spacing) * 27);
+    }
+  }
   .lg\:px-37 {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 37);
@@ -1230,11 +1222,6 @@
   .xl\:block {
     @media (width >= 80rem) {
       display: block;
-    }
-  }
-  .xl\:flex {
-    @media (width >= 80rem) {
-      display: flex;
     }
   }
   .xl\:hidden {
@@ -1520,6 +1507,9 @@
 }
 .cta-link .icon svg {
   transition: 200ms;
+}
+.site-footer {
+  background: linear-gradient(72.85deg, #07041D 0%, #130B50 50%, #201283 100%);
 }
 .site-footer .copyright:after {
   content: "";

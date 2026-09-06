@@ -1057,13 +1057,15 @@
     }
 
     .testimonial-card {
+      background: linear-gradient(39.96deg, #001352 0%, #1844DA 100.03%) !important;
       border-radius: 24px;
+      height: auto;
     }
 
     .testimonial-content {
       width: 100%;
       gap: 16px;
-      padding: 32px 16px;
+      padding: 40px 16px;
     }
 
     .testimonial-body {

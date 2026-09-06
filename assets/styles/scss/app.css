@@ -120,6 +120,9 @@
   transition: 200ms;
 }
 
+.site-footer {
+  background: linear-gradient(72.85deg, #07041D 0%, #130B50 50%, #201283 100%);
+}
 .site-footer .copyright:after {
   content: "";
   height: 1px;

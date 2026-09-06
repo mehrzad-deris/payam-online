@@ -91,29 +91,30 @@ $visible_items_count = min( 3, count( $domain_prices ) );
                 <div class="service-item group">
                     <a href="<?= esc_url( $link ?: '#' ) ?>" class="inner">
                         <span class="item-inner flex-row md:flex-col p-5 pb-7 text-neutral-500">
-                            <span class="flex items-center gap-2">
+                            <span class="service-heading flex items-center gap-2">
                                 <?php if ( $icon ) : ?>
-                                    <span><img src="<?= esc_url( $icon ) ?>" alt="" loading="lazy" decoding="async"></span>
+                                    <span class="service-icon"><img src="<?= esc_url( $icon ) ?>" alt="" loading="lazy" decoding="async"></span>
                                 <?php endif; ?>
                                 <?php if ( $title ) : ?>
-                                    <span class="text-desktop-h5 text-neutral-900"><?= esc_html( $title ) ?></span>
+                                    <span class="service-title text-desktop-h5 text-neutral-900"><?= esc_html( $title ) ?></span>
                                 <?php endif; ?>
                             </span>
 
                             <?php if ( $price ) : ?>
-                                <span class="flex items-center gap-1">
-                                    <span class="text-caption">شروع قیمت از:</span><span class="text-desktop-h5 text-neutral-900"><?= number_format( esc_html( $price ) ) ?></span>
+                                <span class="service-price flex items-center gap-1">
+                                    <span class="service-price-label text-caption">شروع قیمت از:</span><span class="service-price-value text-desktop-h5 text-neutral-900"><?= number_format( esc_html( $price ) ) ?></span>
                                 </span>
                             <?php endif; ?>
                             <?php if ( $subtitle ) : ?>
-                                <span>
+                                <span class="service-subtitle">
                                     <span class="text-caption-mobile"><?= esc_html( $subtitle ) ?></span>
                                 </span>
                             <?php endif; ?>
 
-                            <span class="cta-link cta-btn-primary cta-opacity-style border-transparent! fill-transparent group-hover:fill-white group-hover:bg-primary-500! group-hover:text-white! text-body-3 gap-0!">
-                                <span class="md:inline hidden">مشاهده و خرید</span>
-                                <?= icon( 'arrow-linear-2', 'w-0 h-5 group-hover:w-7 duration-300' ) ?>
+                            <span class="service-cta cta-link cta-btn-primary cta-opacity-style border-transparent! fill-transparent group-hover:fill-white group-hover:bg-primary-500! group-hover:text-white! text-body-3 gap-0!">
+                                <span class="service-cta-text">مشاهده و خرید</span>
+                                <span class="service-cta-text-mobile ml-2">خرید</span>
+                                <?= icon( 'arrow-linear-2', 'service-cta-icon w-0 h-5 group-hover:w-7 duration-300' ) ?>
                             </span>
                         </span>
                     </a>

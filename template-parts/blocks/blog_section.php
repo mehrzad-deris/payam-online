@@ -113,11 +113,11 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                     <div class="swiper-pagination blog-pagination swiper-pagination-card-style bottom-7! relative" data-swiper-pagination></div>
                 <?php endif; ?>
 
-                <div class="justify-center hidden xl:flex mt-10">
+                <div class="justify-center flex mt-10">
                     <?php if ( $sectionLoadMore ) : ?>
                         <a href="<?= esc_html( $sectionLoadMore['url'] ) ?: '' ?>" class="cta-link cta-btn-primary cta-has-icon">
                             <?= esc_html( $sectionLoadMore['title'] ) ?: '' ?>
-                            <span class="icon"><?= icon( 'arrow-linear', 'w-3.5 h-2.5' ) ?></span>
+                            <span class="icon"><?= icon( 'arrow-linear-2', 'w-5 h-5' ) ?></span>
                         </a>
                     <?php endif; ?>
                 </div>

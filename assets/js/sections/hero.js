@@ -23,9 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const visibleItemsCount = items.length;
+    const getVisibleItems = () =>
+        Array.from(items).filter(
+            (item) => window.getComputedStyle(item).display !== 'none'
+        );
 
-    let nextIndex = visibleItemsCount;
+    let nextIndex = getVisibleItems().length;
     let replacePosition = 0;
 
     /**
@@ -55,13 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // اگر سه آیتم یا کمتر وجود داشت، نیازی به تعویض نیست.
-    if (domainPrices.length <= visibleItemsCount) {
+    // اگر تعداد داده‌ها از آیتم‌های موجود بیشتر نیست، نیازی به تعویض نیست.
+    if (domainPrices.length <= getVisibleItems().length) {
         return;
     }
 
     setInterval(() => {
-        const item = items[replacePosition];
+        const visibleItems = getVisibleItems();
+
+        if (!visibleItems.length) {
+            return;
+        }
+
+        const item = visibleItems[replacePosition % visibleItems.length];
         const nextDomain = domainPrices[nextIndex];
 
         if (!item || !nextDomain) {
@@ -78,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateItem(item, nextDomain);
 
             nextIndex = (nextIndex + 1) % domainPrices.length;
-            replacePosition = (replacePosition + 1) % visibleItemsCount;
+            replacePosition = (replacePosition + 1) % visibleItems.length;
 
             item.classList.remove(
                 'opacity-0',

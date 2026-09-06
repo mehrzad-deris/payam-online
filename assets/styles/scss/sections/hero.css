@@ -62,6 +62,9 @@
   background: #ffffff;
   box-shadow: var(--shadow-mellow-blue);
 }
+.hero-section .services-items .service-cta-text-mobile {
+  display: none;
+}
 .hero-section .services-items .service-item {
   position: relative;
   border: solid 1px rgba(255, 255, 255, 0.0705882353);
@@ -81,4 +84,107 @@
   display: flex;
   gap: 16px;
   padding: 16px;
+}
+
+@media (max-width: 1279px) {
+  .hero-section .domain-prices {
+    justify-content: center;
+  }
+  .hero-section .domain-prices .domain-price-item {
+    display: none;
+  }
+  .hero-section .domain-prices .domain-price-item:first-child {
+    display: block;
+    width: auto;
+  }
+}
+@media (max-width: 767px) {
+  .hero-section .services-items {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .hero-section .services-items .service-item {
+    height: 96px;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  .hero-section .services-items .service-item a {
+    height: 100%;
+  }
+  .hero-section .services-items .service-item a .item-inner {
+    display: block;
+    padding: 0;
+  }
+  .hero-section .services-items .service-item .service-heading {
+    display: contents;
+  }
+  .hero-section .services-items .service-item .service-icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+  }
+  .hero-section .services-items .service-item .service-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .hero-section .services-items .service-item .service-title,
+  .hero-section .services-items .service-item .service-price {
+    position: absolute;
+    right: 88px;
+  }
+  .hero-section .services-items .service-item .service-title {
+    top: 24px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  .hero-section .services-items .service-item .service-price {
+    top: 52px;
+    gap: 2px;
+    white-space: nowrap;
+  }
+  .hero-section .services-items .service-item .service-price .service-price-label {
+    color: var(--color-neutral-300, #8b94a4);
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .hero-section .services-items .service-item .service-price .service-price-value {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .hero-section .services-items .service-item .service-subtitle {
+    display: none;
+  }
+  .hero-section .services-items .service-item .service-cta {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    gap: 9px !important;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-blue-primary);
+    font-size: 14px;
+    line-height: 32px;
+    transform: translateY(-50%);
+  }
+  .hero-section .services-items .service-item .service-cta .service-cta-text {
+    display: none;
+  }
+  .hero-section .services-items .service-item .service-cta .service-cta-text-mobile {
+    display: inline;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .hero-section .services-items .service-item .service-cta .service-cta-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
 }

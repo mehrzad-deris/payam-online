@@ -38,7 +38,7 @@ $serviceTabClass = str_replace( '_', '-', $serviceTabStyle );
         ] ) ?>
 
         <?php if ( is_array( $serviceTabs ) && ! empty( $serviceTabs ) ) : ?>
-            <div class="services-tabs<?= $isStyleTwo ? ' services-tabs-style-2 px-27' : ' services-tabs-style-1'; ?>" data-tabs data-tabs-style="<?= esc_attr( $serviceTabStyle ); ?>"<?= $isStyleTwo && count( $serviceTabs ) > 1 ? ' data-tabs-autoplay="5000"' : ''; ?>>
+            <div class="services-tabs<?= $isStyleTwo ? ' services-tabs-style-2 lg:px-27' : ' services-tabs-style-1'; ?>" data-tabs data-tabs-style="<?= esc_attr( $serviceTabStyle ); ?>"<?= $isStyleTwo && count( $serviceTabs ) > 1 ? ' data-tabs-autoplay="5000"' : ''; ?>>
                 <div class="services-tabs__list" role="tablist" aria-orientation="<?= $isStyleTwo ? 'horizontal' : 'vertical'; ?>" aria-label="<?= esc_attr( $sectionTitle ?: 'خدمات' ); ?>">
                     <?php foreach ( $serviceTabs as $index => $serviceTab ) :
                         $tabTitle = $serviceTab['tab_title'] ?? '';

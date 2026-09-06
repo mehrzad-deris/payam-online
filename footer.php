@@ -68,7 +68,7 @@ $renderMenu = static function ( string $location ): string {
 $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets/images/' . $file );
 ?>
 
-<footer class="site-footer relative overflow-hidden bg-dark pt-16 text-white xl:pt-[107px]" data-footer data-header-theme="dark">
+<footer class="site-footer relative overflow-hidden  pt-16 text-white xl:pt-[107px]" data-footer data-header-theme="dark">
     <div class="container relative z-10 flex flex-col items-center mb-16">
         <a class="flex flex-col items-center" href="<?= esc_url( home_url( '/' ) ); ?>" aria-label="<?= esc_attr( get_bloginfo( 'name' ) ); ?>">
             <img class="h-[108px] w-[89px] object-contain" src="<?= esc_url( $footerAsset( 'payamava-logo-vertical-light.svg' ) ); ?>" alt="<?= esc_attr( get_bloginfo( 'name' ) ); ?>" width="89" height="108" loading="lazy" decoding="async">

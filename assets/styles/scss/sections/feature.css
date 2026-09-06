@@ -568,12 +568,15 @@
 }
 
 @media (max-width: 767px) {
+  .statistics-section .statistics-list {
+    background: linear-gradient(39.96deg, #001352 0%, #1844DA 100.03%) !important;
+  }
   .feature-section {
     margin-bottom: 96px !important;
   }
   .feature-section__grid {
-    grid-template-columns: repeat(2, minmax(0, 175px));
-    gap: 32px 8px;
+    grid-template-columns: repeat(1, minmax(0, 100%));
+    gap: 16px;
   }
   .about-section {
     padding-bottom: 64px;
