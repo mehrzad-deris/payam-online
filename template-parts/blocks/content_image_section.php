@@ -13,6 +13,10 @@ $imagePosition      = get_sub_field( 'image_on_right' ) ? 'right' : 'left';
 $sectionTitle       = trim( (string) ( get_sub_field( 'section_title' ) ?: '' ) );
 $sectionTitleTag    = strtolower( (string) ( get_sub_field( 'title_tag' ) ?: 'h2' ) );
 $sectionDescription = (string) ( get_sub_field( 'section_description' ) ?: '' );
+$paddingTopValue          = get_sub_field( 'padding_top' );
+$paddingTopMobileValue    = get_sub_field( 'padding_top_mobile' );
+$paddingBottomValue       = get_sub_field( 'padding_bottom' );
+$paddingBottomMobileValue = get_sub_field( 'padding_bottom_mobile' );
 $transparentPixel   = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 if ( ! in_array( $sectionStyle, [ 'light', 'dark' ], true ) ) {
@@ -27,6 +31,27 @@ $imageUrl    = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'cont
 $imageUrl2x  = $sectionImage ? wp_get_attachment_image_url( $sectionImage, 'content_image_x2' ) : false;
 $imageAlt    = $sectionImage ? (string) get_post_meta( $sectionImage, '_wp_attachment_image_alt', true ) : '';
 $hasContent  = '' !== $sectionTitle || '' !== trim( wp_strip_all_tags( $sectionDescription ) );
+$sectionStyles = [];
+
+if ( '' !== $sectionColor ) {
+	$sectionStyles[] = 'background-color:' . $sectionColor . ';';
+}
+
+if ( is_numeric( $paddingTopValue ) ) {
+	$sectionStyles[] = '--content-image-padding-top:' . absint( $paddingTopValue ) . 'px;';
+}
+
+if ( is_numeric( $paddingTopMobileValue ) ) {
+	$sectionStyles[] = '--content-image-padding-top-mobile:' . absint( $paddingTopMobileValue ) . 'px;';
+}
+
+if ( is_numeric( $paddingBottomValue ) ) {
+	$sectionStyles[] = '--content-image-padding-bottom:' . absint( $paddingBottomValue ) . 'px;';
+}
+
+if ( is_numeric( $paddingBottomMobileValue ) ) {
+	$sectionStyles[] = '--content-image-padding-bottom-mobile:' . absint( $paddingBottomMobileValue ) . 'px;';
+}
 
 if ( ! $imageUrl && ! $hasContent ) {
 	return;
@@ -37,7 +62,7 @@ if ( ! $imageUrl && ! $hasContent ) {
 	class="content-image-section content-image-section-<?= esc_attr( $imagePosition ); ?> content-image-section-<?= esc_attr( $sectionStyle ); ?>"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
 	data-lazy-root
-	<?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>
+	<?php if ( ! empty( $sectionStyles ) ) : ?>style="<?= esc_attr( implode( ' ', $sectionStyles ) ); ?>"<?php endif; ?>
 >
 	<div class="container content-image-container">
 		<?php if ( $imageUrl ) : ?>

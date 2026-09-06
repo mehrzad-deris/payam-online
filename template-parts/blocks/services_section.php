@@ -1,19 +1,34 @@
 <?php
-$sectionColor    = get_sub_field( 'section_color' ) ?: "";
-$sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon     = get_sub_field( 'section_icon' );
-$sectionTitle    = get_sub_field( 'section_title' );
-$sectionTitleTag = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubTitle = get_sub_field( 'section_subtitle' );
-$serviceTabs     = get_sub_field( 'service_tabs' );
-$tabsId          = wp_unique_id( 'services-tabs-' );
+defined( 'ABSPATH' ) || exit;
+
+$sectionColor               = get_sub_field( 'section_color' ) ? 'background-color: ' . get_sub_field( 'section_color' ) : "";
+$sectionStyle               = get_sub_field( 'section_style' ) ?: 'light';
+$sectionIcon                = get_sub_field( 'section_icon' );
+$sectionTitle               = get_sub_field( 'section_title' );
+$sectionTitleTag            = get_sub_field( 'title_tag' ) ?: 'h2';
+$sectionSubTitle            = get_sub_field( 'section_subtitle' );
+$serviceTabStyle            = get_sub_field( 'service_tab_style' );
+$serviceTabs                = get_sub_field( 'service_tabs' );
+$tabsId                     = wp_unique_id( 'services-tabs-' );
+$paddingTopValue            = get_sub_field( 'padding_top' );
+$paddingTopMobileValue      = get_sub_field( 'padding_top_mobile' );
+$paddingBottomValue         = get_sub_field( 'padding_bottom' );
+$paddingBottomMobileValue   = get_sub_field( 'padding_bottom_mobile' );
+$servicePaddingTop          = is_numeric( $paddingTopValue ) ? '--services-padding-top:' . absint( $paddingTopValue ) . 'px;' : '';
+$servicePaddingTopMobile    = is_numeric( $paddingTopMobileValue ) ? '--services-padding-top-mobile:' . absint( $paddingTopMobileValue ) . 'px;' : '';
+$servicePaddingBottom       = is_numeric( $paddingBottomValue ) ? '--services-padding-bottom:' . absint( $paddingBottomValue ) . 'px;' : '';
+$servicePaddingBottomMobile = is_numeric( $paddingBottomMobileValue ) ? '--services-padding-bottom-mobile:' . absint( $paddingBottomMobileValue ) . 'px;' : '';
 
 if ( is_array( $serviceTabs ) ) {
     $serviceTabs = array_values( array_filter( $serviceTabs, static fn( $tab ) => ! empty( $tab['tab_title'] ) ) );
 }
+
+$serviceTabStyle = in_array( $serviceTabStyle, [ 'style_1', 'style_2' ], true ) ? $serviceTabStyle : 'style_1';
+$isStyleTwo      = 'style_2' === $serviceTabStyle;
+$serviceTabClass = str_replace( '_', '-', $serviceTabStyle );
 ?>
 
-<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="lg:py-32 py-24 relative overflow-hidden" style="background-color: <?= esc_attr( $sectionColor ) ?>">
+<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="services-section services-tab-<?= esc_attr( $serviceTabClass ); ?> relative xl:px-[135px]" style="<?= esc_attr( $sectionColor ) . ' ' . esc_attr( $servicePaddingTop ) . ' ' . esc_attr( $servicePaddingTopMobile ) . ' ' . esc_attr( $servicePaddingBottom ) . ' ' . esc_attr( $servicePaddingBottomMobile ); ?>">
     <div class="container">
         <?php section_heading( [
                 'title'     => $sectionTitle,
@@ -23,8 +38,8 @@ if ( is_array( $serviceTabs ) ) {
         ] ) ?>
 
         <?php if ( is_array( $serviceTabs ) && ! empty( $serviceTabs ) ) : ?>
-            <div class="services-tabs" data-tabs>
-                <div class="services-tabs__list" role="tablist" aria-label="<?= esc_attr( $sectionTitle ?: 'خدمات' ); ?>">
+            <div class="services-tabs<?= $isStyleTwo ? ' services-tabs-style-2 px-27' : ' services-tabs-style-1'; ?>" data-tabs data-tabs-style="<?= esc_attr( $serviceTabStyle ); ?>"<?= $isStyleTwo && count( $serviceTabs ) > 1 ? ' data-tabs-autoplay="5000"' : ''; ?>>
+                <div class="services-tabs__list" role="tablist" aria-orientation="<?= $isStyleTwo ? 'horizontal' : 'vertical'; ?>" aria-label="<?= esc_attr( $sectionTitle ?: 'خدمات' ); ?>">
                     <?php foreach ( $serviceTabs as $index => $serviceTab ) :
                         $tabTitle = $serviceTab['tab_title'] ?? '';
                         $tabIcon = absint( $serviceTab['tab_icon'] ?? 0 );
@@ -34,20 +49,20 @@ if ( is_array( $serviceTabs ) ) {
                         ?>
                         <button
                                 type="button"
-                                class="services-tabs__button appearance-none outline-none"
+                                class="services-tabs__button appearance-none outline-none text-desktop-h6 "
                                 id="<?= esc_attr( $tabId ); ?>"
                                 role="tab"
                                 aria-controls="<?= esc_attr( $panelId ); ?>"
                                 aria-selected="<?= 0 === $index ? 'true' : 'false'; ?>"
                                 tabindex="<?= 0 === $index ? '0' : '-1'; ?>"
                         >
-                            <?php if ( $tabIcon ) : ?>
+                            <?php if ( $tabIcon && ! $isStyleTwo ) : ?>
                                 <span class="services-tabs__button__icon" aria-hidden="true">
 									<?= wp_get_attachment_image( $tabIcon, 'thumbnail', false, [
                                             'alt'      => '',
                                             'loading'  => 'lazy',
                                             'decoding' => 'async',
-                                    ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped        ?>
+                                    ] ); ?>
 								</span>
                             <?php endif; ?>
 
@@ -55,9 +70,15 @@ if ( is_array( $serviceTabs ) ) {
 							    <?= esc_html( $tabTitle ); ?>
 							</span>
 
-                            <span class="absolute right-0 shadow-shape fill-blue-primary opacity-20">
-                                <?= icon( 'right-shape', 'w-[1px] h-12' ) ?>
-                            </span>
+                            <?php if ( !$isStyleTwo ) : ?>
+                                <span class="absolute right-0 shadow-shape fill-blue-primary opacity-20">
+                                    <?= icon( 'right-shape', 'w-[1px] h-12' ) ?>
+                                </span>
+                            <?php endif; ?>
+
+                            <?php if ( $isStyleTwo ) : ?>
+                                <span class="services-tabs__progress" aria-hidden="true"></span>
+                            <?php endif; ?>
                         </button>
                     <?php endforeach; ?>
                 </div>
@@ -75,44 +96,47 @@ if ( is_array( $serviceTabs ) ) {
 
                         $features = is_array( $features ) ? array_slice( $features, 0, 4 ) : [];
 
-                        $ctaUrl      = is_array( $tabCta ) ? ( $tabCta['url'] ?? '' ) : $tabCta;
-                        $ctaTitle    = is_array( $tabCta ) ? ( $tabCta['title'] ?? '' ) : '';
-                        $ctaTarget   = is_array( $tabCta ) ? ( $tabCta['target'] ?? '_self' ) : '_self';
-                        $imageSrc    = $tabImage ? wp_get_attachment_image_src( $tabImage, 'tab_image' ) : false;
-                        $imageSrcset = $tabImage ? wp_get_attachment_image_srcset( $tabImage, 'tab_image' ) : false;
-                        $imageAlt    = $tabImage ? get_post_meta( $tabImage, '_wp_attachment_image_alt', true ) : '';
+                        $ctaUrl            = is_array( $tabCta ) ? ( $tabCta['url'] ?? '' ) : $tabCta;
+                        $ctaTitle          = is_array( $tabCta ) ? ( $tabCta['title'] ?? '' ) : '';
+                        $ctaTarget         = is_array( $tabCta ) ? ( $tabCta['target'] ?? '_self' ) : '_self';
+                        $imageSize         = $isStyleTwo ? 'tab_image_style_2' : 'tab_image';
+                        $imageDisplayWidth = $isStyleTwo ? 561 : 290;
+                        $imageSrc          = $tabImage ? wp_get_attachment_image_src( $tabImage, $imageSize ) : false;
+                        $imageSrcset       = $tabImage ? wp_get_attachment_image_srcset( $tabImage, $imageSize ) : false;
+                        $imageAlt          = $tabImage ? get_post_meta( $tabImage, '_wp_attachment_image_alt', true ) : '';
 
                         ?>
-                        <div class="services-tabs__panel p-4 xl:p-10" id="<?= esc_attr( $panelId ); ?>" role="tabpanel" aria-labelledby="<?= esc_attr( $tabId ); ?>" tabindex="0"<?= 0 !== $index ? 'hidden' : ''; ?>>
+                        <div class="services-tabs__panel" id="<?= esc_attr( $panelId ); ?>" role="tabpanel" aria-labelledby="<?= esc_attr( $tabId ); ?>" tabindex="0"<?= 0 !== $index ? 'hidden' : ''; ?>>
                             <div class="services-tabs__panel-layout">
                                 <div class="services-tabs__panel-content">
-                                    <div class="flex gap-5">
-                                        <div>
-                                            <div class="services-tabs__title flex xl:justify-start justify-center items-center xl:bg-transparent bg-blue-primary/8  xl:text-[24px] text-[18px] xl:text-black text-blue-primary p-[17px_10px] xl:p-0 mb-4 xl:mb-2.5">
-                                                <span class="flex items-center">
-                                                    <?php if ( $tabIcon ) : ?>
-                                                        <span class="services-tabs__title-icon inline-grid xl:hidden" aria-hidden="true">
-														<?= wp_get_attachment_image( $tabIcon, 'thumbnail', false, [
-                                                                'alt'      => '',
-                                                                'loading'  => 'lazy',
-                                                                'decoding' => 'async',
-                                                        ] );?>
-                                                        </span>
-                                                    <?php endif; ?>
+                                    <div class="flex gap-5 items-center">
+                                        <div class="p-8 xl:p-10">
+                                            <?php if ( $tabIcon ) : ?>
+                                                <?= wp_get_attachment_image( $tabIcon, 'full', false, [
+                                                        'class'    => 'services-tabs__content-icon',
+                                                        'alt'      => '',
+                                                        'width'    => 48,
+                                                        'height'   => 48,
+                                                        'loading'  => 'lazy',
+                                                        'decoding' => 'async',
+                                                ] ); ?>
+                                            <?php endif; ?>
+                                            <div class="services-tabs__title mb-2.5">
+                                                <span class="text-mobile-h2 lg:text-desktop-h4 text-neutral-900">
+                                                    <?= esc_html( $tabTitle ); ?>
                                                 </span>
-                                                <?= esc_html( $tabTitle ); ?>
                                             </div>
                                             <?php if ( '' !== $tabContent ) : ?>
-                                                <div class="services-tabs__description">
-                                                    <?= apply_filters( 'the_content', $tabContent ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped        ?>
+                                                <div class="services-tabs__description text-caption text-justify">
+                                                    <?= apply_filters( 'the_content', $tabContent ); ?>
                                                 </div>
                                             <?php endif; ?>
 
                                             <?php if ( '' !== $ctaUrl ) : ?>
-                                                <div class="hidden xl:block mt-5">
-                                                    <a class="cta-link" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>" <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
+                                                <div class="mt-5">
+                                                    <a class="cta-link cta-btn-primary cta-has-icon rounded-1_5!" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>" <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
                                                         <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
-                                                        <span class="icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
+                                                        <span class="icon"><?= icon( 'arrow-linear-2', 'w-5 h-5' ) ?></span>
                                                     </a>
                                                 </div>
                                             <?php endif; ?>
@@ -121,14 +145,14 @@ if ( is_array( $serviceTabs ) ) {
                                         <?php if ( $imageSrc ) : ?>
                                             <div class="services-tabs__image flex-none">
                                                 <picture>
-                                                    <source media="(min-width: 768px)" srcset="<?= esc_attr( $imageSrcset ?: $imageSrc[0] ); ?>" sizes="290px">
-                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" width="<?= esc_attr( $imageSrc[1] ); ?>" height="<?= esc_attr( $imageSrc[2] ); ?>" alt="<?= esc_attr( $imageAlt ); ?>" loading="lazy" decoding="async">
+                                                    <source media="(min-width: 1280px)" data-lazy-desktop-srcset="<?= esc_attr( $imageSrcset ?: $imageSrc[0] ); ?>" sizes="<?= esc_attr( $imageDisplayWidth ); ?>px">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-lazy-desktop-src="<?= esc_url( $imageSrc[0] ); ?>" width="<?= esc_attr( $imageSrc[1] ); ?>" height="<?= esc_attr( $imageSrc[2] ); ?>" alt="<?= esc_attr( $imageAlt ); ?>" loading="lazy" decoding="async">
                                                 </picture>
                                             </div>
                                         <?php endif; ?>
                                     </div>
-                                    <?php if ( ! empty( $features ) ) : ?>
-                                        <ul class="services-tabs__features xl:pt-10 pt-4 mt-4 xl:mt-10 mb-4 xl:mb-0">
+                                    <?php if ( ! empty( $features ) && ! $isStyleTwo ) : ?>
+                                        <ul class="services-tabs__features p-4 xl:p-10 xl:pt-10 pt-4 mb-4 xl:mb-0">
                                             <?php foreach ( $features as $feature ) :
                                                 $featureTitle = $feature['feature_title'] ?? '';
                                                 $featureDescription = $feature['feature_description'] ?? '';
@@ -149,16 +173,6 @@ if ( is_array( $serviceTabs ) ) {
                                             <?php endforeach; ?>
                                         </ul>
                                     <?php endif; ?>
-
-                                    <?php if ( '' !== $ctaUrl ) : ?>
-                                        <div class="xl:hidden flex justify-center">
-                                            <a class="cta-link" href="<?= esc_url( $ctaUrl ); ?>" target="<?= esc_attr( $ctaTarget ); ?>"<?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>>
-                                                <?= esc_html( $ctaTitle ?: 'اطلاعات بیشتر' ); ?>
-                                                <span class="icon"><?= icon( 'arrow-linear', 'w-[13px] h-2.5' ) ?></span>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
-
                                 </div>
                             </div>
                         </div>

@@ -22,6 +22,7 @@ add_action( 'after_setup_theme', function () {
 
 require_once get_theme_file_path('/inc/asset_registry.php');
 require_once get_theme_file_path('/inc/image_resize.php');
+require_once get_theme_file_path('/inc/editor_shortcodes.php');
 
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );

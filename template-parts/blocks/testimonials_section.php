@@ -55,10 +55,7 @@ $testimonials = array_values(
 						$authorAlt   = $authorImage ? get_post_meta( $authorImage, '_wp_attachment_image_alt', true ) : '';
 						?>
 						<article class="swiper-slide testimonial-card">
-							<picture class="testimonial-background" aria-hidden="true">
-								<source media="(max-width: 767px)" data-lazy-srcset="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg-mobile.webp' ) ); ?>">
-								<img src="<?= esc_attr( $transparent ); ?>" data-lazy-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bfg.webp' ) ); ?>" alt="" width="979" height="416" decoding="async">
-							</picture>
+								<img class="testimonial-background" src="<?= esc_attr( $transparent ); ?>" data-lazy-src="<?= esc_url( get_theme_file_uri( '/assets/images/customer-bg.svg' ) ); ?>" alt="" width="979" height="416" decoding="async">
 
 							<div class="testimonial-content">
 								<div class="testimonial-quote" aria-hidden="true">
@@ -67,17 +64,11 @@ $testimonials = array_values(
 
 								<div class="testimonial-body">
 									<p><?= esc_html( $item['text'] ); ?></p>
-
-									<div class="testimonial-rating">
-										<?php for ( $star = 0; $star < 5; $star++ ) : ?>
-                                            <?= icon('star') ?>
-										<?php endfor; ?>
-									</div>
 								</div>
 
 								<div class="testimonial-author">
 									<?php if ( $authorUrl ) : ?>
-										<img class="testimonial-avatar" src="<?= esc_url( $authorUrl ); ?>"<?= $author2x ? ' srcset="' . esc_url( $authorUrl ) . ' 1x, ' . esc_url( $author2x ) . ' 2x"' : ''; ?> alt="<?= esc_attr( $authorAlt ?: ( $item['author_name'] ?? '' ) ); ?>" width="56" height="56" loading="lazy" decoding="async">
+                                        <span class="testimonial-avatar"><img src="<?= esc_url( $authorUrl ); ?>"<?= $author2x ? ' srcset="' . esc_url( $authorUrl ) . ' 1x, ' . esc_url( $author2x ) . ' 2x"' : ''; ?> alt="<?= esc_attr( $authorAlt ?: ( $item['author_name'] ?? '' ) ); ?>" width="59" height="59" loading="lazy" decoding="async"></span>
 									<?php endif; ?>
 									<div class="testimonial-copy">
 										<strong><?= esc_html( $item['author_name'] ?? '' ); ?></strong>

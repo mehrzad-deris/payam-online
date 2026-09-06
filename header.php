@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="w-full lg:w-auto">
-                <span aria-hidden="true" class="lg:hidden cursor-pointer"><?= icon( 'hamburger-menu', 'w-8 h-8 duration-200 fill-white' ) ?></span>
+                <span aria-hidden="true" class="lg:hidden cursor-pointer"><?= icon( 'hamburger-menu', 'w-8 h-8 duration-200 fill-neutral-900' ) ?></span>
                 <div class="hidden lg:block">
                     <?= wp_nav_menu( [
                             'theme_location' => 'main_menu',

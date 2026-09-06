@@ -67,17 +67,6 @@ if ( is_array( $featureItems ) ) {
 					$featureDescription = $featureItem['feature_description'] ?? '';
 					?>
 					<article class="feature-section__item">
-						<img
-							class="feature-section__shape"
-							src="<?= esc_url( get_theme_file_uri( '/assets/images/features-shape.svg' ) ); ?>"
-							alt=""
-							width="233"
-							height="148"
-							loading="lazy"
-							decoding="async"
-							aria-hidden="true"
-						>
-
 						<div class="feature-section__content">
 							<?php if ( $featureIcon ) : ?>
 								<div class="feature-section__icon" aria-hidden="true">
@@ -96,11 +85,11 @@ if ( is_array( $featureItems ) ) {
 
 							<div class="feature-section__text">
 								<?php if ( '' !== $featureTitle ) : ?>
-									<h3 class="feature-section__title md:text-body-2 text-body-mobile-2"><?= esc_html( $featureTitle ); ?></h3>
+									<h3 class="feature-section__title md:text-desktop-h5"><?= esc_html( $featureTitle ); ?></h3>
 								<?php endif; ?>
 
 								<?php if ( '' !== $featureDescription ) : ?>
-									<p class="feature-section__description"><?= esc_html( $featureDescription ); ?></p>
+									<p class="feature-section__description text-body-3 text-neutral-500"><?= esc_html( $featureDescription ); ?></p>
 								<?php endif; ?>
 							</div>
 						</div>

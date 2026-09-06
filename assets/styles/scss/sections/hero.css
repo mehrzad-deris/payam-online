@@ -1,1 +1,84 @@
-.hero-section .domain-prices{display:flex;justify-content:space-between;overflow:auto}.hero-section .domain-prices .domain-price-item{transition:.5s all;width:100%}.hero-section .domain-prices .domain-price-item>div{display:flex;justify-content:center;gap:10px;align-items:center;background:rgba(13,5,42,.3764705882);backdrop-filter:blur(5px);border:inset 1px hsla(0,0%,100%,.062745098);border-radius:30px;cursor:default}.hero-section .services-items .service-item{position:relative;border:solid 1px hsla(0,0%,100%,.0705882353);background:linear-gradient(to bottom, #0B0A44 0%, #161476 100%);border-radius:20px}.hero-section .services-items .service-item a{display:flex}.hero-section .services-items .service-item a .item-inner{overflow:hidden;position:relative;background:url("../../../images/services-bg.webp") center/cover;z-index:1;width:100%;height:100%;display:flex;align-items:center}.hero-section .services-items .service-item a .item-inner:after,.hero-section .services-items .service-item a .item-inner:before{content:"";position:absolute;top:-10px;left:50%;transform:translate(-50%, -50%);width:153px;height:220px;background:radial-gradient(#fff 0%, transparent 68%);opacity:16%;pointer-events:none;z-index:-1;transition:.3s;filter:blur(30px)}.hero-section .services-items .service-item a .item-inner:after{background:radial-gradient(#1A4FFF 0%, transparent 68%);opacity:0}.hero-section .services-items .service-item a .item-inner:hover:before{opacity:0}.hero-section .services-items .service-item a .item-inner:hover:after{opacity:.26}.hero-section .services-items .service-item a .link-block{display:flex;transition:300ms;position:absolute;justify-content:center;z-index:1}/*# sourceMappingURL=hero.css.map */
+/*
+ * Hero Section
+ - Domain Whois
+ - Services Grid
+ */
+.hero-section {
+  position: relative;
+}
+.hero-section .title-section {
+  position: relative;
+  white-space: pre-line;
+  text-align: center;
+  margin-bottom: calc(var(--spacing) * 19);
+  font-weight: bold;
+}
+.hero-section .title-section:before {
+  content: "";
+  position: absolute;
+  width: 846px;
+  height: 387px;
+  bottom: -100px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: -1;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(24, 68, 218, 0.1) 0%, rgba(24, 68, 218, 0) 100%);
+}
+.hero-section .domain-whois {
+  position: relative;
+}
+.hero-section .domain-whois .whois-input {
+  width: 100%;
+  box-shadow: var(--shadow-mellow-blue);
+  background: #ffffff;
+  border-radius: var(--radius-2);
+  height: calc(var(--spacing) * 16);
+}
+.hero-section .domain-whois .whois-submit {
+  position: absolute;
+  font-weight: 500;
+  width: 112px;
+  height: 48px;
+  left: calc(var(--spacing) * 2);
+  bottom: calc(var(--spacing) * 2);
+}
+.hero-section .domain-prices {
+  display: flex;
+  justify-content: space-between;
+}
+.hero-section .domain-prices .domain-price-item {
+  transition: 0.5s all;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+.hero-section .domain-prices .domain-price-item > div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border: inset 1px rgba(255, 255, 255, 0.062745098);
+  border-radius: 30px;
+  cursor: default;
+  background: #ffffff;
+  box-shadow: var(--shadow-mellow-blue);
+}
+.hero-section .services-items .service-item {
+  position: relative;
+  border: solid 1px rgba(255, 255, 255, 0.0705882353);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: var(--shadow-mellow-blue);
+}
+.hero-section .services-items .service-item a {
+  display: flex;
+}
+.hero-section .services-items .service-item a .item-inner {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}

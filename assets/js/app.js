@@ -5,13 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-header-theme]')
     );
 
-    if (!header || !sections.length) {
+    if (!header) {
         return;
     }
 
     let ticking = false;
     let currentTheme = '';
     const darkThemeOffset = 32;
+    const stickyOffset = 24;
 
     const getSectionAt = (position) => {
         for (let index = 0; index < sections.length; index += 1) {
@@ -31,6 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateHeaderTheme = () => {
+        header.classList.toggle(
+            'site-header--sticky',
+            window.scrollY > stickyOffset
+        );
+
+        if (!sections.length) {
+            ticking = false;
+            return;
+        }
+
         const headerHeight = header.offsetHeight;
         const activeSection = getSectionAt(headerHeight);
         let nextTheme = activeSection?.theme || '';
@@ -77,7 +88,22 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateHeaderTheme);
     };
 
-    requestUpdate();
+    const syncRestoredScrollPosition = () => {
+        // Scroll restoration may happen between load/pageshow and the next paint.
+        updateHeaderTheme();
+        requestAnimationFrame(() => {
+            updateHeaderTheme();
+            requestAnimationFrame(updateHeaderTheme);
+        });
+        window.setTimeout(updateHeaderTheme, 150);
+    };
+
+    syncRestoredScrollPosition();
+
+    window.addEventListener('load', syncRestoredScrollPosition, {
+        once: true
+    });
+    window.addEventListener('pageshow', syncRestoredScrollPosition);
 
     window.addEventListener('scroll', requestUpdate, {
         passive: true

@@ -98,6 +98,15 @@ function payam_get_section_config(): array {
 			],
 		],
 
+		'statistics_section' => [
+			'styles'  => [
+				'payam-section-feature',
+			],
+			'scripts' => [
+				'payam-bundle-feature',
+			],
+		],
+
 		'content_image_section' => [
 			'styles' => [
 				'payam-section-feature',
