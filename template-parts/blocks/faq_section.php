@@ -55,6 +55,7 @@ $ctaTarget = (string) ( $ctaLink['target'] ?? '' );
                 'title_tag'   => $sectionTitleTag,
                 'subtitle'    => $sectionSubtitle,
                 'title_class' => 'dark' === $sectionStyle ? 'text-white' : '',
+                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
         ] );
         ?>
 

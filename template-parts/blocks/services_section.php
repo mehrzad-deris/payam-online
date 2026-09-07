@@ -35,6 +35,7 @@ $serviceTabClass = str_replace( '_', '-', $serviceTabStyle );
                 'title_tag' => $sectionTitleTag,
                 'icon'      => $sectionIcon,
                 'subtitle'  => $sectionSubTitle,
+                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
         ] ) ?>
 
         <?php if ( is_array( $serviceTabs ) && ! empty( $serviceTabs ) ) : ?>

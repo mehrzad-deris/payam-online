@@ -80,6 +80,7 @@ $serverPins = [
                 'title_class'    => $sectionStyle === 'dark' ? 'text-white' : '',
                 'subtitle_class' => 'infrastructure-section__subtitle',
                 'class'          => 'relative z-1',
+                'show_shapes'    => (bool) get_sub_field( 'section_heading_shapes' ),
         ] );
         ?>
 

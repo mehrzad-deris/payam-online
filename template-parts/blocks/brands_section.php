@@ -60,6 +60,7 @@ $centerLogo2x = $centerLogo ? wp_get_attachment_image_url( $centerLogo, 'brand_l
 				'class'          => 'brands-heading',
 				'title_class'    => 'brands-title',
 				'subtitle_class' => 'brands-subtitle',
+				'show_shapes'    => (bool) get_sub_field( 'section_heading_shapes' ),
 			]
 		);
 		?>

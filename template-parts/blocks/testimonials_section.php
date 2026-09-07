@@ -41,6 +41,7 @@ $testimonials = array_values(
 				'title_tag'      => $sectionTitleTag,
 				'subtitle'       => $sectionSubtitle,
                 'title_class' => $sectionStyle === 'dark' ? 'text-white' : '',
+				'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
 			]
 		);
 		?>

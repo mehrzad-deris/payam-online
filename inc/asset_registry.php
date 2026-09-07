@@ -53,6 +53,13 @@ function payam_get_section_config(): array {
 	return [
 		'hero_section' => [],
 
+		'section_heading_section' => [],
+
+		'compare_section' => [
+			'styles' => [ 'payam-bundle-cards' ],
+			'scripts' => [ 'payam-bundle-cards' ],
+		],
+
 		'hero_section_on_page' => [
 			'styles'  => [
 				'payam-bundle-cards',
@@ -73,6 +80,15 @@ function payam_get_section_config(): array {
 			],
 			'scripts' => [
 				'payam-vendor-swiper',
+				'payam-bundle-cards',
+			],
+		],
+
+		'server_card_section' => [
+			'styles'  => [
+				'payam-bundle-cards',
+			],
+			'scripts' => [
 				'payam-bundle-cards',
 			],
 		],

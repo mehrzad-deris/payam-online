@@ -23,6 +23,7 @@ add_action( 'after_setup_theme', function () {
 require_once get_theme_file_path('/inc/asset_registry.php');
 require_once get_theme_file_path('/inc/image_resize.php');
 require_once get_theme_file_path('/inc/editor_shortcodes.php');
+require_once get_theme_file_path('/inc/whmcs_products.php');
 
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );
@@ -52,7 +53,11 @@ function icon( $name, $class = '' ) {
  * Flexible Content
  * */
 function theme_render_block( $layout ) {
-	$path = 'template-parts/blocks/' . $layout;
+	$layout_aliases = [
+		'hero_section_on_page' => 'server_card_section',
+	];
+	$template_layout = $layout_aliases[ $layout ] ?? $layout;
+	$path            = 'template-parts/blocks/' . $template_layout;
 
 	if ( locate_template( $path . '.php' ) ) {
 		get_template_part( $path );

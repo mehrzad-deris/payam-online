@@ -62,6 +62,7 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                 'title_tag'   => $sectionTitleTag,
                 'subtitle'    => $sectionSubtitle,
                 'title_class' => $sectionStyle === 'dark' ? 'text-white' : '',
+                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
         ] );
         ?>
 
@@ -88,7 +89,6 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                                             loading="lazy"
                                             decoding="async"
                                     >
-                                    <span class="shape"><?= icon( 'top-shape' ) ?></span>
                                 </span>
                                 <?php endif; ?>
 
@@ -98,9 +98,9 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                                         <time class="blog-date text-neutral-500" datetime="<?= esc_html( payamava_jalali_date( 'Y/m/d', get_post_datetime() ) ); ?>">
                                             <?= esc_html( payamava_jalali_date( 'Y.m.d', get_post_datetime() ) ); ?>
                                         </time>
-                                        <span class="read-more text-yellow-primary text-body-3 group-hover:text-secondry-700">
+                                        <span class="read-more text-yellow-primary text-body-3">
                                             <span>مطالعه بیشتر</span>
-                                            <span class="icon group-hover:rotate-45" aria-hidden="true"><?= icon( 'arrow-linear' ) ?></span>
+                                            <span class="icon" aria-hidden="true"><?= icon( 'arrow-linear-2', 'service-cta-icon w-0 h-5 group-hover:w-7 duration-300' ) ?></span>
                                         </span>
                                     </span>
                                 </span>

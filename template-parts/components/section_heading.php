@@ -12,6 +12,7 @@
  * - icon_class: Additional icon classes.
  * - title_class: Additional title classes.
  * - subtitle_class: Additional subtitle classes.
+ * - show_shapes: Whether to render the decorative side shapes.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -26,12 +27,14 @@ $args = wp_parse_args( $args ?? [], [
                 'icon_class'     => '',
                 'title_class'    => '',
                 'subtitle_class' => '',
+                'show_shapes'    => false,
         ] );
 
 $icon_id   = absint( $args['icon'] );
 $icon_alt  = (string) $args['icon_alt'];
 $title     = (string) $args['title'];
 $subtitle  = (string) $args['subtitle'];
+$show_shapes = (bool) $args['show_shapes'];
 $title_tag = strtolower( (string) $args['title_tag'] );
 
 if ( ! in_array( $title_tag, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], true ) ) {
@@ -42,7 +45,7 @@ if ( ! $icon_id && '' === $title && '' === $subtitle ) {
     return;
 }
 
-$wrapper_class = trim( 'section-heading flex flex-col items-center text-center lg:gap-4 gap-2 mb-10 ' . (string) $args['class'] );
+$wrapper_class = trim( 'section-heading relative flex flex-col items-center text-center lg:gap-4 gap-2 mb-10 ' . (string) $args['class'] );
 
 $icon_class = trim( 'w-8 h-8 object-contain ' . (string) $args['icon_class'] );
 
@@ -62,6 +65,11 @@ $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-ne
 ?>
 
 <div class="<?= esc_attr( $wrapper_class ); ?>">
+    <?php if ( $show_shapes ) : ?>
+        <span class="gradient-shape shape-right top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
+        <span class="gradient-shape shape-left top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
+    <?php endif; ?>
+
     <?php if ( $icon_id ) : ?>
         <div class="section-heading__icon">
             <?= wp_get_attachment_image( $icon_id, 'full', false, $icon_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  ?>

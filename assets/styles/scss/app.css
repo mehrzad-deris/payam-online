@@ -85,7 +85,7 @@
   border-color: var(--color-primary-600);
 }
 .cta-link.cta-btn-primary:hover .icon {
-  stroke: var(--color-primary-600);
+  fill: var(--color-primary-600);
 }
 .cta-link.cta-has-icon {
   padding: 7px 14px 7px 7px;
@@ -146,7 +146,7 @@
 }
 .gradient-shape.shape-right {
   left: 100%;
-  margin-left: 240px;
+  margin-left: 320px;
 }
 .gradient-shape.shape-right .rounded-shape {
   right: 100%;
@@ -154,12 +154,29 @@
 .gradient-shape.shape-left {
   right: 100%;
   transform: scaleX(-1);
-  margin-right: 240px;
+  margin-right: 320px;
 }
 .gradient-shape.shape-left .rounded-shape {
   right: 100%;
 }
 
+.section-heading-section {
+  padding-top: var(--section-heading-padding-top-mobile, var(--section-heading-padding-top, 0px));
+  padding-bottom: var(--section-heading-padding-bottom-mobile, var(--section-heading-padding-bottom, 0px));
+}
+.section-heading-section .gradient-shape.shape-right {
+  margin-left: -180px;
+}
+.section-heading-section .gradient-shape.shape-left {
+  margin-right: -180px;
+}
+
+@media (min-width: 1280px) {
+  .section-heading-section {
+    padding-top: var(--section-heading-padding-top, 0px);
+    padding-bottom: var(--section-heading-padding-bottom, 0px);
+  }
+}
 .banner-section {
   padding-top: var(--banner-padding-top-mobile, var(--banner-padding-top, 0px));
   padding-bottom: var(--banner-padding-bottom-mobile, var(--banner-padding-bottom, 0px));

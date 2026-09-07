@@ -66,6 +66,7 @@ $hasMedia = $aboutDesktop1x && ! empty( $aboutDesktop1x[0] );
 			'subtitle'    => $sectionSubtitle,
 			'title_class' => 'dark' === $sectionStyle ? 'text-white' : '',
 			'class'       => 'relative z-1',
+			'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
 		] );
 		?>
 

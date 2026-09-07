@@ -5,8 +5,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$sectionColor        = get_sub_field( 'section_color' ) ?: '#07041d';
-$sectionStyle        = (string) ( get_sub_field( 'section_style' ) ?: 'dark' );
+$sectionColor        = get_sub_field( 'section_color' ) ?: '';
+$sectionStyle        = (string) ( get_sub_field( 'section_style' ) ?: 'light' );
 $sectionIcon         = absint( get_sub_field( 'section_icon' ) );
 $sectionTitle        = (string) ( get_sub_field( 'section_title' ) ?: '' );
 $sectionTitleTag     = (string) ( get_sub_field( 'title_tag' ) ?: 'h2' );
@@ -15,7 +15,7 @@ $marginTopField      = get_sub_field( 'section_margin_top' );
 $marginBottomField   = get_sub_field( 'section_margin_bottom' );
 $logoRows            = get_sub_field( 'logo_image_list' );
 $transparentPixel    = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-$sectionStyles       = [ 'background-color: ' . ( sanitize_hex_color( $sectionColor ) ?: '#07041d' ) ];
+$sectionStyles       = [ 'background-color: ' . ( sanitize_hex_color( $sectionColor ) ?: '' ) ];
 $logos               = [];
 
 if ( is_numeric( $marginTopField ) ) {
@@ -55,6 +55,7 @@ if ( is_array( $logoRows ) ) {
 			'title_tag'   => $sectionTitleTag,
 			'subtitle'    => $sectionSubtitle,
 			'title_class' => 'dark' === $sectionStyle ? 'text-white' : '',
+			'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
 		] );
 		?>
 

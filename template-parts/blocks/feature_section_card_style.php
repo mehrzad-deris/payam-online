@@ -54,6 +54,7 @@ $extraItemsCount = is_array( $featureItems ) ? max( 0, count( $featureItems ) - 
 				'title'     => $sectionTitle,
 				'title_tag' => $sectionTitleTag,
 				'subtitle'  => $sectionSubtitle,
+				'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
 			]
 		);
 		?>

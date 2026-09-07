@@ -559,12 +559,12 @@
     a {
       &.primary-cta {
         background: var(--color-blue-primary);
-        stroke: var(--color-blue-primary);
+        fill: var(--color-blue-primary);
       }
 
       &.secondary-cta {
         background: var(--color-yellow-primary);
-        stroke: var(--color-yellow-primary);
+        fill: var(--color-yellow-primary);
       }
     }
   }
