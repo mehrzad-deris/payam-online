@@ -1,5 +1,124 @@
 @use 'compare';
 
+/* Server product filters */
+.server-filters {
+  display: grid;
+  grid-template-columns: repeat(var(--server-filter-mobile-count, 2), minmax(0, 1fr));
+  gap: 32px 16px;
+  margin-bottom: 22px;
+
+  .server-filter-field {
+    min-width: 0;
+
+    .server-filter-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--color-neutral-900);
+      font-size: var(--text-body-mobile-3);
+      line-height: var(--text-body-mobile-3--line-height);
+      font-weight: 500;
+    }
+
+    .server-filter-control {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      border-radius: var(--radius-2);
+      background: #fff;
+      box-shadow: var(--shadow-mellow-blue);
+
+      .server-filter-arrow {
+        position: absolute;
+        inset-inline-end: 24px;
+        width: 20px;
+        height: 20px;
+        fill: var(--color-neutral-900);
+        pointer-events: none;
+      }
+
+      .server-filter-icon {
+        position: absolute;
+        inset-inline-start: 16px;
+        z-index: 1;
+        display: block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: contain;
+        pointer-events: none;
+
+        &[hidden] { display: none; }
+      }
+
+      select {
+        width: 100%;
+        min-width: 0;
+        height: 100%;
+        appearance: none;
+        border: 0;
+        border-radius: inherit;
+        padding-block: 12px;
+        padding-inline-start: 24px;
+        padding-inline-end: 52px;
+        background: transparent;
+        color: var(--color-neutral-900);
+        font-family: inherit;
+        font-size: var(--text-body-3);
+        line-height: var(--text-body-3--line-height);
+        cursor: pointer;
+      }
+
+      &.has-icon {
+        select { padding-inline-start: 52px; }
+      }
+    }
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(var(--server-filter-count, 1), minmax(0, 1fr));
+    gap: 20px;
+
+    .server-filter-field {
+      display: flex;
+      min-height: 60px;
+      align-items: center;
+      border-radius: var(--radius-2);
+      padding-inline-start: 24px;
+      background: #fff;
+      box-shadow: var(--shadow-mellow-blue);
+
+      .server-filter-label {
+        flex: none;
+        margin: 0;
+        font-size: var(--text-body-3);
+        line-height: var(--text-body-3--line-height);
+      }
+
+      .server-filter-control {
+        flex: 1;
+        background: transparent;
+        box-shadow: none;
+
+        select {
+          padding-inline-start: 12px;
+          padding-inline-end: 52px;
+        }
+
+        &.has-icon {
+          select { padding-inline-start: 52px; }
+        }
+      }
+    }
+  }
+}
+
+.server-filter-empty {
+  padding: 48px 16px;
+  color: var(--color-neutral-500);
+  text-align: center;
+}
+
 /* Service Tab */
 .server-tabs {
   .server-tabs-list {

@@ -81,7 +81,7 @@ $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
         </picture>
 
         <span class="absolute right-0 left-0 top-0 bottom-0 flex flex-row items-center justify-center">
-            <span class="flex lg:justify-between flex-col lg:flex-row items-center ps-10 z-1 text-white p-10 lg:p-5 gap-10 w-full">
+            <span class="flex lg:justify-between flex-col lg:flex-row items-center ps-5 z-1 text-white p-5 lg:p-5 lg:ps-10 gap-10 w-full">
                 <?php if ( $bannerText ) : ?>
                     <span class="text-desktop-h5 text-center lg:text-start"><?= esc_html( $bannerText ) ?></span>
                 <?php endif; ?>

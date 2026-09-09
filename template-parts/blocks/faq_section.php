@@ -103,7 +103,7 @@ $ctaTarget = (string) ( $ctaLink['target'] ?? '' );
 
                             <?php if ( '' !== $ctaUrl ) : ?>
                                 <a
-                                        class="cta-link cta-btn-primary px-8! text-body-mobile-3! md:text-body-3!"
+                                        class="cta-link cta-btn-primary px-4! lg:px-8! text-body-mobile-3! md:text-body-3!"
                                         href="<?= esc_url( $ctaUrl ); ?>"
                                         <?= $ctaTarget ? 'target="' . esc_attr( $ctaTarget ) . '"' : ''; ?>
                                         <?= '_blank' === $ctaTarget ? 'rel="noopener noreferrer"' : ''; ?>

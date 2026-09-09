@@ -170,8 +170,9 @@
 }
 
 .gradient-shape {
+  --gradient-shape-gap: clamp(180px, 30vw, 380px);
   position: absolute;
-  width: 1000px;
+  width: max(1000px, 50vw);
   height: 99px;
   background: linear-gradient(180deg, rgba(59, 86, 255, 0.12) 0%, rgba(59, 86, 255, 0.03) 50%, rgba(35, 52, 153, 0) 77%);
 
@@ -179,12 +180,13 @@
   .rounded-shape {
     width: 102px;
     height: 99px;
+    max-width: none;
+    flex: none;
     position: absolute;
   }
 
   &.shape-right {
-    left: 100%;
-    margin-left: 320px;
+    left: calc(50% + var(--gradient-shape-gap));
 
     .rounded-shape {
       right: 100%;
@@ -192,9 +194,8 @@
   }
 
   &.shape-left {
-    right: 100%;
+    right: calc(50% + var(--gradient-shape-gap));
     transform: scaleX(-1);
-    margin-right: 320px;
 
     .rounded-shape {
       right: 100%;
@@ -205,23 +206,6 @@
 .section-heading-section {
   padding-top: var(--section-heading-padding-top-mobile, var(--section-heading-padding-top, 0px));
   padding-bottom: var(--section-heading-padding-bottom-mobile, var(--section-heading-padding-bottom, 0px));
-
-  .gradient-shape {
-    &.shape-right {
-      margin-left: -180px;
-    }
-
-    &.shape-left {
-      margin-right: -180px;
-    }
-  }
-}
-
-@media (min-width: 1280px) {
-  .section-heading-section {
-    padding-top: var(--section-heading-padding-top, 0px);
-    padding-bottom: var(--section-heading-padding-bottom, 0px);
-  }
 }
 
 .banner-section {
@@ -234,10 +218,18 @@
 }
 
 @media (min-width: 1280px) {
+  .section-heading-section {
+    padding-top: var(--section-heading-padding-top, 0px);
+    padding-bottom: var(--section-heading-padding-bottom, 0px);
+  }
+
   .banner-section {
     padding-top: var(--banner-padding-top, 0px);
     padding-bottom: var(--banner-padding-bottom, 0px);
   }
+}
+
+@media (min-width: 1280px) {
 }
 
 .seo-box-section {

@@ -8,6 +8,7 @@ defined( 'ABSPATH' ) || exit;
 $sectionColor    = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
 $sectionServices = get_sub_field( 'service_tab' );
+$sectionFilters  = get_sub_field( 'server_filters' );
 
 $getProductField = static function ( string $fieldName, int $postId ) {
     return function_exists( 'get_field' ) ? get_field( $fieldName, $postId ) : get_post_meta( $postId, $fieldName, true );
@@ -35,7 +36,60 @@ $normalizePrice = static function ( $prices ): array {
     return $validPrices[0];
 };
 
-$normalizeProduct = static function ( $productReference ) use ( $getProductField, $normalizePrice ): ?array {
+$normalizeFilterValue = static function ( $value ): string {
+    return sanitize_title( trim( (string) $value ) );
+};
+
+$sectionFilters = is_array( $sectionFilters ) ? array_slice( array_values( array_filter( array_map(
+    static function ( $filter ) use ( $normalizeFilterValue ): ?array {
+        if ( ! is_array( $filter ) ) {
+            return null;
+        }
+
+        $key     = sanitize_key( $filter['filter_key'] ?? '' );
+        $label   = trim( (string) ( $filter['filter_label'] ?? '' ) );
+        $options = is_array( $filter['filter_options'] ?? null ) ? $filter['filter_options'] : [];
+        $options = array_values( array_filter( array_map(
+            static function ( $option ) use ( $normalizeFilterValue ): ?array {
+                if ( ! is_array( $option ) ) {
+                    return null;
+                }
+
+                $label = trim( (string) ( $option['option_label'] ?? '' ) );
+                $value = $normalizeFilterValue( $option['option_value'] ?? '' );
+
+                if ( '' === $label || '' === $value ) {
+                    return null;
+                }
+
+                $iconField = $option['option_icon'] ?? 0;
+                $iconId    = absint( is_array( $iconField ) ? ( $iconField['ID'] ?? 0 ) : $iconField );
+
+                return [
+                    'label'    => $label,
+                    'value'    => $value,
+                    'icon_url' => $iconId ? (string) wp_get_attachment_image_url( $iconId, 'thumbnail' ) : '',
+                    'selected' => ! empty( $option['option_selected'] ),
+                ];
+            },
+            $options
+        ) ) );
+
+        if ( '' === $key || '' === $label || empty( $options ) ) {
+            return null;
+        }
+
+        return [
+            'key'         => $key,
+            'label'       => $label,
+            'placeholder' => trim( (string) ( $filter['filter_placeholder'] ?? '' ) ) ?: 'انتخاب نشده',
+            'options'     => $options,
+        ];
+    },
+    $sectionFilters
+) ) ), 0, 4 ) : [];
+
+$normalizeProduct = static function ( $productReference ) use ( $getProductField, $normalizePrice, $normalizeFilterValue ): ?array {
     $postId = absint( $productReference instanceof WP_Post ? $productReference->ID : $productReference );
 
     if ( ! $postId || 'whmcs_product' !== get_post_type( $postId ) || 'publish' !== get_post_status( $postId ) ) {
@@ -53,7 +107,59 @@ $normalizeProduct = static function ( $productReference ) use ( $getProductField
         );
     } ) ) : [];
     $features  = array_slice( $features, 0, 3 );
-    $price     = $normalizePrice( $getProductField( 'product_prices', $postId ) );
+    $prices    = $getProductField( 'product_prices', $postId );
+    $price     = $normalizePrice( $prices );
+    $filterRows = $getProductField( 'product_filter_values', $postId );
+    $filterValues = [];
+
+    if ( is_array( $filterRows ) ) {
+        foreach ( $filterRows as $filterRow ) {
+            if ( ! is_array( $filterRow ) ) {
+                continue;
+            }
+
+            $filterKey   = sanitize_key( $filterRow['filter_key'] ?? '' );
+            $filterValue = $normalizeFilterValue( $filterRow['filter_value'] ?? '' );
+
+            if ( '' !== $filterKey && '' !== $filterValue ) {
+                $filterValues[ $filterKey ][] = $filterValue;
+            }
+        }
+    }
+
+    $systemFilterValues = [
+        'whmcs_product_type' => $getProductField( 'whmcs_product_type', $postId ),
+        'whmcs_module'       => $getProductField( 'whmcs_module', $postId ),
+        'whmcs_pay_type'     => $getProductField( 'whmcs_pay_type', $postId ),
+    ];
+
+    foreach ( $systemFilterValues as $filterKey => $filterValue ) {
+        $filterValue = $normalizeFilterValue( $filterValue );
+
+        if ( '' !== $filterValue ) {
+            $filterValues[ $filterKey ][] = $filterValue;
+        }
+    }
+
+    if ( is_array( $prices ) ) {
+        foreach ( $prices as $productPrice ) {
+            $billingCycle = is_array( $productPrice ) ? $normalizeFilterValue( $productPrice['billing_cycle'] ?? '' ) : '';
+
+            if ( '' !== $billingCycle ) {
+                $filterValues['billing_cycle'][] = $billingCycle;
+            }
+        }
+    }
+
+    $categorySlugs = wp_get_post_terms( $postId, 'whmcs_product_category', [ 'fields' => 'slugs' ] );
+
+    if ( ! is_wp_error( $categorySlugs ) && ! empty( $categorySlugs ) ) {
+        $filterValues['product_category'] = array_map( $normalizeFilterValue, $categorySlugs );
+    }
+
+    foreach ( $filterValues as $filterKey => $values ) {
+        $filterValues[ $filterKey ] = array_values( array_unique( array_filter( $values ) ) );
+    }
 
     // Temporary fallbacks keep products entered with the first schema usable.
     $amount = array_key_exists( 'price_amount', $price )
@@ -74,6 +180,7 @@ $normalizeProduct = static function ( $productReference ) use ( $getProductField
         'amount'   => $amount,
         'period'   => $period,
         'features' => $features,
+        'filters'  => $filterValues,
         'url'      => (string) ( $link['url'] ?? '' ),
         'target'   => (string) ( $link['target'] ?? '' ),
     ];
@@ -98,11 +205,46 @@ $sectionServices = is_array( $sectionServices ) ? array_values( array_filter( ar
 
 $tabsId               = wp_unique_id( 'server-tabs-' );
 $hasMultipleTabs      = count( $sectionServices ) > 1;
+$filterCount          = count( $sectionFilters );
+$filterMobileColumns  = min( 2, max( 1, $filterCount ) );
 ?>
 
 <section class="server-card-section mb-32 relative" data-header-theme="<?= esc_attr( $sectionStyle ); ?>" <?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>>
-    <div class="container relative z-2 pb-16">
+    <div class="container relative z-2">
     <?php if ( ! empty( $sectionServices ) ) : ?>
+        <div class="server-product-browser" data-server-product-browser>
+            <?php if ( $filterCount ) : ?>
+                <form class="server-filters" data-server-filters aria-label="فیلتر محصولات" style="--server-filter-count: <?= esc_attr( $filterCount ); ?>; --server-filter-mobile-count: <?= esc_attr( $filterMobileColumns ); ?>;">
+                    <?php foreach ( $sectionFilters as $filter ) :
+                        $filterId      = wp_unique_id( 'server-filter-' );
+                        $selectedValue = '';
+                        $selectedIcon  = '';
+
+                        foreach ( $filter['options'] as $option ) {
+                            if ( $option['selected'] ) {
+                                $selectedValue = $option['value'];
+                                $selectedIcon  = $option['icon_url'];
+                                break;
+                            }
+                        }
+                        ?>
+                        <label class="server-filter-field" for="<?= esc_attr( $filterId ); ?>">
+                            <span class="server-filter-label"><?= esc_html( $filter['label'] ); ?>:</span>
+                            <span class="server-filter-control<?= $selectedIcon ? ' has-icon' : ''; ?>" data-server-filter-control>
+                                <img class="server-filter-icon" data-server-filter-icon<?= $selectedIcon ? ' src="' . esc_url( $selectedIcon ) . '"' : ''; ?> alt="" width="28" height="28"<?= $selectedIcon ? '' : ' hidden'; ?>>
+                                <select id="<?= esc_attr( $filterId ); ?>" name="<?= esc_attr( $filter['key'] ); ?>" data-server-filter-select>
+                                    <option value=""><?= esc_html( $filter['placeholder'] ); ?></option>
+                                    <?php foreach ( $filter['options'] as $option ) : ?>
+                                        <option value="<?= esc_attr( $option['value'] ); ?>"<?= $option['icon_url'] ? ' data-icon-src="' . esc_url( $option['icon_url'] ) . '"' : ''; ?><?= $selectedValue === $option['value'] ? ' selected' : ''; ?>><?= esc_html( $option['label'] ); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?= icon( 'arrow-down', 'server-filter-arrow' ); ?>
+                            </span>
+                        </label>
+                    <?php endforeach; ?>
+                </form>
+            <?php endif; ?>
+
         <div class="server-tabs mt-8"<?= $hasMultipleTabs ? ' data-tabs data-tabs-mobile="tabs"' : ''; ?>>
             <?php if ( $hasMultipleTabs ) : ?>
             <div class="server-tabs-list" role="tablist" aria-label="انتخاب موقعیت سرور">
@@ -127,7 +269,7 @@ $hasMultipleTabs      = count( $sectionServices ) > 1;
                     $panelServers = $serviceItem['products'];
                     ?>
                     <div class="server-tab-panel" id="<?= esc_attr( $panelId ); ?>" <?php if ( $hasMultipleTabs ) : ?>role="tabpanel" aria-labelledby="<?= esc_attr( $tabId ); ?>" tabindex="0"<?php endif; ?> <?= 0 !== $index ? 'hidden' : ''; ?>>
-                        <div class="server-list pt-10">
+                        <div class="server-list">
                             <?php foreach ( $panelServers as $serverItem ) :
                                 $serverId = absint( $serverItem['id'] ?? 0 );
                                 $serverTitle = trim( (string) ( $serverItem['title'] ?? '' ) );
@@ -137,7 +279,7 @@ $hasMultipleTabs      = count( $sectionServices ) > 1;
                                 $serverIconImageId = absint( $serverItem['icon_id'] ?? 0 );
                                 $titleId = wp_unique_id( 'server-card-title-' );
                                 ?>
-                                <article class="server-card-item" aria-labelledby="<?= esc_attr( $titleId ); ?>" <?php if ( $serverId ) : ?>data-server-id="<?= esc_attr( $serverId ); ?>"<?php endif; ?>>
+                                <article class="server-card-item" aria-labelledby="<?= esc_attr( $titleId ); ?>" data-server-filter-values="<?= esc_attr( wp_json_encode( $serverItem['filters'], JSON_UNESCAPED_UNICODE ) ); ?>" <?php if ( $serverId ) : ?>data-server-id="<?= esc_attr( $serverId ); ?>"<?php endif; ?>>
                                     <?php if ( '' !== $serverUrl ) : ?>
                                         <a href="<?= esc_url( $serverUrl ); ?>" class="server-card-overlay" aria-label="<?= esc_attr( 'مشاهده و خرید ' . $serverTitle ); ?>"<?= $serverTarget ? ' target="' . esc_attr( $serverTarget ) . '"' : ''; ?><?= '_blank' === $serverTarget ? ' rel="noopener noreferrer"' : ''; ?>></a>
                                     <?php endif; ?>
@@ -249,9 +391,11 @@ $hasMultipleTabs      = count( $sectionServices ) > 1;
                             <?php endforeach; ?>
 
                         </div>
+                        <p class="server-filter-empty" data-server-filter-empty hidden>محصولی با این مشخصات پیدا نشد.</p>
                     </div>
                 <?php endforeach; ?>
             </div>
+        </div>
         </div>
     <?php endif; ?>
     </div>
