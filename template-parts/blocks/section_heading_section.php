@@ -12,6 +12,7 @@ $sectionTitle             = (string) ( get_sub_field( 'section_title' ) ?: '' );
 $sectionTitleTag          = (string) ( get_sub_field( 'title_tag' ) ?: 'h2' );
 $sectionSubtitle          = (string) ( get_sub_field( 'section_subtitle' ) ?: '' );
 $showShapes               = (bool) get_sub_field( 'section_heading_shapes' );
+$showCenterGradient       = (bool) get_sub_field( 'section_heading_center_gradient' );
 $paddingTopValue          = get_sub_field( 'padding_top' );
 $paddingTopMobileValue    = get_sub_field( 'padding_top_mobile' );
 $paddingBottomValue       = get_sub_field( 'padding_bottom' );
@@ -44,7 +45,7 @@ if ( is_numeric( $paddingBottomMobileValue ) ) {
 ?>
 
 <section
-	class="section-heading-section section-heading-section-<?= esc_attr( $sectionStyle ); ?> overflow-hidden"
+	class="section-heading-section section-heading-section-<?= esc_attr( $sectionStyle ); ?><?= $showCenterGradient ? ' section-heading-section-center-gradient' : ''; ?> overflow-hidden"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
 	<?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >

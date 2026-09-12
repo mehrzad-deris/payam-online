@@ -51,14 +51,21 @@ function payam_get_section_slug( string $layout ): string {
  */
 function payam_get_section_config(): array {
 	return [
-		'hero_section' => [],
+		// Legacy layout name: keep existing page-builder rows and load the renamed section assets.
+		'hero_section' => [
+			'styles'  => [
+				'payam-section-domain-check',
+			],
+			'scripts' => [
+				'payam-section-domain-check',
+			],
+		],
+
+		'domain_check_section' => [],
 
 		'section_heading_section' => [],
 
-		'compare_section' => [
-			'styles' => [ 'payam-bundle-cards' ],
-			'scripts' => [ 'payam-bundle-cards' ],
-		],
+		'compare_section' => [],
 
 		'hero_section_on_page' => [
 			'styles'  => [

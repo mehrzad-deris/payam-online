@@ -59,7 +59,7 @@ if ( '' !== $icon_alt ) {
     $icon_attributes['alt'] = $icon_alt;
 }
 
-$title_class = trim( 'text-mobile-h3 md:text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
+$title_class = trim( 'whitespace-pre-line text-mobile-h3 md:text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
 
 $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-neutral-500 ' . (string) $args['subtitle_class'] );
 ?>
@@ -77,9 +77,7 @@ $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-ne
     <?php endif; ?>
 
     <?php if ( '' !== $title ) : ?>
-    <<?= esc_attr( $title_tag ); ?> class="section-heading__title <?= esc_attr( $title_class ); ?>">
-    <?= esc_html( $title ); ?>
-</<?= esc_attr( $title_tag ); ?>>
+    <<?= esc_attr( $title_tag ); ?> class="section-heading__title <?= esc_attr( $title_class ); ?>"><?= esc_html( $title ); ?></<?= esc_attr( $title_tag ); ?>>
 <?php endif; ?>
 
 <?php if ( '' !== $subtitle ) : ?>

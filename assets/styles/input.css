@@ -77,6 +77,10 @@ input:focus {
     --color-description: #8585A5;
     --color-description-light: #9595B1;
 
+    --color-state-info-500: #00AEAE;
+
+    --color-state-error-500: #FF3B3B;
+
 
 
     /* Typography */

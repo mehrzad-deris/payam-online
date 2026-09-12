@@ -54,6 +54,7 @@ function icon( $name, $class = '' ) {
  * */
 function theme_render_block( $layout ) {
 	$layout_aliases = [
+		'hero_section'         => 'domain_check_section',
 		'hero_section_on_page' => 'server_card_section',
 	];
 	$template_layout = $layout_aliases[ $layout ] ?? $layout;

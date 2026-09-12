@@ -170,7 +170,7 @@
 }
 
 .gradient-shape {
-  --gradient-shape-gap: clamp(180px, 30vw, 380px);
+  --gradient-shape-gap: clamp(180px, 30vw, 390px);
   position: absolute;
   width: max(1000px, 50vw);
   height: 99px;
@@ -204,8 +204,29 @@
 }
 
 .section-heading-section {
+  position: relative;
   padding-top: var(--section-heading-padding-top-mobile, var(--section-heading-padding-top, 0px));
   padding-bottom: var(--section-heading-padding-bottom-mobile, var(--section-heading-padding-bottom, 0px));
+
+  &.section-heading-section-center-gradient {
+    .section-heading__title {
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        width: 846px;
+        height: 387px;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(24, 68, 218, 0.1) 0%, rgba(24, 68, 218, 0) 100%);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+    }
+  }
 }
 
 .banner-section {

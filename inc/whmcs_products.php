@@ -67,9 +67,105 @@ function payam_register_whmcs_product_post_type(): void {
 	] );
 }
 
+/**
+ * Registers the local TLD catalogue synchronized from WHMCS GetTLDPricing.
+ */
+function payam_register_whmcs_domain_tld_post_type(): void {
+	register_post_type( 'whmcs_domain_tld', [
+		'labels' => [
+			'name'               => 'دامنه‌های WHMCS',
+			'singular_name'      => 'دامنه WHMCS',
+			'menu_name'          => 'دامنه‌های WHMCS',
+			'add_new'            => 'افزودن دامنه',
+			'add_new_item'       => 'افزودن دامنه WHMCS',
+			'edit_item'          => 'ویرایش دامنه WHMCS',
+			'new_item'           => 'دامنه جدید WHMCS',
+			'view_item'          => 'مشاهده دامنه WHMCS',
+			'search_items'       => 'جستجوی دامنه‌ها',
+			'not_found'          => 'دامنه‌ای پیدا نشد.',
+			'not_found_in_trash' => 'دامنه‌ای در زباله‌دان پیدا نشد.',
+		],
+		'public'              => false,
+		'publicly_queryable'  => false,
+		'exclude_from_search' => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_rest'        => false,
+		'has_archive'         => false,
+		'rewrite'             => false,
+		'query_var'           => false,
+		'menu_icon'           => 'dashicons-admin-site-alt3',
+		'supports'            => [ 'title' ],
+	] );
+}
+
+/**
+ * Normalizes one local TLD record for frontend cards.
+ */
+function payam_get_whmcs_domain_tld_data( int $post_id ): array {
+	if ( 'whmcs_domain_tld' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		return [];
+	}
+
+	$get_value = static function ( string $field ) use ( $post_id ) {
+		if ( function_exists( 'get_field' ) ) {
+			return get_field( $field, $post_id );
+		}
+
+		return get_post_meta( $post_id, $field, true );
+	};
+
+	$extension = trim( (string) $get_value( 'whmcs_extension' ) );
+	$extension = ltrim( $extension ?: get_the_title( $post_id ), '.' );
+
+	if ( '' === $extension ) {
+		return [];
+	}
+
+	$register_price = $get_value( 'whmcs_register_price' );
+	$regular_price  = $get_value( 'domain_regular_price' );
+	$discount       = absint( $get_value( 'domain_discount_percent' ) );
+	$currency       = strtoupper( trim( (string) $get_value( 'whmcs_currency' ) ) );
+	$price_suffix   = trim( (string) $get_value( 'domain_price_suffix' ) );
+	$order_link     = $get_value( 'domain_order_link' );
+
+	if ( ! $discount && is_numeric( $regular_price ) && is_numeric( $register_price ) && (float) $regular_price > (float) $register_price ) {
+		$discount = (int) round( ( ( (float) $regular_price - (float) $register_price ) / (float) $regular_price ) * 100 );
+	}
+
+	if ( '' === $price_suffix ) {
+		$price_suffix = match ( $currency ) {
+			'IRT', 'TMN' => 'تومان/سالانه',
+			'IRR'        => 'ریال/سالانه',
+			'USD'        => 'دلار/سالانه',
+			default      => $currency ? $currency . '/سالانه' : 'سالانه',
+		};
+	}
+
+	if ( is_string( $order_link ) && '' !== trim( $order_link ) ) {
+		$order_link = [
+			'url'    => $order_link,
+			'title'  => 'مشاهده و خرید',
+			'target' => '',
+		];
+	}
+
+	return [
+		'id'               => $post_id,
+		'extension'        => sanitize_text_field( $extension ),
+		'register_price'   => is_numeric( $register_price ) ? (float) $register_price : '',
+		'regular_price'    => is_numeric( $regular_price ) ? (float) $regular_price : '',
+		'discount_percent' => min( 100, $discount ),
+		'price_suffix'     => $price_suffix,
+		'group'            => sanitize_key( (string) $get_value( 'whmcs_group' ) ),
+		'order_link'       => is_array( $order_link ) ? $order_link : [],
+	];
+}
+
 function payam_register_whmcs_catalogue(): void {
 	payam_register_whmcs_product_post_type();
 	payam_register_whmcs_product_taxonomy();
+	payam_register_whmcs_domain_tld_post_type();
 }
 
 add_action( 'init', 'payam_register_whmcs_catalogue' );

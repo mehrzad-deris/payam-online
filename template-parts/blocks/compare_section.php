@@ -32,7 +32,7 @@ $renderValue = static function ( $value ): void {
 	if ( in_array( $type, [ 'yes', 'no' ], true ) ) {
 		$yes = 'yes' === $type;
 		?>
-		<span class="compare-status <?= $yes ? 'compare-yes' : 'compare-no'; ?>" role="img" aria-label="<?= $yes ? 'دارد' : 'ندارد'; ?>"><?= $yes ? '✓' : '×'; ?></span>
+		<span class="compare-status <?= $yes ? 'compare-yes' : 'compare-no'; ?>" role="img" aria-label="<?= $yes ? 'دارد' : 'ندارد'; ?>"><?= icon( $yes ? 'check' : 'uncheck', 'compare-status-icon' ); ?></span>
 		<?php
 	} else {
 		echo esc_html( (string) ( $value['feature_value'] ?? '—' ) );
@@ -47,12 +47,17 @@ $renderValue = static function ( $value ): void {
 				$title = (string) $plan['plan_title'];
 				$style = in_array( $plan['plan_style'] ?? '', [ 'plain', 'soft', 'featured', 'dark' ], true ) ? $plan['plan_style'] : 'plain';
 				$link = is_array( $plan['plan_link'] ?? null ) ? $plan['plan_link'] : [];
+				$price = trim( (string) ( $plan['plan_price'] ?? '' ) );
+				$price = is_numeric( $price ) ? number_format_i18n( (float) $price ) : $price;
 				?>
 				<article class="compare-plan compare-plan-<?= esc_attr( $style ); ?>" data-compare-plan>
 					<header class="compare-plan-header">
 						<h3 data-compare-title><?= esc_html( $title ); ?></h3>
 						<?php if ( $rows ) : ?>
-							<button type="button" class="compare-more" data-compare-open aria-haspopup="dialog" aria-controls="<?= esc_attr( $modalId ); ?>">مشاهده همه ویژگی‌ها <span aria-hidden="true">‹</span></button>
+							<button type="button" class="compare-more" data-compare-open aria-haspopup="dialog" aria-controls="<?= esc_attr( $modalId ); ?>">
+								<span>مشاهده همه ویژگی‌ها</span>
+								<?= icon( 'arrow-linear-2', 'compare-more-icon' ); ?>
+							</button>
 						<?php endif; ?>
 					</header>
 					<p class="compare-description"><?= esc_html( (string) ( $plan['plan_description'] ?? '' ) ); ?></p>
@@ -63,7 +68,7 @@ $renderValue = static function ( $value ): void {
 					</dl>
 					<div class="compare-price" data-compare-price>
 						<span class="compare-price-label">قیمت:</span>
-						<span><strong><?= esc_html( (string) ( $plan['plan_price'] ?? '' ) ); ?></strong> <small><?= esc_html( (string) ( $plan['plan_period'] ?? '' ) ); ?></small></span>
+						<span><strong><?= esc_html( $price ); ?></strong> <small><?= esc_html( (string) ( $plan['plan_period'] ?? '' ) ); ?></small></span>
 					</div>
 					<?php if ( ! empty( $link['url'] ) ) : ?>
 						<a class="compare-order" data-compare-order href="<?= esc_url( $link['url'] ); ?>"<?php if ( '_blank' === ( $link['target'] ?? '' ) ) : ?> target="_blank" rel="noopener noreferrer"<?php endif; ?>><?= esc_html( ( $link['title'] ?? '' ) ?: 'ثبت سفارش' ); ?></a>
@@ -76,13 +81,16 @@ $renderValue = static function ( $value ): void {
 				</article>
 			<?php endforeach; ?>
 			<div class="compare-table-wrap">
-				<table class="compare-table">
-					<caption class="screen-reader-text">مقایسه ویژگی‌های پلن‌ها</caption>
-					<thead class="screen-reader-text"><tr><th scope="col">ویژگی</th><?php foreach ( $plans as $plan ) : ?><th scope="col"><?= esc_html( $plan['plan_title'] ); ?></th><?php endforeach; ?></tr></thead>
+				<table class="compare-table" aria-label="مقایسه ویژگی‌های پلن‌ها">
 					<tbody>
 						<?php foreach ( $rows as $row ) : ?>
 							<tr><th scope="row"><?= esc_html( $row['feature_label'] ); ?></th>
-								<?php foreach ( $plans as $index => $plan ) : ?><td><?php $renderValue( $row['feature_values'][ $index ] ?? [] ); ?></td><?php endforeach; ?>
+								<?php foreach ( $plans as $index => $plan ) : ?>
+									<td>
+										<span class="compare-cell-label"><?= esc_html( (string) $plan['plan_title'] ); ?>: </span>
+										<?php $renderValue( $row['feature_values'][ $index ] ?? [] ); ?>
+									</td>
+								<?php endforeach; ?>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -94,7 +102,7 @@ $renderValue = static function ( $value ): void {
 		<div class="compare-modal-content">
 			<header class="compare-modal-header">
 				<h3 id="<?= esc_attr( $modalId ); ?>-title" data-compare-modal-title></h3>
-				<button type="button" class="compare-close" data-compare-close aria-label="بستن" autofocus><?= icon( 'close' ); ?></button>
+				<button type="button" class="compare-close" data-compare-close aria-label="بستن" autofocus><?= icon( 'close', 'compare-close-icon' ); ?></button>
 			</header>
 			<dl class="compare-modal-features" data-compare-modal-features tabindex="0"></dl>
 			<div data-compare-modal-footer></div>
