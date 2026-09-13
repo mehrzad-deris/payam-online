@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
 $sectionColor       = sanitize_hex_color( (string) get_sub_field( 'section_color' ) );
 $sectionStyle       = 'dark' === get_sub_field( 'section_style' ) ? 'dark' : 'light';
 $domainCheckStyle   = 'style_2' === get_sub_field( 'domain_check_style' ) ? 'style_2' : 'style_1';
-$sectionServices    = get_sub_field( 'services' );
 $sectionStyles      = [];
 $searchPlaceholder = trim( (string) get_sub_field( 'domain_search_placeholder' ) ) ?: 'دامنه موردنظر خود را وارد کنید ...';
 $searchButtonText  = trim( (string) get_sub_field( 'domain_search_button_text' ) ) ?: 'جستجو';
@@ -190,33 +189,6 @@ $domainPrices = array_map(
 				</div>
 			</div>
 
-			<?php if ( is_array( $sectionServices ) && $sectionServices ) : ?>
-				<div class="services-items grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-18">
-					<?php foreach ( $sectionServices as $service ) :
-						$title    = $service['title'] ?? '';
-						$subtitle = $service['subtitle'] ?? '';
-						$price    = $service['price'] ?? '';
-						$icon     = $service['icon'] ?? '';
-						$link     = $service['link'] ?? '';
-						?>
-						<div class="service-item group">
-							<a href="<?= esc_url( $link ?: '#' ); ?>" class="inner">
-								<span class="item-inner flex-row md:flex-col p-5 pb-7 text-neutral-500">
-									<span class="service-heading flex items-center gap-2">
-										<?php if ( $icon ) : ?><span class="service-icon"><img src="<?= esc_url( $icon ); ?>" alt="" loading="lazy" decoding="async"></span><?php endif; ?>
-										<?php if ( $title ) : ?><span class="service-title text-desktop-h5 text-neutral-900"><?= esc_html( $title ); ?></span><?php endif; ?>
-									</span>
-									<?php if ( $price ) : ?><span class="service-price flex items-center gap-1"><span class="service-price-label text-caption">شروع قیمت از:</span><span class="service-price-value text-desktop-h5 text-neutral-900"><?= esc_html( number_format( (float) $price ) ); ?></span></span><?php endif; ?>
-									<?php if ( $subtitle ) : ?><span class="service-subtitle"><span class="text-caption-mobile"><?= esc_html( $subtitle ); ?></span></span><?php endif; ?>
-									<span class="service-cta cta-link cta-btn-primary cta-opacity-style border-transparent! fill-transparent group-hover:fill-white group-hover:bg-primary-500! group-hover:text-white! text-body-3 gap-0!">
-										<span class="service-cta-text">مشاهده و خرید</span><span class="service-cta-text-mobile ml-2">خرید</span><?= icon( 'arrow-linear-2', 'service-cta-icon w-0 h-5 group-hover:w-7 duration-300' ); ?>
-									</span>
-								</span>
-							</a>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 </section>

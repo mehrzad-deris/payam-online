@@ -66,6 +66,7 @@ function payam_get_section_config(): array {
 		'section_heading_section' => [],
 
 		'compare_section' => [],
+		'contact_section' => [],
 
 		'hero_section_on_page' => [
 			'styles'  => [
@@ -92,6 +93,15 @@ function payam_get_section_config(): array {
 		],
 
 		'server_card_section' => [
+			'styles'  => [
+				'payam-bundle-cards',
+			],
+			'scripts' => [
+				'payam-bundle-cards',
+			],
+		],
+
+		'ssl_products_section' => [
 			'styles'  => [
 				'payam-bundle-cards',
 			],
@@ -136,21 +146,6 @@ function payam_get_section_config(): array {
 			],
 		],
 
-		'infrastructure_section' => [
-			'styles'  => [
-				'payam-section-feature',
-			],
-			'scripts' => [
-				'payam-bundle-feature',
-			],
-		],
-
-		'about_section' => [
-			'styles'  => [
-				'payam-section-feature',
-			],
-		],
-
 		'brands_section' => [
 			'styles'  => [
 				'payam-section-feature',
@@ -176,6 +171,12 @@ function payam_get_section_config(): array {
 				'payam-bundle-cards',
 			],
 			'scripts' => [
+				'payam-bundle-cards',
+			],
+		],
+
+		'services_card_section' => [
+			'styles' => [
 				'payam-bundle-cards',
 			],
 		],
@@ -335,7 +336,12 @@ function payam_get_current_page_layouts(): array {
 		return [];
 	}
 
-	$sections = get_field( PAYAM_PAGE_BUILDER_FIELD, $post_id );
+	if ( is_singular( 'post' ) ) {
+		$source = payam_article_builder_source( $post_id );
+		$sections = get_field( $source['field'], $source['post_id'] );
+	} else {
+		$sections = get_field( PAYAM_PAGE_BUILDER_FIELD, $post_id );
+	}
 
 	if ( ! is_array( $sections ) ) {
 		return [];

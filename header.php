@@ -11,11 +11,11 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="site-header fixed z-20 w-full">
+<header class="site-header fixed z-20 w-full site-header--light">
     <div class="container">
         <div class="header-inner py-5 relative flex lg:justify-between justify-end-safe items-center gap-3">
             <div class="lg:min-w-70 order-2 lg:order-0 flex-none">
-                <a href="<?= esc_url( home_url() ) ?>" class="relative flex h-10 shrink-0 overflow-hidden lg:w-auto w-9.25">
+                <a href="<?= esc_url( home_url() ) ?>" class="relative flex h-10 shrink-0 overflow-hidden lg:w-[119px] w-9.25">
                     <img class="logo-dark absolute inset-y-0 right-0 h-10 w-29.75 max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
                     <img class="logo-light absolute inset-y-0 right-0 h-10 w-29.75 max-w-none object-cover object-right" src="<?= get_template_directory_uri() ?>/assets/images/payamonline-colored.svg" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
                 </a>

@@ -9,12 +9,6 @@ add_action( 'after_setup_theme', function () {
 	add_image_size( 'tab_image_style_2', 561, 0, false );
 	add_image_size( 'tab_image_style_2_2x', 1122, 0, false ); // x2
 
-	/* About Us Section */
-	add_image_size( 'about_image_section', 1280, 400, true );
-	add_image_size( 'about_image_section_2x', 2560, 800, true ); // x2
-	add_image_size( 'about_image_section_mobile', 358, 358, true ); // mobile
-	add_image_size( 'about_image_section_mobile_2x', 716, 716, true ); // mobile x2
-
 	/* Brand Section Section */
 	add_image_size( 'brand_logo_center', 64, 64 );
 	add_image_size( 'brand_logo_center_x2', 128, 128 ); // x2
@@ -28,6 +22,13 @@ add_action( 'after_setup_theme', function () {
 	/* Blog Section */
 	add_image_size( 'blog_card', 389, 218, true );
 	add_image_size( 'blog_card_x2', 778, 436, true ); // x2
+	add_image_size( 'single_article', 630, 354, true );
+	add_image_size( 'single_article_x2', 1260, 708, true ); // x2
+	add_image_size( 'article_sidebar', 80, 80, true );
+	add_image_size( 'article_sidebar_2', 160, 160, true );
+	/* Article Aside Thumbnail */
+	add_image_size( 'article_sidebar', 80, 80, true);
+	add_image_size( 'article_sidebar_2', 160, 160, true);
 
 	/* Banner Section */
 	add_image_size( 'banner_desktop', 1144, 591, true );
@@ -46,6 +47,7 @@ add_action( 'after_setup_theme', function () {
 	/* OS Logo Image */
 	add_image_size( 'os_logo_image', 96, 0, false);
 	add_image_size( 'os_logo_image_2', 192, 0, false);
+
 });
 
 /**

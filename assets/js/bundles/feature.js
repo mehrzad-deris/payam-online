@@ -137,7 +137,6 @@ document.querySelectorAll('[data-brands-section]').forEach(initBrands);
 document.querySelectorAll('[data-feature-module]').forEach((section) => {
     let isActivated = false;
     let canHydrateImages = false;
-    const pinStage = section.querySelector('.infrastructure-section__map');
 
     const activate = () => {
         if (isActivated) {
@@ -205,26 +204,8 @@ document.querySelectorAll('[data-feature-module]').forEach((section) => {
         }
     );
 
-    const pinObserver = pinStage
-        ? new IntersectionObserver(
-              ([entry]) => {
-                  if (!entry.isIntersecting) {
-                      return;
-                  }
-
-                  section.classList.add('is-pins-visible');
-                  pinObserver.disconnect();
-              },
-              {
-                  rootMargin: '0px',
-                  threshold: 0.6,
-              }
-          )
-        : null;
-
     imageObserver.observe(section);
     counterObserver.observe(section);
-    pinObserver?.observe(pinStage);
 
     featureDesktopQuery.addEventListener('change', () => {
         if (canHydrateImages || isActivated) {

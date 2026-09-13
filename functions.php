@@ -6,6 +6,7 @@ function theme_setup() {
 
 	register_nav_menus( [
 		'main_menu' => 'فهرست سربرگ',
+		'article_useful_links' => 'مقاله — لینک‌های مفید',
 	] );
 }
 
@@ -24,6 +25,9 @@ require_once get_theme_file_path('/inc/asset_registry.php');
 require_once get_theme_file_path('/inc/image_resize.php');
 require_once get_theme_file_path('/inc/editor_shortcodes.php');
 require_once get_theme_file_path('/inc/whmcs_products.php');
+require_once get_theme_file_path('/inc/blog_archive.php');
+require_once get_theme_file_path('/inc/single_post.php');
+require_once get_theme_file_path('/inc/contact_forms.php');
 
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );

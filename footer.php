@@ -120,7 +120,7 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
     <div class="container relative z-10 flex flex-col items-center mb-5 ">
         <div class="mt-[136px] w-full  xl:mt-24 flex xl:flex-row flex-col gap-4 xl:gap-12" data-footer-accordion>
             <section class="overflow-hidden rounded-xl flex-none bg-white/[0.03] backdrop-blur-[22px] xl:overflow-visible xl:rounded-none xl:bg-transparent xl:backdrop-blur-none" data-footer-item>
-                <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-[#575775]" type="button" aria-expanded="false" aria-controls="footer-contact" data-footer-toggle>
+                <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-neutral-200" type="button" aria-expanded="false" aria-controls="footer-contact" data-footer-toggle>
                     <span>اطلاعات تماس</span>
                     <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'arrow-down', 'size-5 fill-white' ); ?></span>
                 </button>
@@ -167,7 +167,7 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
                     }
                     ?>
                     <section class="overflow-hidden rounded-xl bg-white/[0.03] backdrop-blur-[22px] xl:overflow-visible xl:rounded-none xl:bg-transparent xl:backdrop-blur-none" data-footer-item>
-                        <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-[#575775]" type="button" aria-expanded="false" aria-controls="<?= esc_attr( $panelId ); ?>" data-footer-toggle>
+                        <button class="flex h-16 w-full items-center justify-between px-5 text-right text-lg font-medium xl:pointer-events-none xl:h-auto xl:px-0 xl:text-base xl:text-neutral-200" type="button" aria-expanded="false" aria-controls="<?= esc_attr( $panelId ); ?>" data-footer-toggle>
                             <span><?= esc_html( $menuName ); ?></span>
                             <span class="size-5 transition-transform duration-200 xl:hidden" aria-hidden="true" data-footer-arrow><?= icon( 'arrow-down', 'size-5 fill-white' ); ?></span>
                         </button>

@@ -162,6 +162,70 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 	];
 }
 
+/**
+ * Normalizes a local WHMCS product for frontend product cards.
+ *
+ * @param int $post_id       Product post ID.
+ * @param int $feature_limit Maximum visible features; zero keeps all.
+ */
+function payam_get_whmcs_product_card_data( int $post_id, int $feature_limit = 0 ): array {
+	if ( 'whmcs_product' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		return [];
+	}
+
+	$get_value = static function ( string $field ) use ( $post_id ) {
+		return function_exists( 'get_field' )
+			? get_field( $field, $post_id )
+			: get_post_meta( $post_id, $field, true );
+	};
+
+	$prices = $get_value( 'product_prices' );
+	$prices = is_array( $prices ) ? array_values( array_filter( $prices, static function ( $price ): bool {
+		return is_array( $price ) && ( isset( $price['price_amount'] ) || ! empty( $price['price_suffix'] ) );
+	} ) ) : [];
+	$price  = [];
+
+	foreach ( $prices as $candidate ) {
+		if ( ! empty( $candidate['is_primary_price'] ) ) {
+			$price = $candidate;
+			break;
+		}
+	}
+
+	if ( empty( $price ) && ! empty( $prices ) ) {
+		$price = $prices[0];
+	}
+
+	$features = $get_value( 'product_features' );
+	$features = is_array( $features ) ? array_values( array_filter( $features, static function ( $feature ): bool {
+		return is_array( $feature )
+			&& ( ! array_key_exists( 'feature_show_on_card', $feature ) || ! empty( $feature['feature_show_on_card'] ) )
+			&& ( '' !== trim( (string) ( $feature['feature_label'] ?? '' ) ) || '' !== trim( (string) ( $feature['feature_value'] ?? '' ) ) );
+	} ) ) : [];
+
+	if ( $feature_limit > 0 ) {
+		$features = array_slice( $features, 0, $feature_limit );
+	}
+
+	$icon_field = $get_value( 'product_card_icon' );
+	$icon_id    = absint( is_array( $icon_field ) ? ( $icon_field['ID'] ?? 0 ) : $icon_field );
+	$link_field = $get_value( 'product_order_link' );
+	$link       = is_array( $link_field ) ? $link_field : [];
+
+	return [
+		'id'       => $post_id,
+		'title'    => get_the_title( $post_id ),
+		'desc'     => trim( (string) $get_value( 'product_short_description' ) ),
+		'icon_id'  => $icon_id,
+		'features' => $features,
+		'amount'   => isset( $price['price_amount'] ) && is_numeric( $price['price_amount'] ) ? max( 0, (float) $price['price_amount'] ) : 0,
+		'period'   => trim( (string) ( $price['price_suffix'] ?? '' ) ),
+		'currency' => strtoupper( trim( (string) ( $price['currency_code'] ?? '' ) ) ),
+		'url'      => trim( (string) ( $link['url'] ?? '' ) ),
+		'target'   => trim( (string) ( $link['target'] ?? '' ) ),
+	];
+}
+
 function payam_register_whmcs_catalogue(): void {
 	payam_register_whmcs_product_post_type();
 	payam_register_whmcs_product_taxonomy();

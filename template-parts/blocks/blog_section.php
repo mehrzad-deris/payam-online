@@ -70,43 +70,11 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
             <div class="swiper blog-slider" data-swiper="blog">
                 <div class="swiper-wrapper">
                     <?php foreach ( $blogPosts as $blogPost ) :
-                        $postId = $blogPost->ID;
-                        $thumbnailId = get_post_thumbnail_id( $postId );
-                        $thumbnail = $thumbnailId ? wp_get_attachment_image_url( $thumbnailId, 'blog_card' ) : false;
-                        $thumbnail2x = $thumbnailId ? wp_get_attachment_image_url( $thumbnailId, 'blog_card_x2' ) : false;
-                        $thumbnailAlt = $thumbnailId ? get_post_meta( $thumbnailId, '_wp_attachment_image_alt', true ) : '';
-                        ?>
-                        <article class="swiper-slide blog-card">
-                            <a class="blog-link group" href="<?= esc_url( get_permalink( $postId ) ); ?>">
-                                <?php if ( $thumbnail ) : ?>
-                                    <span class="blog-image">
-									<img
-                                            src="<?= esc_url( $thumbnail ); ?>"
-										<?= $thumbnail2x ? 'srcset="' . esc_url( $thumbnail ) . ' 1x, ' . esc_url( $thumbnail2x ) . ' 2x"' : ''; ?>
-										alt="<?= esc_attr( $thumbnailAlt ?: get_the_title( $postId ) ); ?>"
-                                            width="389"
-                                            height="218"
-                                            loading="lazy"
-                                            decoding="async"
-                                    >
-                                </span>
-                                <?php endif; ?>
-
-                                <span class="card-caption">
-                                    <span class="blog-title text-neutral-900 md:text-body-2 text-body-mobile-2"><?= esc_html( get_the_title( $postId ) ); ?></span>
-                                    <span class="flex justify-between items-center gap-2">
-                                        <time class="blog-date text-neutral-500" datetime="<?= esc_html( payamava_jalali_date( 'Y/m/d', get_post_datetime() ) ); ?>">
-                                            <?= esc_html( payamava_jalali_date( 'Y.m.d', get_post_datetime() ) ); ?>
-                                        </time>
-                                        <span class="read-more text-yellow-primary text-body-3">
-                                            <span>مطالعه بیشتر</span>
-                                            <span class="icon" aria-hidden="true"><?= icon( 'arrow-linear-2', 'service-cta-icon w-0 h-5 group-hover:w-7 duration-300' ) ?></span>
-                                        </span>
-                                    </span>
-                                </span>
-                            </a>
-                        </article>
-                    <?php endforeach; ?>
+	                    get_template_part( 'template-parts/components/blog_card', null, [
+		                    'post_id' => $blogPost->ID,
+		                    'class'   => 'swiper-slide',
+	                    ] );
+                    endforeach; ?>
                 </div>
 
                 <?php if ( count( $blogPosts ) > 1 ) : ?>
