@@ -10,6 +10,38 @@ defined( 'ABSPATH' ) || exit;
  */
 const PAYAM_PAGE_BUILDER_FIELD = 'page_builder';
 
+/** Resolve only this clone's namespace; never fall back to shared Options data. */
+function payam_options_builder_source( string $name ): array {
+	$field = function_exists( 'get_field_object' ) ? get_field_object( $name, 'option', false, false ) : false;
+	$group = is_array( $field ) && 'clone' === ( $field['type'] ?? '' ) && 'group' === ( $field['display'] ?? '' );
+	return [ 'field' => $group ? $name : $name . '_page_builder', 'post_id' => 'option', 'child' => $group ? 'page_builder' : '' ];
+}
+
+function payam_builder_sections( array $source ): array {
+	if ( ! function_exists( 'get_field' ) ) { return []; }
+	$rows = get_field( $source['field'], $source['post_id'] );
+	if ( ! empty( $source['child'] ) ) { $rows = is_array( $rows ) ? ( $rows[ $source['child'] ] ?? [] ) : []; }
+	return is_array( $rows ) ? $rows : [];
+}
+
+function payam_render_builder( array $source, string $wrapper_class = '' ): void {
+	if ( ! function_exists( 'have_rows' ) ) { return; }
+	$render = static function () use ( $wrapper_class ): void {
+		if ( $wrapper_class ) { echo '<div class="' . esc_attr( $wrapper_class ) . '">'; }
+		theme_render_block( get_row_layout() );
+		if ( $wrapper_class ) { echo '</div>'; }
+	};
+	while ( have_rows( $source['field'], $source['post_id'] ) ) {
+		the_row();
+		if ( ! empty( $source['child'] ) ) {
+			while ( have_rows( $source['child'] ) ) {
+				the_row();
+				$render();
+			}
+		} else { $render(); }
+	}
+}
+
 /**
  * Returns an asset version based on the file modification time.
  */
@@ -326,19 +358,21 @@ add_action( 'wp_enqueue_scripts', 'payam_register_assets', 5 );
  * Returns the layouts used in the current page builder.
  */
 function payam_get_current_page_layouts(): array {
-	if ( ! is_singular() || ! function_exists( 'get_field' ) ) {
+	if ( ( ! is_singular() && ! is_404() ) || ! function_exists( 'get_field' ) ) {
 		return [];
 	}
 
 	$post_id = get_queried_object_id();
 
-	if ( ! $post_id ) {
+	if ( ! $post_id && ! is_404() ) {
 		return [];
 	}
 
-	if ( is_singular( 'post' ) ) {
+	if ( is_404() ) {
+		$sections = payam_builder_sections( payam_options_builder_source( 'error_404_builder' ) );
+	} elseif ( is_singular( 'post' ) ) {
 		$source = payam_article_builder_source( $post_id );
-		$sections = get_field( $source['field'], $source['post_id'] );
+		$sections = payam_builder_sections( $source );
 	} else {
 		$sections = get_field( PAYAM_PAGE_BUILDER_FIELD, $post_id );
 	}

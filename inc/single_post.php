@@ -4,34 +4,10 @@ defined( 'ABSPATH' ) || exit;
 /** Shared source selection for rendering and conditional asset discovery. */
 function payam_article_builder_source( int $post_id ): array {
 	$custom = function_exists( 'get_field' ) && get_field( 'article_custom_layout', $post_id );
-	$field_name = 'page_builder';
-	if ( ! $custom && function_exists( 'get_field_object' ) ) {
-		$clone = get_field_object( 'article_page_builder', 'option', false, false );
-		$candidates = [];
-		if ( is_array( $clone ) && 'clone' === ( $clone['type'] ?? '' ) ) {
-			foreach ( $clone['sub_fields'] ?? [] as $field ) {
-				if ( 'flexible_content' === ( $field['type'] ?? '' ) ) {
-					$candidates[] = $field['name'];
-				}
-			}
-		}
-		// Seamless clones may only expose their saved child field reference.
-		$candidates = array_unique( array_merge( $candidates, [
-			'article_page_builder_page_builder',
-			'page_builder',
-			'article_page_builder', // Compatibility with the original Flexible Content field.
-		] ) );
-		foreach ( $candidates as $candidate ) {
-			$field = get_field_object( $candidate, 'option', false, false );
-			if ( is_array( $field ) && 'flexible_content' === ( $field['type'] ?? '' ) ) {
-				$field_name = $candidate;
-				break;
-			}
-		}
-	}
+	if ( ! $custom ) { return payam_options_builder_source( 'article_page_builder' ); }
 	return [
-		'field' => $field_name,
-		'post_id' => $custom ? $post_id : 'option',
+		'field' => 'page_builder',
+		'post_id' => $post_id,
 	];
 }
 

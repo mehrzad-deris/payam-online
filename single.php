@@ -55,13 +55,7 @@ while ( have_posts() ) : the_post();
 
         <?php
         $builder_source = payam_article_builder_source( $post_id );
-        if ( function_exists( 'have_rows' ) && have_rows( $builder_source['field'], $builder_source['post_id'] ) ):
-            while ( have_rows( $builder_source['field'], $builder_source['post_id'] ) ): the_row(); ?>
-                <div class="mt-10">
-                    <?php theme_render_block( get_row_layout() ); ?>
-                </div>
-            <?php endwhile;
-        endif;
+        payam_render_builder( $builder_source, 'mt-10' );
         ?>
 
     </main>
