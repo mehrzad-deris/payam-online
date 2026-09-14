@@ -6,7 +6,7 @@ status_header( 404 );
 get_header();
 $builderSource = payam_options_builder_source( 'error_404_builder' );
 ?>
-<main class="min-h-screen pt-[140px]" data-header-theme="light">
+<main class="py-32" data-header-theme="light">
     <div class="">
         <div class="section-heading relative flex flex-col items-center text-center lg:gap-4 gap-2 mb-10">
             <span class="gradient-shape shape-right top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
@@ -29,14 +29,6 @@ $builderSource = payam_options_builder_source( 'error_404_builder' );
 	<?php if ( payam_builder_sections( $builderSource ) ) : ?>
 		<?php payam_render_builder( $builderSource ); ?>
 	<?php else : ?>
-		<section class="container py-32 text-center">
-			<?php section_heading( [
-				'title' => '۴۰۴ — صفحه پیدا نشد',
-				'title_tag' => 'h1',
-				'subtitle' => 'صفحه‌ای که به دنبال آن هستید وجود ندارد یا آدرس آن تغییر کرده است.',
-			] ); ?>
-			<a class="cta-link cta-btn-primary mt-8" href="<?= esc_url( home_url( '/' ) ); ?>"><span>بازگشت به صفحه اصلی</span></a>
-		</section>
 	<?php endif; ?>
 </main>
 <?php get_footer(); ?>

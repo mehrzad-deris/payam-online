@@ -1,7 +1,4 @@
 <?php
-/*
- * Template Name: Page Builder
- * */
 get_header(); ?>
 
     <!-- Main Layout -->

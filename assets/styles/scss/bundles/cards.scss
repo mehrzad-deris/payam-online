@@ -1415,15 +1415,55 @@
 
 /* FAQ Section */
 .faq-section {
+  padding-top: var(--faq-padding-top-mobile, var(--faq-padding-top, 0px));
+  padding-bottom: var(--faq-padding-bottom-mobile, var(--faq-padding-bottom, 0px));
+  @media (min-width: 1280px) {
+    padding-top: var(--faq-padding-top, 0px);
+    padding-bottom: var(--faq-padding-bottom, 0px);
+  }
   .faq-list-block {
     display: flex;
     justify-content: center;
+    &.faq-with-categories {
+      gap: 20px;
+      align-items: flex-start;
+      flex-direction: column;
+      .faq-list { flex: 1; min-width: 0; width: 100%; }
+      @media (min-width: 1280px) { flex-direction: row; }
+    }
+    .faq-categories {
+      padding: 20px;
+      border-radius: 24px;
+      background: white;
+      color: var(--color-neutral-900);
+      box-shadow: var(--shadow-mellow-blue);
+      width: 100%;
+      @media (min-width: 1280px) { width: 305px; flex: 0 0 305px; }
+      h3 { margin-bottom: 20px; padding: 16px; border-radius: 16px; background: var(--color-primary-50); font-size: 16px; line-height: 32px; font-weight: 600; text-align: center; }
+      nav {
+        display: grid;
+        gap: 12px;
+        button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-align: start;
+          font-size: 16px;
+          line-height: 28px;
+          cursor: pointer;
+          &::before { content: ''; width: 5px; height: 5px; flex: 0 0 5px; border-radius: 50%; background: currentColor; }
+          &:hover, &[aria-pressed="true"] { color: var(--color-blue-primary); }
+          &:focus-visible { outline: 2px solid var(--color-blue-primary); outline-offset: 4px; }
+        }
+      }
+    }
 
     .faq-list {
       width: 846px;
       max-width: 100%;
 
       .faq-item {
+        &[hidden] { display: none; }
         border-radius: 24px;
         margin-bottom: 20px;
         background: white;

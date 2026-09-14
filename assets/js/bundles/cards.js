@@ -387,7 +387,7 @@ document.querySelectorAll('[data-faq]').forEach((faq) => {
         svg.classList.toggle('stroke-blue-primary', !shouldOpen);
     };
 
-    const setState = async (item, shouldOpen) => {
+    const setState = async (item, shouldOpen, instant = false) => {
         const { button, panel, symbol } = getParts(item);
 
         if (!button || !panel) {
@@ -405,7 +405,7 @@ document.querySelectorAll('[data-faq]').forEach((faq) => {
 
         setSymbol(symbol, shouldOpen);
 
-        if (reducedMotion.matches) {
+        if (instant || reducedMotion.matches) {
             panel.hidden = !shouldOpen;
             return;
         }
@@ -438,7 +438,40 @@ document.querySelectorAll('[data-faq]').forEach((faq) => {
         }
     };
 
-    faq.addEventListener('click', (event) => {
+    const filterList = items[0].parentElement;
+    let filterAnimation = null;
+    let filterVersion = 0;
+    const animateFilter = async (frames, duration) => {
+        filterAnimation = filterList.animate(frames, { duration, easing: 'ease-out' });
+        await filterAnimation.finished.catch(() => {});
+    };
+
+    faq.addEventListener('click', async (event) => {
+        const category = event.target.closest('[data-faq-category]');
+        if (category && faq.contains(category)) {
+            if (category.getAttribute('aria-pressed') === 'true') return;
+            const version = ++filterVersion;
+            filterAnimation?.cancel();
+            const selected = category.dataset.faqCategory;
+            faq.querySelectorAll('[data-faq-category]').forEach((control) => {
+                control.setAttribute('aria-pressed', String(control === category));
+            });
+            if (!reducedMotion.matches && filterList.animate) {
+                await animateFilter([{ opacity: 1 }, { opacity: 0, transform: 'translateY(6px)' }], 140);
+                if (version !== filterVersion) return;
+            }
+            let first = true;
+            items.forEach((item) => {
+                const visible = selected === 'all' || (item.dataset.faqCategories || '').split(' ').includes(selected);
+                item.hidden = !visible;
+                setState(item, visible && first, true);
+                if (visible) first = false;
+            });
+            if (!reducedMotion.matches && filterList.animate) {
+                await animateFilter([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }], 220);
+            }
+            return;
+        }
         const button = event.target.closest('[data-faq-toggle]');
 
         if (!button || !faq.contains(button)) {

@@ -7,31 +7,31 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor      = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle      = (string) ( get_sub_field( 'section_style' ) ?: 'light' );
-$sectionIcon       = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle      = (string) ( get_sub_field( 'section_title' ) ?: '' );
-$sectionTitleTag   = (string) ( get_sub_field( 'title_tag' ) ?: 'h2' );
-$sectionSubtitle   = (string) ( get_sub_field( 'section_subtitle' ) ?: '' );
-$marginTopField    = get_sub_field( 'section_margin_top' );
-$marginBottomField = get_sub_field( 'section_margin_bottom' );
 $faqRows           = get_sub_field( 'faq_items' );
 $ctaText           = (string) ( get_sub_field( 'faq_cta_text' ) ?: '' );
 $ctaLink           = get_sub_field( 'faq_cta_link' );
 $sectionStyles     = [];
 $faqItems          = [];
+$faqFromPosts      = 'cpt' === get_sub_field( 'faq_source' );
+$faqCategories     = [];
+$faqShowCategories = $faqFromPosts && (bool) get_sub_field( 'faq_show_categories' );
 
 if ( '' !== $sectionColor ) {
     $sectionStyles[] = 'background-color: ' . $sectionColor;
 }
 
-if ( is_numeric( $marginTopField ) ) {
-    $sectionStyles[] = 'margin-top: ' . max( - 1000, min( 1000, (int) $marginTopField ) ) . 'px';
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $name ) {
+    $value = get_sub_field( $name );
+    if ( is_numeric( $value ) ) {
+        $sectionStyles[] = '--faq-' . str_replace( '_', '-', $name ) . ': ' . absint( $value ) . 'px';
+    }
 }
 
-if ( is_numeric( $marginBottomField ) ) {
-    $sectionStyles[] = 'margin-bottom: ' . max( - 1000, min( 1000, (int) $marginBottomField ) ) . 'px';
-}
-
-if ( is_array( $faqRows ) ) {
+if ( $faqFromPosts ) {
+    $catalogue = payam_faq_catalogue();
+    $faqItems = $catalogue['items'];
+    $faqCategories = $faqShowCategories ? $catalogue['categories'] : [];
+} elseif ( is_array( $faqRows ) ) {
     $faqItems = array_values( array_filter( $faqRows, static fn( $item ): bool => is_array( $item ) && '' !== trim( (string) ( $item['question'] ?? '' ) ) ) );
 }
 
@@ -48,26 +48,26 @@ $ctaTarget = (string) ( $ctaLink['target'] ?? '' );
         <?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >
     <div class="container faq-container ">
-        <?php
-        section_heading( [
-                'icon'        => $sectionIcon,
-                'title'       => $sectionTitle,
-                'title_tag'   => $sectionTitleTag,
-                'subtitle'    => $sectionSubtitle,
-                'title_class' => 'dark' === $sectionStyle ? 'text-white' : '',
-                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-        ] );
-        ?>
-
         <?php if ( ! empty( $faqItems ) ) : ?>
-            <div class="faq-list-block">
+            <div class="faq-list-block<?= $faqCategories ? ' faq-with-categories' : ''; ?>">
+                <?php if ( $faqCategories ) : ?>
+                    <aside class="faq-categories" aria-label="دسته‌بندی سوالات">
+                        <h3>دسته‌بندی سوالات</h3>
+                        <nav aria-label="فیلتر سوالات متداول">
+                            <button type="button" data-faq-category="all" aria-pressed="true">همه سوالات</button>
+                            <?php foreach ( $faqCategories as $categoryId => $categoryName ) : ?>
+                                <button type="button" data-faq-category="<?= esc_attr( $categoryId ); ?>" aria-pressed="false"><?= esc_html( $categoryName ); ?></button>
+                            <?php endforeach; ?>
+                        </nav>
+                    </aside>
+                <?php endif; ?>
                 <div class="faq-list">
                     <?php foreach ( $faqItems as $faqIndex => $faqItem ) :
                         $isOpen = 0 === $faqIndex;
                         $buttonId = wp_unique_id( 'faq-button-' );
                         $panelId = wp_unique_id( 'faq-panel-' );
                         ?>
-                        <article class="faq-item<?= $isOpen ? ' is-open' : ''; ?> shadow-mellow" data-faq-item>
+                        <article class="faq-item<?= $isOpen ? ' is-open' : ''; ?> shadow-mellow" data-faq-item<?= $faqFromPosts ? ' data-faq-categories="' . esc_attr( implode( ' ', $faqItem['categories'] ) ) . '"' : ''; ?>>
                             <h3 class="faq-question">
                                 <button
                                         type="button"

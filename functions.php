@@ -28,6 +28,7 @@ require_once get_theme_file_path('/inc/whmcs_products.php');
 require_once get_theme_file_path('/inc/blog_archive.php');
 require_once get_theme_file_path('/inc/single_post.php');
 require_once get_theme_file_path('/inc/contact_forms.php');
+require_once get_theme_file_path('/inc/faqs.php');
 
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );
