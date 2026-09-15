@@ -66,8 +66,28 @@ $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-ne
 
 <div class="<?= esc_attr( $wrapper_class ); ?>">
     <?php if ( $show_shapes ) : ?>
-        <span class="gradient-shape shape-right top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
-        <span class="gradient-shape shape-left top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
+        <span class="gradient-shape shape-right top-2" aria-hidden="true">
+        <svg width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M102 94C56.9793 20.3231 21.1034 0 0 0V94H102Z" fill="url(#paint0_linear_4555_10015)"/>
+<defs>
+<linearGradient id="paint0_linear_4555_10015" x1="-153.754" y1="0" x2="-153.754" y2="94" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3B56FF" stop-opacity="0.14"/>
+<stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+</span>
+        <span class="gradient-shape shape-left top-2" aria-hidden="true">
+        <svg width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M102 94C56.9793 20.3231 21.1034 0 0 0V94H102Z" fill="url(#paint0_linear_4555_10015)"/>
+<defs>
+<linearGradient id="paint0_linear_4555_10015" x1="-153.754" y1="0" x2="-153.754" y2="94" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3B56FF" stop-opacity="0.14"/>
+<stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+</span>
     <?php endif; ?>
 
     <?php if ( $icon_id ) : ?>

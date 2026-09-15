@@ -23,6 +23,13 @@ if ( '' === $sectionTitle && '' === $sectionSubtitle && ! $sectionIcon ) {
 	return;
 }
 
+// A Page Builder page needs one primary heading. The first titled standalone
+// heading owns that role; later section headings keep their configured level.
+if ( '' !== $sectionTitle && ! empty( $GLOBALS['payam_page_builder_primary_heading_pending'] ) ) {
+	$sectionTitleTag = 'h1';
+	$GLOBALS['payam_page_builder_primary_heading_pending'] = false;
+}
+
 if ( '' !== $sectionColor ) {
 	$sectionStyles[] = 'background-color: ' . $sectionColor;
 }

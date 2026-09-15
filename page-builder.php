@@ -7,6 +7,8 @@ get_header(); ?>
     <!-- Main Layout -->
     <main class="min-h-screen">
         <?php
+		$GLOBALS['payam_page_builder_primary_heading_pending'] = true;
+
         if ( have_posts() ) :
             while ( have_posts() ) : the_post();
          if ( have_rows( 'page_builder' ) ):
@@ -17,6 +19,8 @@ get_header(); ?>
 
             endwhile;
         endif;
+
+		unset( $GLOBALS['payam_page_builder_primary_heading_pending'] );
         ?>
     </main>
 <?php get_footer(); ?>
