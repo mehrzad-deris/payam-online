@@ -181,7 +181,7 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
         </div>
 
         <?php if ( $footerCopyright ) : ?>
-            <div class="copyright mt-8 w-full relative pt-5 text-right text-xs leading-[30px] text-white xl:mt-10 xl:text-center xl:text-sm [&_a]:text-yellow-primary text-[14px] font-normal">
+            <div class="copyright mt-8 w-full relative pt-5 text-right text-xs leading-[30px] text-white xl:mt-10 xl:text-center xl:text-sm [&_a]:text-scondary-500 text-[14px] font-normal">
                 <?= wp_kses_post( $footerCopyright ); ?>
             </div>
         <?php endif; ?>

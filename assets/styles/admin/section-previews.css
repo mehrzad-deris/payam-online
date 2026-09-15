@@ -1,0 +1,69 @@
+.payam-section-preview-field > .acf-label {
+    display: none;
+}
+
+.payam-section-preview-field > .acf-input {
+    padding: 16px 0;
+}
+
+.payam-section-preview {
+    overflow: hidden;
+    border: 1px solid #dcdcde;
+    border-radius: 10px;
+    background: #f6f7f7;
+}
+
+.payam-section-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.payam-section-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.payam-section-guide-card {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid #dcdcde;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.payam-section-guide-image {
+    display: grid;
+    min-height: 180px;
+    place-items: center;
+    overflow: hidden;
+    background: #f6f7f7;
+    color: #646970;
+}
+
+.payam-section-guide-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.payam-section-guide-card header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+}
+
+.payam-section-guide-card h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.payam-section-guide-card code {
+    direction: ltr;
+    font-size: 11px;
+}

@@ -335,12 +335,31 @@
           }
 
           .services-tabs__panel-content {
+            > .flex {
+              min-width: 0;
+
+              > :first-child {
+                flex: 1 1 0;
+                min-width: 0;
+              }
+            }
+
             .services-tabs__content-icon {
               display: inline-block;
               width: 48px;
               height: 48px;
               object-fit: contain;
               margin-bottom: 20px;
+            }
+
+            .services-tabs__image {
+              flex: 0 1 561px;
+              width: min(48%, 561px);
+
+              img {
+                width: 100%;
+                height: auto;
+              }
             }
           }
         }
@@ -353,6 +372,14 @@
   .services-section {
     padding-top: var(--services-padding-top, 0px);
     padding-bottom: var(--services-padding-bottom, 0px);
+  }
+}
+
+@media (max-width: 1439px) {
+  .services-section {
+    .services-tabs.services-tabs-style-2 {
+      padding-inline: 0 !important;
+    }
   }
 }
 
@@ -472,4 +499,3 @@
     }
   }
 }
-

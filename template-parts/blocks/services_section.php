@@ -24,7 +24,7 @@ $isStyleTwo      = 'style_2' === $serviceTabStyle;
 $serviceTabClass = str_replace( '_', '-', $serviceTabStyle );
 ?>
 
-<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="services-section services-tab-<?= esc_attr( $serviceTabClass ); ?> relative xl:px-[135px]" style="<?= esc_attr( $sectionColor ) . ' ' . esc_attr( $servicePaddingTop ) . ' ' . esc_attr( $servicePaddingTopMobile ) . ' ' . esc_attr( $servicePaddingBottom ) . ' ' . esc_attr( $servicePaddingBottomMobile ); ?>">
+<section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="services-section services-tab-<?= esc_attr( $serviceTabClass ); ?> relative<?= $isStyleTwo ? '' : ' xl:px-[135px]'; ?>" style="<?= esc_attr( $sectionColor ) . ' ' . esc_attr( $servicePaddingTop ) . ' ' . esc_attr( $servicePaddingTopMobile ) . ' ' . esc_attr( $servicePaddingBottom ) . ' ' . esc_attr( $servicePaddingBottomMobile ); ?>">
     <div class="container">
         <?php if ( is_array( $serviceTabs ) && ! empty( $serviceTabs ) ) : ?>
             <div class="services-tabs<?= $isStyleTwo ? ' services-tabs-style-2 lg:px-27' : ' services-tabs-style-1'; ?>" data-tabs data-tabs-style="<?= esc_attr( $serviceTabStyle ); ?>"<?= $isStyleTwo && count( $serviceTabs ) > 1 ? ' data-tabs-autoplay="5000"' : ''; ?>>

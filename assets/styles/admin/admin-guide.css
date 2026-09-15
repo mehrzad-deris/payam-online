@@ -1,0 +1,122 @@
+.payam-management-guide {
+    max-width: 1180px;
+    color: #1d2327;
+}
+
+.payam-guide-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 20px;
+    padding: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #071243, #1844da);
+    color: #fff;
+}
+
+.payam-guide-hero h1,
+.payam-guide-hero p {
+    margin: 0;
+    color: inherit;
+}
+
+.payam-guide-hero p {
+    margin-top: 8px;
+    opacity: .82;
+}
+
+.payam-guide-nav {
+    position: sticky;
+    z-index: 5;
+    top: 32px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #dcdcde;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .96);
+}
+
+.payam-guide-nav a {
+    flex: none;
+    padding: 8px 12px;
+    border-radius: 7px;
+    text-decoration: none;
+}
+
+.payam-guide-nav a:hover,
+.payam-guide-nav a:focus-visible {
+    background: #edf2ff;
+}
+
+.payam-guide-content {
+    display: grid;
+    gap: 20px;
+}
+
+.payam-guide-section {
+    scroll-margin-top: 100px;
+    padding: 28px;
+    border: 1px solid #dcdcde;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.payam-guide-section h2 {
+    margin-top: 0;
+    color: #001352;
+}
+
+.payam-guide-section h3 {
+    margin-top: 28px;
+}
+
+.payam-guide-section li {
+    margin-bottom: 8px;
+}
+
+.payam-guide-table-wrap {
+    overflow-x: auto;
+    margin: 18px 0;
+}
+
+.payam-guide-table th:first-child {
+    width: 230px;
+}
+
+.payam-guide-note,
+.payam-guide-warning,
+.payam-guide-example {
+    margin: 18px 0 0;
+    padding: 14px 16px;
+    border-inline-start: 4px solid #1844da;
+    background: #f2f5ff;
+}
+
+.payam-guide-warning {
+    border-inline-start-color: #dba617;
+    background: #fff8e5;
+}
+
+.payam-guide-example {
+    border-inline-start-color: #00aaa6;
+    background: #edfafa;
+}
+
+@media (max-width: 782px) {
+    .payam-guide-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .payam-guide-nav {
+        top: 46px;
+    }
+
+    .payam-guide-section {
+        padding: 20px;
+    }
+}
