@@ -14,6 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkThemeOffset = 32;
     const stickyOffset = 24;
 
+    const applyHeaderState = (nextTheme, isSticky) => {
+        header.classList.toggle('site-header--sticky', isSticky);
+
+        if (nextTheme && nextTheme !== currentTheme) {
+            header.classList.remove(
+                'site-header--light',
+                'site-header--dark'
+            );
+
+            header.classList.add(`site-header--${nextTheme}`);
+            currentTheme = nextTheme;
+        }
+    };
+
     const getSectionAt = (position) => {
         for (let index = 0; index < sections.length; index += 1) {
             const section = sections[index];
@@ -32,12 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateHeaderTheme = () => {
-        header.classList.toggle(
-            'site-header--sticky',
-            window.scrollY > stickyOffset
-        );
+        const isSticky = window.scrollY > stickyOffset;
 
         if (!sections.length) {
+            applyHeaderState('', isSticky);
+            ticking = false;
+            return;
+        }
+
+        // At the top of the page the first section is authoritative. Avoiding
+        // geometry reads here prevents a full synchronous layout during boot.
+        if (!isSticky) {
+            applyHeaderState(sections[0].dataset.headerTheme || '', false);
             ticking = false;
             return;
         }
@@ -66,15 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        if (nextTheme && nextTheme !== currentTheme) {
-            header.classList.remove(
-                'site-header--light',
-                'site-header--dark'
-            );
-
-            header.classList.add(`site-header--${nextTheme}`);
-            currentTheme = nextTheme;
-        }
+        // Geometry reads above are deliberately completed before class writes.
+        applyHeaderState(nextTheme, true);
 
         ticking = false;
     };

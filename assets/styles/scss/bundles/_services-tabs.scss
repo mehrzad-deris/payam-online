@@ -310,6 +310,16 @@
         }
       }
 
+      &.is-autoplay-running.is-autoplay-cycle-b {
+        .services-tabs__list {
+          .services-tabs__button[aria-selected="true"] {
+            .services-tabs__progress:after {
+              animation-name: services-tab-progress-alternate;
+            }
+          }
+        }
+      }
+
       &.is-autoplay-paused {
         .services-tabs__list {
           .services-tabs__button[aria-selected="true"] {
@@ -365,6 +375,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes services-tab-progress-alternate {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
   }
 }
 

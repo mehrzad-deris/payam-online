@@ -43,6 +43,7 @@ const animateFeatureCounter = (counter) => {
 
 const initBrands = (section) => {
 	if (section.dataset.brandsReady === 'true') return;
+	if (!featureDesktopQuery.matches) return;
 
     const stage = section.querySelector('[data-brand-stage]');
     const track = section.querySelector('[data-brand-track]');
@@ -143,7 +144,17 @@ const initBrands = (section) => {
     });
 };
 
-document.querySelectorAll('[data-brands-section]').forEach(initBrands);
+const brandSections = Array.from(
+    document.querySelectorAll('[data-brands-section]')
+);
+const initDesktopBrands = () => {
+    if (featureDesktopQuery.matches) {
+        brandSections.forEach(initBrands);
+    }
+};
+
+initDesktopBrands();
+featureDesktopQuery.addEventListener('change', initDesktopBrands);
 
 document.querySelectorAll('[data-feature-module]').forEach((section) => {
     let isActivated = false;

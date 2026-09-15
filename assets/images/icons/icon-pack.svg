@@ -199,17 +199,15 @@
     </symbol>
 
     <!-- Rounded Shape -->
-    <symbol id="rounded-shape" viewBox="0 0 102 99">
-        <svg width="102" height="99" viewBox="0 0 102 99" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 99C45.0207 21.4041 80.8966 0 102 0V99H0Z" fill="url(#paint0_linear_4108_14952)"/>
-            <defs>
-                <linearGradient id="paint0_linear_4108_14952" x1="255.754" y1="0" x2="255.754" y2="99" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#3B56FF" stop-opacity="0.12"/>
-                    <stop offset="0.5" stop-color="#3B56FF" stop-opacity="0.03"/>
-                    <stop offset="0.77" stop-color="#233499" stop-opacity="0"/>
-                </linearGradient>
-            </defs>
-        </svg>
+    <symbol id="rounded-shape" viewBox="0 0 102 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 99C45.0207 21.4041 80.8966 0 102 0V99H0Z" fill="url(#paint0_linear_4108_14952)"/>
+        <defs>
+            <linearGradient id="paint0_linear_4108_14952" x1="255.754" y1="0" x2="255.754" y2="99" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3B56FF" stop-opacity="0.12"/>
+                <stop offset="0.5" stop-color="#3B56FF" stop-opacity="0.03"/>
+                <stop offset="0.77" stop-color="#233499" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
     </symbol>
 
     <!-- Card Shape -->

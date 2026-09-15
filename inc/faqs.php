@@ -143,7 +143,7 @@ function payam_render_faq_items( array $items, bool $open_first = true ): string
 		$button_id = wp_unique_id( 'faq-button-' );
 		$panel_id  = wp_unique_id( 'faq-panel-' ); ?>
 		<article class="faq-item<?= $is_open ? ' is-open' : ''; ?> shadow-mellow" data-faq-item data-faq-categories="<?= esc_attr( implode( ' ', $item['categories'] ?? [] ) ); ?>">
-			<h3 class="faq-question"><button type="button" class="faq-button" id="<?= esc_attr( $button_id ); ?>" data-faq-toggle aria-expanded="<?= $is_open ? 'true' : 'false'; ?>" aria-controls="<?= esc_attr( $panel_id ); ?>"><span class="faq-question-text text-body-mobile-2 md:text-body-2 text-neutral-100"><?= esc_html( $item['question'] ?? '' ); ?></span><span class="faq-symbol" data-faq-symbol aria-hidden="true"><?= $is_open ? icon( 'minus', 'fill-white w-6 h-6' ) : icon( 'plus', 'stroke-blue-primary w-6 h-6' ); ?></span></button></h3>
+			<h3 class="faq-question"><button type="button" class="faq-button" id="<?= esc_attr( $button_id ); ?>" data-faq-toggle aria-expanded="<?= $is_open ? 'true' : 'false'; ?>" aria-controls="<?= esc_attr( $panel_id ); ?>"><span class="faq-question-text text-body-mobile-2 md:text-body-2"><?= esc_html( $item['question'] ?? '' ); ?></span><span class="faq-symbol" data-faq-symbol aria-hidden="true"><?= $is_open ? icon( 'minus', 'fill-white w-6 h-6' ) : icon( 'plus', 'stroke-blue-primary w-6 h-6' ); ?></span></button></h3>
 			<div class="faq-answer" id="<?= esc_attr( $panel_id ); ?>" data-faq-panel role="region" aria-labelledby="<?= esc_attr( $button_id ); ?>"<?= $is_open ? '' : ' hidden'; ?>><div class="faq-answer-content text-body-3 md:text-caption"><?= wp_kses_post( $item['answer'] ?? '' ); ?></div></div>
 		</article><?php
 	}

@@ -955,6 +955,9 @@
 .services-section .services-tabs.services-tabs-style-2.is-autoplay-running .services-tabs__list .services-tabs__button[aria-selected=true] .services-tabs__progress:after {
   animation: services-tab-progress var(--services-tabs-autoplay-duration, 5000ms) linear forwards;
 }
+.services-section .services-tabs.services-tabs-style-2.is-autoplay-running.is-autoplay-cycle-b .services-tabs__list .services-tabs__button[aria-selected=true] .services-tabs__progress:after {
+  animation-name: services-tab-progress-alternate;
+}
 .services-section .services-tabs.services-tabs-style-2.is-autoplay-paused .services-tabs__list .services-tabs__button[aria-selected=true] .services-tabs__progress:after {
   animation-play-state: paused;
 }
@@ -991,6 +994,14 @@
   height: auto;
 }
 
+@keyframes services-tab-progress-alternate {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 @media (min-width: 1280px) {
   .services-section {
     padding-top: var(--services-padding-top, 0px);

@@ -15,7 +15,7 @@ $button = (string) get_field( 'form_submit_label', $formId ) ?: 'ثبت و ار�
 		<div class="contact-form-fields">
 			<?php foreach ( $fields as $key => $field ) : $inputId = $instance . '-' . $key; ?>
 				<div class="contact-field<?= $field['wide'] ? ' contact-field-wide' : ''; ?>">
-					<label class="<?= ! empty( $field['show_label'] ) ? 'contact-field-label' : 'screen-reader-text'; ?>" for="<?= esc_attr( $inputId ); ?>"><?= esc_html( $field['label'] ); ?><?= $field['required'] ? ' (الزامی)' : ''; ?></label>
+					<?php if ($field['show_label']) : ?><label class="<?= ! empty( $field['show_label'] ) ? 'contact-field-label' : 'screen-reader-text'; ?>" for="<?= esc_attr( $inputId ); ?>"><?= esc_html( $field['label'] ); ?><?= $field['required'] ? ' (الزامی)' : ''; ?></label><?php endif; ?>
 					<?php $placeholder = $field['placeholder'] ?: $field['label']; ?>
 					<?php if ( 'textarea' === $field['type'] ) : ?>
 						<textarea id="<?= esc_attr( $inputId ); ?>" name="<?= esc_attr( $key ); ?>" data-form-field maxlength="5000" rows="6" placeholder="<?= esc_attr( $placeholder ); ?>" aria-describedby="<?= esc_attr( $inputId ); ?>-error" <?= $field['required'] ? 'required' : ''; ?>></textarea>

@@ -33,6 +33,7 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
     let autoplayStartedAt = 0;
     let autoplayRemaining = autoplayDelay;
     let isInViewport = !hasAutoplay;
+    let autoplayCycle = false;
 
     const clearAutoplayTimer = () => {
         window.clearTimeout(autoplayTimer);
@@ -91,8 +92,10 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
             '--services-tabs-autoplay-duration',
             `${autoplayDelay}ms`
         );
-        // Force the active tab's progress animation to restart with the timer.
-        void tabs.offsetWidth;
+        // Alternate identical keyframes to restart progress without a layout read.
+        autoplayCycle = !autoplayCycle;
+        tabs.classList.toggle('is-autoplay-cycle-a', autoplayCycle);
+        tabs.classList.toggle('is-autoplay-cycle-b', !autoplayCycle);
         tabs.classList.add('is-autoplay-running');
 
         autoplayTimer = window.setTimeout(() => {
@@ -261,4 +264,3 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
         visibilityObserver.observe(tabs);
     }
 });
-

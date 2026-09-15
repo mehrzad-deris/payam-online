@@ -328,6 +328,87 @@ function payam_set_asset_cache_role( string $handle, string $type, string $role,
 }
 
 /**
+ * The global theme stylesheet defines the initial geometry of every page and
+ * must never be converted to preload/onload by DS Cache. An async app shell
+ * produces a full-page FOUC and a severe cumulative layout shift.
+ */
+add_filter( 'option_ds_cache_asset_optimizer', static function ( $options ) {
+	if ( ! is_array( $options ) || empty( $options['async_styles'] ) ) {
+		return $options;
+	}
+
+	$normalize = static function ( string $value ): string {
+		$value = strtolower( basename( trim( $value ) ) );
+		$value = preg_replace( '/\.css$/', '', $value );
+
+		return (string) preg_replace( '/\.min$/', '', (string) $value );
+	};
+	$protected = [ 'payam-app', 'theme' ];
+
+	global $wp_styles;
+	if ( $wp_styles instanceof WP_Styles ) {
+		foreach ( $wp_styles->registered as $handle => $asset ) {
+			$role = (string) ( $asset->extra['ds_asset_group'] ?? '' );
+			if ( ! in_array( $role, [ 'global', 'page' ], true ) ) {
+				continue;
+			}
+
+			$protected[] = $normalize( (string) $handle );
+			$protected[] = $normalize( (string) wp_parse_url( (string) $asset->src, PHP_URL_PATH ) );
+		}
+	}
+	$protected = array_values( array_unique( array_filter( $protected ) ) );
+
+	$rules = preg_split( '/[\s,]+/', (string) $options['async_styles'], -1, PREG_SPLIT_NO_EMPTY ) ?: [];
+	$rules = array_values( array_filter( $rules, static function ( string $rule ) use ( $normalize, $protected ): bool {
+		return ! in_array( $normalize( $rule ), $protected, true );
+	} ) );
+	$options['async_styles'] = implode( "\n", $rules );
+
+	return $options;
+} );
+
+/** Preload only the bold face used by the above-the-fold LCP heading. */
+add_action( 'wp_head', static function (): void {
+	foreach ( [
+		'/assets/fonts/peyda/PeydaWebFaNum-Bold.woff2',
+	] as $font_path ) {
+		if ( ! payam_asset_exists( $font_path ) ) {
+			continue;
+		}
+		?>
+		<link rel="preload" href="<?= esc_url( get_theme_file_uri( $font_path ) ); ?>" as="font" type="font/woff2" crossorigin>
+		<?php
+	}
+}, 2 );
+
+/**
+ * Swiper instances initialize near the viewport, so its full vendor stylesheet
+ * can load non-blocking. The small geometry-critical subset lives in input.css.
+ */
+add_filter( 'style_loader_tag', static function ( string $html, string $handle ): string {
+	if ( 'payam-vendor-swiper' !== $handle || is_admin() ) {
+		return $html;
+	}
+
+	$preload = preg_replace_callback(
+		'/\srel=(["\'])stylesheet\1/i',
+		static function ( array $match ): string {
+			$quote = $match[1];
+			return ' rel=' . $quote . 'preload' . $quote
+				. ' as=' . $quote . 'style' . $quote
+				. ' onload="this.onload=null;this.rel=\'stylesheet\'"';
+		},
+		$html,
+		1
+	);
+
+	return is_string( $preload ) && $preload !== $html
+		? $preload . '<noscript>' . $html . '</noscript>'
+		: $html;
+}, 15, 2 );
+
+/**
  * Registers global, vendor, bundle and section assets.
  */
 function payam_register_assets(): void {

@@ -146,7 +146,9 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
                             <li class="flex items-start gap-2 text-base leading-[30px]">
                                 <span class="mt-[3px] size-6 shrink-0" aria-hidden="true"><?= icon( 'contact-' . $iconType, 'size-6' ); ?></span>
                                 <?php if ( $url ) : ?>
+                                    <?php if ( 'email' === $type ) : ?><!--email_off--><?php endif; ?>
                                     <a class="transition-colors duration-200 hover:text-yellow-primary" href="<?= esc_url( $url ); ?>"><?= esc_html( $value ); ?></a>
+                                    <?php if ( 'email' === $type ) : ?><!--/email_off--><?php endif; ?>
                                 <?php else : ?>
                                     <span><?= esc_html( $value ); ?></span>
                                 <?php endif; ?>
