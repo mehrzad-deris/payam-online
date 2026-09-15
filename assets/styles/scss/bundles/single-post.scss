@@ -544,13 +544,28 @@ body.single-post {
     font-weight: 600;
   }
 
-  .article-related-mobile .swiper {
-    padding-bottom: 48px;
-  }
+	.article-related-scroll {
+		display: grid;
+		grid-auto-columns: min(86%, 389px);
+		grid-auto-flow: column;
+		gap: 20px;
+		overflow-x: auto;
+		overscroll-behavior-inline: contain;
+		scroll-snap-type: inline mandatory;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+        padding-bottom: 100px;
+        margin-bottom: -100px;
 
-  .article-related-mobile .swiper-pagination {
-    bottom: 12px;
-  }
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.blog-card {
+			scroll-snap-align: start;
+			scroll-snap-stop: always;
+		}
+	}
 
   @media (min-width: 1280px) {
     padding-block: 120px 160px;

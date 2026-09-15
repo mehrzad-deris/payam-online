@@ -7,23 +7,16 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor        = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle        = (string) ( get_sub_field( 'section_style' ) ?: 'light' );
-$sectionIcon         = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle        = (string) ( get_sub_field( 'section_title' ) ?: '' );
-$sectionTitleTag     = (string) ( get_sub_field( 'title_tag' ) ?: 'h2' );
-$sectionSubtitle     = (string) ( get_sub_field( 'section_subtitle' ) ?: '' );
-$marginTopField      = get_sub_field( 'section_margin_top' );
-$marginBottomField   = get_sub_field( 'section_margin_bottom' );
 $logoRows            = get_sub_field( 'logo_image_list' );
 $transparentPixel    = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 $sectionStyles       = [ 'background-color: ' . ( sanitize_hex_color( $sectionColor ) ?: '' ) ];
 $logos               = [];
 
-if ( is_numeric( $marginTopField ) ) {
-	$sectionStyles[] = 'margin-top: ' . max( -1000, min( 1000, (int) $marginTopField ) ) . 'px';
-}
-
-if ( is_numeric( $marginBottomField ) ) {
-	$sectionStyles[] = 'margin-bottom: ' . max( -1000, min( 1000, (int) $marginBottomField ) ) . 'px';
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $fieldName ) {
+	$fieldValue = get_sub_field( $fieldName );
+	if ( is_numeric( $fieldValue ) ) {
+		$sectionStyles[] = '--os-logo-' . str_replace( '_', '-', $fieldName ) . ': ' . absint( $fieldValue ) . 'px';
+	}
 }
 
 if ( is_array( $logoRows ) ) {
@@ -48,19 +41,8 @@ if ( is_array( $logoRows ) ) {
 	style="<?= esc_attr( implode( '; ', $sectionStyles ) ); ?>"
 >
 	<div class="container os-logo-container">
-		<?php
-		section_heading( [
-			'icon'        => $sectionIcon,
-			'title'       => $sectionTitle,
-			'title_tag'   => $sectionTitleTag,
-			'subtitle'    => $sectionSubtitle,
-			'title_class' => 'dark' === $sectionStyle ? 'text-white' : '',
-			'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-		] );
-		?>
-
 		<?php if ( ! empty( $logos ) ) : ?>
-			<div class="swiper os-logo-slider" data-swiper="os-logos" aria-label="<?= esc_attr( $sectionTitle ); ?>">
+			<div class="swiper os-logo-slider" data-swiper="os-logos" aria-label="لوگو سیستم‌عامل‌ها">
 				<div class="swiper-wrapper">
 					<?php foreach ( $logos as $logoId ) :
 						$logo1x  = wp_get_attachment_image_src( $logoId, 'os_logo_image' );

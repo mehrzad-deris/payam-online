@@ -7,7 +7,12 @@ while ( have_posts() ) : the_post();
     $prepared     = payam_prepare_post_toc( apply_filters( 'the_content', get_the_content() ) );
     $related      = payam_get_related_posts( $post_id, 4 );
     $thumbnail_id = get_post_thumbnail_id( $post_id );
-    $post_date    = get_post_datetime( $post_id ); ?>
+    $thumbnail_alt = $thumbnail_id ? trim( (string) get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) : '';
+    $thumbnail_desktop = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, 'single_article' ) : false;
+    $thumbnail_desktop_x2 = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, 'single_article_x2' ) : false;
+    $thumbnail_mobile = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, 'single_article_mobile' ) : false;
+    $thumbnail_mobile_x2 = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, 'single_article_mobile_x2' ) : false;
+    ?>
     <main class="single-article" data-header-theme="light" data-single-article>
         <div class="container">
             <div class="article-layout">
@@ -18,8 +23,25 @@ while ( have_posts() ) : the_post();
                 </aside>
                 <article class="article-main">
                     <header class="article-header"><h1><?= esc_html( get_the_title() ); ?></h1></header>
-                    <?php if ( $thumbnail_id ) : ?>
-                        <figure class="article-featured"><?= wp_get_attachment_image( $thumbnail_id, 'single_article', false, [ 'alt' => get_the_title(), 'fetchpriority' => 'high', 'decoding' => 'async' ] ); ?></figure><?php endif; ?>
+                    <?php if ( $thumbnail_desktop && $thumbnail_mobile ) : ?>
+                        <figure class="article-featured">
+                            <picture>
+                                <source
+                                    media="(min-width: 1280px)"
+                                    srcset="<?= esc_url( $thumbnail_desktop ); ?> 1x<?= $thumbnail_desktop_x2 ? ', ' . esc_url( $thumbnail_desktop_x2 ) . ' 2x' : ''; ?>"
+                                >
+                                <img
+                                    src="<?= esc_url( $thumbnail_mobile ); ?>"
+                                    <?= $thumbnail_mobile_x2 ? 'srcset="' . esc_url( $thumbnail_mobile ) . ' 1x, ' . esc_url( $thumbnail_mobile_x2 ) . ' 2x"' : ''; ?>
+                                    alt="<?= esc_attr( $thumbnail_alt ?: get_the_title() ); ?>"
+                                    width="630"
+                                    height="354"
+                                    fetchpriority="high"
+                                    decoding="async"
+                                >
+                            </picture>
+                        </figure>
+                    <?php endif; ?>
                     <?php if ( $prepared['headings'] ) : ?>
                         <section class="article-toc" data-article-toc>
                         <button type="button" aria-expanded="false" aria-controls="article-toc-list"><span>آن‌چه در این مقاله می‌خوانید</span><?= icon( 'arrow-down-2', 'article-toc-arrow' ); ?></button>
@@ -40,12 +62,10 @@ while ( have_posts() ) : the_post();
                     </div>
                 </aside>
             </div>
-            <?php if ( $related ) : ?>
-                <section class="article-related-mobile" aria-label="آموزش‌های مرتبط"><h2>آموزش‌های مرتبط</h2>
-                <div class="swiper" data-swiper data-swiper-options='{"slidesPerView":1,"spaceBetween":20,"loop":false,"autoplay":false}'>
-                    <div class="swiper-wrapper"><?php foreach ( $related as $related_post ) : get_template_part( 'template-parts/components/blog_card', null, [ 'post_id' => $related_post->ID, 'class' => 'swiper-slide' ] ); endforeach; ?></div>
-                    <div class="swiper-pagination swiper-pagination-card-style" data-swiper-pagination></div>
-                </div></section><?php endif; ?>
+			<?php if ( $related ) : ?>
+				<section class="article-related-mobile" aria-label="آموزش‌های مرتبط"><h2>آموزش‌های مرتبط</h2>
+				<div class="article-related-scroll"><?php foreach ( $related as $related_post ) : get_template_part( 'template-parts/components/blog_card', null, [ 'post_id' => $related_post->ID ] ); endforeach; ?></div>
+				</section><?php endif; ?>
             <div class="article-useful-mobile">
                 <div class="article-sticky-card"><h2>لینک‌های مفید</h2><?php if ( has_nav_menu( 'article_useful_links' ) ) {
                         wp_nav_menu( [ 'theme_location' => 'article_useful_links', 'container' => 'nav', 'menu_class' => 'article-useful-menu', 'depth' => 1, 'fallback_cb' => false ] );

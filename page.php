@@ -7,7 +7,7 @@ get_header(); ?>
             <?php section_heading( [
                     'title'       => get_the_title(),
                     'title_tag'   => 'h1',
-                    'subtitle'    => get_field( 'subtite' ) ?: '',
+                    'subtitle'    => get_field( 'subtitle' ) ?: '',
                     'show_shapes' => true,
             ] ); ?>
         </section>

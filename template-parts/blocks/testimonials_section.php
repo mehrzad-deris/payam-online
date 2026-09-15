@@ -7,12 +7,16 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor    = get_sub_field( 'section_color' ) ?: '#f6f8fe';
 $sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon     = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle    = (string) ( get_sub_field( 'section_title' ) ?: '' );
-$sectionTitleTag = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubtitle = (string) ( get_sub_field( 'section_subtitle' ) ?: '' );
 $testimonials    = get_sub_field( 'testimonials' );
 $transparent     = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+$sectionStyles   = [ '--testimonials-background: ' . ( sanitize_hex_color( $sectionColor ) ?: '#f6f8fe' ) ];
+
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $fieldName ) {
+	$fieldValue = get_sub_field( $fieldName );
+	if ( is_numeric( $fieldValue ) ) {
+		$sectionStyles[] = '--testimonials-' . str_replace( '_', '-', $fieldName ) . ': ' . absint( $fieldValue ) . 'px';
+	}
+}
 
 if ( ! is_array( $testimonials ) ) {
 	$testimonials = [];
@@ -30,22 +34,9 @@ $testimonials = array_values(
 <section
 	class="testimonials-section testimonials-<?= esc_attr( $sectionStyle ); ?>"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
-	style="--testimonials-background: <?= esc_attr( $sectionColor ); ?>"
+	style="<?= esc_attr( implode( '; ', $sectionStyles ) ); ?>"
 >
 	<div class="container testimonials-container">
-		<?php
-		section_heading(
-			[
-				'icon'           => $sectionIcon,
-				'title'          => $sectionTitle,
-				'title_tag'      => $sectionTitleTag,
-				'subtitle'       => $sectionSubtitle,
-                'title_class' => $sectionStyle === 'dark' ? 'text-white' : '',
-				'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-			]
-		);
-		?>
-
 		<?php if ( ! empty( $testimonials ) ) : ?>
 			<div class="swiper testimonials-slider" data-swiper="testimonials">
 				<div class="swiper-wrapper">

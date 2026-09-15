@@ -58,14 +58,13 @@ function payam_form_request( string $key ): string {
 
 /** Use the socket peer, never a client-supplied forwarded IP header. */
 function payam_form_client(): string {
-	return hash_hmac( 'sha256', (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ), wp_salt( 'auth' ) );
+	return payam_client_fingerprint();
 }
 
 function payam_form_rate_limit( string $scope, int $limit ): void {
-	$key = 'payam_fr_' . md5( $scope . payam_form_client() );
-	$count = (int) get_transient( $key );
-	if ( $count >= $limit ) { wp_send_json_error( [ 'message' => 'تعداد درخواست‌ها زیاد است. چند دقیقه دیگر تلاش کنید.' ], 429 ); }
-	set_transient( $key, $count + 1, 10 * MINUTE_IN_SECONDS );
+	if ( ! payam_rate_limit_consume( 'form-' . $scope, $limit, 10 * MINUTE_IN_SECONDS ) ) {
+		wp_send_json_error( [ 'message' => 'تعداد درخواست‌ها زیاد است. چند دقیقه دیگر تلاش کنید.' ], 429 );
+	}
 }
 
 function payam_form_challenge(): void {

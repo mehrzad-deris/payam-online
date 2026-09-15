@@ -32,6 +32,7 @@
   }
 
   &.site-header--light {
+
     .header-inner {
       &:after {
         background: var(--color-neutral-100);
@@ -48,14 +49,20 @@
   }
 
   &.site-header--sticky {
-    background-color: var(--color-light-bg);
+    background-color: #ffffff;
+
+    .header-inner {
+      &:after {
+        opacity: 0;
+      }
+    }
 
     &.site-header--dark {
       background-color: var(--color-dark);
     }
 
     &.site-header--light {
-      background-color: var(--color-light-bg);
+      background-color: #ffffff;
     }
   }
 }
@@ -262,14 +269,17 @@
 }
 
 .seo-box-section {
+  padding-top: var(--seo-box-padding-top-mobile, var(--seo-box-padding-top, 0px));
+  padding-bottom: var(--seo-box-padding-bottom-mobile, var(--seo-box-padding-bottom, 0px));
+
+  @media (min-width: 1280px) {
+    padding-top: var(--seo-box-padding-top, 0px);
+    padding-bottom: var(--seo-box-padding-bottom, 0px);
+  }
+
   .seco-box-block {
     width: 846px;
     max-width: 100%;
-
-    .seo-box-title {
-      color: var(--color-neutral-900);
-      margin-bottom: 16px;
-    }
 
     .seo-box-content {
       text-align: justify;

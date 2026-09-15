@@ -7,15 +7,19 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor    = get_sub_field( 'section_color' ) ?: '#f6f8fe';
 $sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon     = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle    = (string) ( get_sub_field( 'section_title' ) ?: '' );
-$sectionTitleTag = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubtitle = (string) ( get_sub_field( 'section_subtitle' ) ?: '' );
 $postsSource     = (string) ( get_sub_field( 'posts_source' ) ?: 'recent' );
 $postsCount      = max( 1, absint( get_sub_field( 'posts_count' ) ?: 6 ) );
 $selectedPosts   = get_sub_field( 'selected_posts' );
 $blogPosts       = [];
 $sectionLoadMore = get_sub_field( 'blog_more_link' );
+$sectionStyles   = [ '--blog-background: ' . ( sanitize_hex_color( $sectionColor ) ?: '#f6f8fe' ) ];
+
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $fieldName ) {
+    $fieldValue = get_sub_field( $fieldName );
+    if ( is_numeric( $fieldValue ) ) {
+        $sectionStyles[] = '--blog-' . str_replace( '_', '-', $fieldName ) . ': ' . absint( $fieldValue ) . 'px';
+    }
+}
 
 if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
     $selectedPostIds = array_values( array_filter( array_map( static fn( $post ): int => absint( $post instanceof WP_Post ? $post->ID : $post ), $selectedPosts ) ) );
@@ -52,20 +56,9 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
 <section
         class="blog-section blog-<?= esc_attr( $sectionStyle ); ?>"
         data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
-        style="--blog-background: <?= esc_attr( $sectionColor ); ?>"
+        style="<?= esc_attr( implode( '; ', $sectionStyles ) ); ?>"
 >
     <div class="container blog-container">
-        <?php
-        section_heading( [
-                'icon'        => $sectionIcon,
-                'title'       => $sectionTitle,
-                'title_tag'   => $sectionTitleTag,
-                'subtitle'    => $sectionSubtitle,
-                'title_class' => $sectionStyle === 'dark' ? 'text-white' : '',
-                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-        ] );
-        ?>
-
         <?php if ( ! empty( $blogPosts ) ) : ?>
             <div class="swiper blog-slider" data-swiper="blog">
                 <div class="swiper-wrapper">
@@ -82,9 +75,9 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                 <?php endif; ?>
 
                 <div class="justify-center flex mt-10">
-                    <?php if ( $sectionLoadMore ) : ?>
-                        <a href="<?= esc_html( $sectionLoadMore['url'] ) ?: '' ?>" class="cta-link cta-btn-primary cta-has-icon">
-                            <?= esc_html( $sectionLoadMore['title'] ) ?: '' ?>
+                    <?php if ( is_array( $sectionLoadMore ) && ! empty( $sectionLoadMore['url'] ) ) : $moreTarget = (string) ( $sectionLoadMore['target'] ?? '_self' ); ?>
+                        <a href="<?= esc_url( $sectionLoadMore['url'] ); ?>" target="<?= esc_attr( $moreTarget ); ?>"<?= '_blank' === $moreTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-primary cta-has-icon">
+                            <?= esc_html( $sectionLoadMore['title'] ?? '' ); ?>
                             <span class="icon"><?= icon( 'arrow-linear-2', 'w-5 h-5' ) ?></span>
                         </a>
                     <?php endif; ?>

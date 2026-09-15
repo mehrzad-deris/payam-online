@@ -3,10 +3,6 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor               = get_sub_field( 'section_color' ) ? 'background-color: ' . get_sub_field( 'section_color' ) : "";
 $sectionStyle               = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon                = get_sub_field( 'section_icon' );
-$sectionTitle               = get_sub_field( 'section_title' );
-$sectionTitleTag            = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubTitle            = get_sub_field( 'section_subtitle' );
 $serviceTabStyle            = get_sub_field( 'service_tab_style' );
 $serviceTabs                = get_sub_field( 'service_tabs' );
 $tabsId                     = wp_unique_id( 'services-tabs-' );
@@ -30,17 +26,9 @@ $serviceTabClass = str_replace( '_', '-', $serviceTabStyle );
 
 <section data-header-theme="<?= esc_attr( $sectionStyle ); ?>" class="services-section services-tab-<?= esc_attr( $serviceTabClass ); ?> relative xl:px-[135px]" style="<?= esc_attr( $sectionColor ) . ' ' . esc_attr( $servicePaddingTop ) . ' ' . esc_attr( $servicePaddingTopMobile ) . ' ' . esc_attr( $servicePaddingBottom ) . ' ' . esc_attr( $servicePaddingBottomMobile ); ?>">
     <div class="container">
-        <?php section_heading( [
-                'title'     => $sectionTitle,
-                'title_tag' => $sectionTitleTag,
-                'icon'      => $sectionIcon,
-                'subtitle'  => $sectionSubTitle,
-                'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-        ] ) ?>
-
         <?php if ( is_array( $serviceTabs ) && ! empty( $serviceTabs ) ) : ?>
             <div class="services-tabs<?= $isStyleTwo ? ' services-tabs-style-2 lg:px-27' : ' services-tabs-style-1'; ?>" data-tabs data-tabs-style="<?= esc_attr( $serviceTabStyle ); ?>"<?= $isStyleTwo && count( $serviceTabs ) > 1 ? ' data-tabs-autoplay="5000"' : ''; ?>>
-                <div class="services-tabs__list" role="tablist" aria-orientation="<?= $isStyleTwo ? 'horizontal' : 'vertical'; ?>" aria-label="<?= esc_attr( $sectionTitle ?: 'خدمات' ); ?>">
+                <div class="services-tabs__list" role="tablist" aria-orientation="<?= $isStyleTwo ? 'horizontal' : 'vertical'; ?>" aria-label="خدمات">
                     <?php foreach ( $serviceTabs as $index => $serviceTab ) :
                         $tabTitle = $serviceTab['tab_title'] ?? '';
                         $tabIcon = absint( $serviceTab['tab_icon'] ?? 0 );

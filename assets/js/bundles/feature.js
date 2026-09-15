@@ -42,6 +42,8 @@ const animateFeatureCounter = (counter) => {
 };
 
 const initBrands = (section) => {
+	if (section.dataset.brandsReady === 'true') return;
+
     const stage = section.querySelector('[data-brand-stage]');
     const track = section.querySelector('[data-brand-track]');
     const firstGroup = track?.querySelector('.brands-group');
@@ -51,9 +53,14 @@ const initBrands = (section) => {
         return;
     }
 
+	section.dataset.brandsReady = 'true';
+
     let frameId = 0;
     let lastTime = 0;
+	let lastVisualUpdate = 0;
     let offset = -firstGroup.offsetWidth;
+	let stageCenter = stage.clientWidth / 2;
+	let itemCenters = Array.from(items, (item) => item.offsetLeft + item.offsetWidth / 2);
     const speed = 52;
 
     track.style.transform = `translate3d(${offset}px, 0, 0)`;
@@ -71,14 +78,12 @@ const initBrands = (section) => {
 
         track.style.transform = `translate3d(${offset}px, 0, 0)`;
 
-        const center = stage.getBoundingClientRect().left + stage.offsetWidth / 2;
-
-        items.forEach((item) => {
-            const bounds = item.getBoundingClientRect();
-            const hasPassedCenter = bounds.left + bounds.width / 2 >= center;
-
-            item.classList.toggle('brand-color', hasPassedCenter);
-        });
+		if (time - lastVisualUpdate >= 100) {
+			lastVisualUpdate = time;
+			items.forEach((item, index) => {
+				item.classList.toggle('brand-color', itemCenters[index] + offset >= stageCenter);
+			});
+		}
 
         frameId = requestAnimationFrame(updateMarquee);
     };
@@ -117,6 +122,12 @@ const initBrands = (section) => {
     );
 
     observer.observe(section);
+
+	const resizeObserver = new ResizeObserver(() => {
+		stageCenter = stage.clientWidth / 2;
+		itemCenters = Array.from(items, (item) => item.offsetLeft + item.offsetWidth / 2);
+	});
+	resizeObserver.observe(stage);
 
     featureDesktopQuery.addEventListener('change', () => {
         if (!featureDesktopQuery.matches) {

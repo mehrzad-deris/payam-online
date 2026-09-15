@@ -15,6 +15,8 @@ $faqItems          = [];
 $faqFromPosts      = 'cpt' === get_sub_field( 'faq_source' );
 $faqCategories     = [];
 $faqShowCategories = $faqFromPosts && (bool) get_sub_field( 'faq_show_categories' );
+$faqPerPage         = min( 30, max( 1, absint( get_sub_field( 'faq_items_per_page' ) ?: 8 ) ) );
+$faqHasMore         = false;
 
 if ( '' !== $sectionColor ) {
     $sectionStyles[] = 'background-color: ' . $sectionColor;
@@ -28,9 +30,10 @@ foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bott
 }
 
 if ( $faqFromPosts ) {
-    $catalogue = payam_faq_catalogue();
+    $catalogue = payam_faq_catalogue( $faqPerPage );
     $faqItems = $catalogue['items'];
-    $faqCategories = $faqShowCategories ? $catalogue['categories'] : [];
+    $faqHasMore = $catalogue['total_pages'] > 1;
+    $faqCategories = $faqShowCategories ? payam_faq_categories() : [];
 } elseif ( is_array( $faqRows ) ) {
     $faqItems = array_values( array_filter( $faqRows, static fn( $item ): bool => is_array( $item ) && '' !== trim( (string) ( $item['question'] ?? '' ) ) ) );
 }
@@ -45,6 +48,7 @@ $ctaTarget = (string) ( $ctaLink['target'] ?? '' );
         class="faq-section faq-section-<?= esc_attr( $sectionStyle ); ?>"
         data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
         data-faq
+        <?= $faqFromPosts ? 'data-faq-endpoint="' . esc_url( rest_url( 'payam/v1/faqs' ) ) . '" data-faq-per-page="' . esc_attr( $faqPerPage ) . '"' : ''; ?>
         <?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >
     <div class="container faq-container ">
@@ -53,47 +57,20 @@ $ctaTarget = (string) ( $ctaLink['target'] ?? '' );
                 <?php if ( $faqCategories ) : ?>
                     <aside class="faq-categories" aria-label="دسته‌بندی سوالات">
                         <h3>دسته‌بندی سوالات</h3>
-                        <nav aria-label="فیلتر سوالات متداول">
-                            <button type="button" data-faq-category="all" aria-pressed="true">همه سوالات</button>
+                        <nav aria-label="فیلتر سوالات متداول" class="text-body-3">
+                            <button type="button" data-faq-category="all" aria-pressed="true"><span class="flex items-center gap-2"><?= icon('grid', 'w-6 h-6') ?> همه سوالات</span><span><?= icon('arrow-linear-2', 'w-4 h-4') ?></span></button>
                             <?php foreach ( $faqCategories as $categoryId => $categoryName ) : ?>
-                                <button type="button" data-faq-category="<?= esc_attr( $categoryId ); ?>" aria-pressed="false"><?= esc_html( $categoryName ); ?></button>
+                                <button type="button" data-faq-category="<?= esc_attr( $categoryId ); ?>" aria-pressed="false"><span class="flex items-center gap-2"><?= icon('grid', 'w-6 h-6') ?><?= esc_html( $categoryName ); ?></span><span><?= icon('arrow-linear-2', 'w-4 h-4') ?></span></button>
                             <?php endforeach; ?>
                         </nav>
                     </aside>
                 <?php endif; ?>
                 <div class="faq-list">
-                    <?php foreach ( $faqItems as $faqIndex => $faqItem ) :
-                        $isOpen = 0 === $faqIndex;
-                        $buttonId = wp_unique_id( 'faq-button-' );
-                        $panelId = wp_unique_id( 'faq-panel-' );
-                        ?>
-                        <article class="faq-item<?= $isOpen ? ' is-open' : ''; ?> shadow-mellow" data-faq-item<?= $faqFromPosts ? ' data-faq-categories="' . esc_attr( implode( ' ', $faqItem['categories'] ) ) . '"' : ''; ?>>
-                            <h3 class="faq-question">
-                                <button
-                                        type="button"
-                                        class="faq-button"
-                                        id="<?= esc_attr( $buttonId ); ?>"
-                                        data-faq-toggle
-                                        aria-expanded="<?= $isOpen ? 'true' : 'false'; ?>"
-                                        aria-controls="<?= esc_attr( $panelId ); ?>"
-                                >
-                                    <span class="faq-question-text text-body-mobile-2 md:text-body-2"><?= esc_html( $faqItem['question'] ); ?></span>
-                                    <span class="faq-symbol" data-faq-symbol aria-hidden="true"><?= $isOpen ? icon( 'minus', 'fill-white w-6 h-6' ) : icon( 'plus', 'stroke-blue-primary w-6 h-6' ); ?></span>
-                                </button>
-                            </h3>
+                    <div data-faq-items><?= payam_render_faq_items( $faqItems ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by renderer. ?></div>
 
-                            <div
-                                    class="faq-answer"
-                                    id="<?= esc_attr( $panelId ); ?>"
-                                    data-faq-panel
-                                    role="region"
-                                    aria-labelledby="<?= esc_attr( $buttonId ); ?>"
-                                    <?= $isOpen ? '' : 'hidden'; ?>
-                            >
-                                <div class="faq-answer-content text-description md:text-caption text-caption-mobile"><?= wp_kses_post( $faqItem['answer'] ?? '' ); ?></div>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+                    <?php if ( $faqFromPosts ) : ?>
+                        <button type="button" class="faq-load-more" data-faq-load-more data-next-page="2"<?= $faqHasMore ? '' : ' hidden'; ?>>مشاهده سوالات بیشتر</button>
+                    <?php endif; ?>
 
                     <?php if ( '' !== $ctaText || '' !== $ctaUrl ) : ?>
                         <div class="faq-cta shadow-mellow">

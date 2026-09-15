@@ -7,25 +7,18 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor      = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle      = get_sub_field( 'section_style' ) ?: 'light';
-$sectionIcon       = absint( get_sub_field( 'section_icon' ) );
-$sectionTitle      = get_sub_field( 'section_title' );
-$sectionTitleTag   = get_sub_field( 'title_tag' ) ?: 'h2';
-$sectionSubtitle   = get_sub_field( 'section_subtitle' );
 $featureItems      = get_sub_field( 'features' );
-$marginTopField    = get_sub_field( 'section_margin_top' );
-$marginBottomField = get_sub_field( 'section_margin_bottom' );
 $sectionStyles     = [];
 
 if ( '' !== $sectionColor ) {
 	$sectionStyles[] = 'background-color: ' . $sectionColor;
 }
 
-if ( is_numeric( $marginTopField ) ) {
-	$sectionStyles[] = 'margin-top: ' . max( -1000, min( 1000, (int) $marginTopField ) ) . 'px';
-}
-
-if ( is_numeric( $marginBottomField ) ) {
-	$sectionStyles[] = 'margin-bottom: ' . max( -1000, min( 1000, (int) $marginBottomField ) ) . 'px';
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $fieldName ) {
+	$fieldValue = get_sub_field( $fieldName );
+	if ( is_numeric( $fieldValue ) ) {
+		$sectionStyles[] = '--feature-' . str_replace( '_', '-', $fieldName ) . ': ' . absint( $fieldValue ) . 'px';
+	}
 }
 
 if ( is_array( $featureItems ) ) {
@@ -48,18 +41,6 @@ if ( is_array( $featureItems ) ) {
 	<?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >
 	<div class="container">
-		<?php
-		section_heading(
-			[
-				'icon'      => $sectionIcon,
-				'title'     => $sectionTitle,
-				'title_tag' => $sectionTitleTag,
-				'subtitle'  => $sectionSubtitle,
-				'show_shapes' => (bool) get_sub_field( 'section_heading_shapes' ),
-			]
-		);
-		?>
-
 		<?php if ( is_array( $featureItems ) && ! empty( $featureItems ) ) : ?>
 			<div class="feature-section__grid">
 				<?php foreach ( $featureItems as $featureItem ) :

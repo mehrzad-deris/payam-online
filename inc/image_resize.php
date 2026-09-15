@@ -24,11 +24,11 @@ add_action( 'after_setup_theme', function () {
 	add_image_size( 'blog_card_x2', 778, 436, true ); // x2
 	add_image_size( 'single_article', 630, 354, true );
 	add_image_size( 'single_article_x2', 1260, 708, true ); // x2
+	add_image_size( 'single_article_mobile', 358, 200, true );
+	add_image_size( 'single_article_mobile_x2', 716, 400, true ); // x2
+	/* Article Aside Thumbnail */
 	add_image_size( 'article_sidebar', 80, 80, true );
 	add_image_size( 'article_sidebar_2', 160, 160, true );
-	/* Article Aside Thumbnail */
-	add_image_size( 'article_sidebar', 80, 80, true);
-	add_image_size( 'article_sidebar_2', 160, 160, true);
 
 	/* Banner Section */
 	add_image_size( 'banner_desktop', 1144, 591, true );
@@ -68,7 +68,7 @@ function payam_is_valid_svg( string $file ): bool {
 	}
 
 	if ( ! class_exists( 'DOMDocument' ) ) {
-		return (bool) preg_match( '/<svg(?:\s|>)/i', $contents );
+		return false;
 	}
 
 	$previousErrors = libxml_use_internal_errors( true );
@@ -81,24 +81,26 @@ function payam_is_valid_svg( string $file ): bool {
 		return false;
 	}
 
-	$blockedElements = [ 'script', 'foreignObject', 'iframe', 'object', 'embed' ];
-
-	foreach ( $blockedElements as $elementName ) {
-		if ( $document->getElementsByTagName( $elementName )->length ) {
-			return false;
-		}
-	}
+	$blockedElements = [ 'script', 'foreignobject', 'iframe', 'object', 'embed', 'style' ];
 
 	foreach ( $document->getElementsByTagName( '*' ) as $element ) {
+		if ( in_array( strtolower( $element->localName ), $blockedElements, true ) ) {
+			return false;
+		}
+
 		foreach ( $element->attributes ?? [] as $attribute ) {
-			$name  = strtolower( $attribute->nodeName );
+			$name  = strtolower( $attribute->localName ?: $attribute->nodeName );
 			$value = trim( $attribute->nodeValue );
 
 			if ( str_starts_with( $name, 'on' ) ) {
 				return false;
 			}
 
-			if ( in_array( $name, [ 'href', 'xlink:href', 'src' ], true ) && preg_match( '/^(?:javascript:|data:|https?:|\/\/)/i', $value ) ) {
+			if ( in_array( $name, [ 'href', 'src' ], true ) && '' !== $value && ! str_starts_with( $value, '#' ) ) {
+				return false;
+			}
+
+			if ( 'style' === $name && preg_match( '/(?:url\s*\(|expression\s*\(|@import)/i', $value ) ) {
 				return false;
 			}
 		}

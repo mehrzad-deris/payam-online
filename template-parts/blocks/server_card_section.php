@@ -9,6 +9,31 @@ $sectionColor    = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle    = get_sub_field( 'section_style' ) ?: 'light';
 $sectionServices = get_sub_field( 'service_tab' );
 $sectionFilters  = get_sub_field( 'server_filters' );
+$paddingTopValue          = get_sub_field( 'padding_top' );
+$paddingTopMobileValue    = get_sub_field( 'padding_top_mobile' );
+$paddingBottomValue       = get_sub_field( 'padding_bottom' );
+$paddingBottomMobileValue = get_sub_field( 'padding_bottom_mobile' );
+$sectionStyles            = [];
+
+if ( '' !== $sectionColor ) {
+    $sectionStyles[] = 'background-color:' . sanitize_hex_color( $sectionColor );
+}
+
+if ( is_numeric( $paddingTopValue ) ) {
+    $sectionStyles[] = '--server-card-padding-top:' . absint( $paddingTopValue ) . 'px';
+}
+
+if ( is_numeric( $paddingTopMobileValue ) ) {
+    $sectionStyles[] = '--server-card-padding-top-mobile:' . absint( $paddingTopMobileValue ) . 'px';
+}
+
+if ( is_numeric( $paddingBottomValue ) ) {
+    $sectionStyles[] = '--server-card-padding-bottom:' . absint( $paddingBottomValue ) . 'px';
+}
+
+if ( is_numeric( $paddingBottomMobileValue ) ) {
+    $sectionStyles[] = '--server-card-padding-bottom-mobile:' . absint( $paddingBottomMobileValue ) . 'px';
+}
 
 $getProductField = static function ( string $fieldName, int $postId ) {
     return function_exists( 'get_field' ) ? get_field( $fieldName, $postId ) : get_post_meta( $postId, $fieldName, true );
@@ -209,7 +234,7 @@ $filterCount          = count( $sectionFilters );
 $filterMobileColumns  = min( 2, max( 1, $filterCount ) );
 ?>
 
-<section class="server-card-section mb-32 relative" data-header-theme="<?= esc_attr( $sectionStyle ); ?>" <?php if ( '' !== $sectionColor ) : ?>style="background-color: <?= esc_attr( $sectionColor ); ?>"<?php endif; ?>>
+<section class="server-card-section relative" data-header-theme="<?= esc_attr( $sectionStyle ); ?>"<?= $sectionStyles ? ' style="' . esc_attr( implode( ';', array_filter( $sectionStyles ) ) ) . '"' : ''; ?>>
     <div class="container relative z-2">
     <?php if ( ! empty( $sectionServices ) ) : ?>
         <div class="server-product-browser" data-server-product-browser>

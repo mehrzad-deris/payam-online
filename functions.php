@@ -22,6 +22,7 @@ add_action( 'after_setup_theme', function () {
 } );
 
 require_once get_theme_file_path('/inc/asset_registry.php');
+require_once get_theme_file_path('/inc/security.php');
 require_once get_theme_file_path('/inc/image_resize.php');
 require_once get_theme_file_path('/inc/editor_shortcodes.php');
 require_once get_theme_file_path('/inc/whmcs_products.php');
@@ -58,17 +59,25 @@ function icon( $name, $class = '' ) {
  * Flexible Content
  * */
 function theme_render_block( $layout ) {
+	$layout = sanitize_key( (string) $layout );
 	$layout_aliases = [
 		'hero_section'         => 'domain_check_section',
 		'hero_section_on_page' => 'server_card_section',
 	];
 	$template_layout = $layout_aliases[ $layout ] ?? $layout;
+	$allowed_layouts = array_keys( payam_get_section_config() );
+
+	if ( ! in_array( $layout, $allowed_layouts, true ) && ! array_key_exists( $layout, $layout_aliases ) ) {
+		return;
+	}
+
+	if ( ! in_array( $template_layout, $allowed_layouts, true ) ) {
+		return;
+	}
 	$path            = 'template-parts/blocks/' . $template_layout;
 
 	if ( locate_template( $path . '.php' ) ) {
 		get_template_part( $path );
-	} else {
-		echo "<!-- Block not found: {$layout} -->";
 	}
 }
 

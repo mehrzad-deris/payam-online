@@ -135,6 +135,9 @@
 
 /* Feature Section */
 .feature-section {
+  padding-top: var(--feature-padding-top-mobile, var(--feature-padding-top, 0px));
+  padding-bottom: var(--feature-padding-bottom-mobile, var(--feature-padding-bottom, 0px));
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 305px));
@@ -168,6 +171,8 @@
 /* Trusted brands */
 .brands-section {
   display: none;
+  padding-top: var(--brands-padding-top-mobile, var(--brands-padding-top, 0px));
+  padding-bottom: var(--brands-padding-bottom-mobile, var(--brands-padding-bottom, 0px));
 }
 
 @media (max-width: 767px) {
@@ -176,8 +181,6 @@
   }
 
   .feature-section {
-    margin-bottom: 96px !important;
-
     &__grid {
       grid-template-columns: repeat(1, minmax(0, 100%));
       gap: 16px;
@@ -187,37 +190,18 @@
 }
 
 @media (min-width: 1280px) {
+  .feature-section {
+    padding-top: var(--feature-padding-top, 0px);
+    padding-bottom: var(--feature-padding-bottom, 0px);
+  }
+
   .brands-section {
     display: block;
     min-height: 366px;
     overflow: hidden;
     background: var(--brands-background, #f6f8fe);
-    margin-bottom: 128px;
-  }
-
-  .brands-container {
-    position: relative;
-    padding-top: 0;
-  }
-
-  .brands-heading {
-    gap: 16px;
-    width: min(607px, 100%);
-    margin: 0 auto;
-  }
-
-  .brands-title,
-  .brands-subtitle {
-    margin: 0;
-  }
-
-  .brands-title {
-    color: #07041d;
-  }
-
-  .brands-subtitle {
-    color: #575775;
-    white-space: nowrap;
+    padding-top: var(--brands-padding-top, 0px);
+    padding-bottom: var(--brands-padding-bottom, 0px);
   }
 
   .brands-stage {
@@ -377,6 +361,13 @@
 /* Feature Card */
 .feature-card {
   position: relative;
+  padding-top: var(--feature-card-padding-top-mobile, var(--feature-card-padding-top, 0px));
+  padding-bottom: var(--feature-card-padding-bottom-mobile, var(--feature-card-padding-bottom, 0px));
+
+  @media (min-width: 1280px) {
+    padding-top: var(--feature-card-padding-top, 0px);
+    padding-bottom: var(--feature-card-padding-bottom, 0px);
+  }
 
   .feature-card__grid {
     display: grid;

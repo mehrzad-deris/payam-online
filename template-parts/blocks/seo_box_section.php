@@ -7,29 +7,20 @@ defined( 'ABSPATH' ) || exit;
 
 $sectionColor      = get_sub_field( 'section_color' ) ?: '';
 $sectionStyle      = (string) ( get_sub_field( 'section_style' ) ?: 'light' );
-$sectionTitle      = (string) ( get_sub_field( 'section_title' ) ?: '' );
-$sectionTitleTag   = strtolower( (string) ( get_sub_field( 'title_tag' ) ?: 'h2' ) );
 $sectionContent    = get_sub_field( 'seo_content' );
 $collapsedLines    = max( 1, min( 20, absint( get_sub_field( 'seo_collapsed_lines' ) ?: 6 ) ) );
-$marginTopField    = get_sub_field( 'section_margin_top' );
-$marginBottomField = get_sub_field( 'section_margin_bottom' );
 $sectionStyles     = [];
 $contentId         = wp_unique_id( 'seo-box-content-' );
-
-if ( ! in_array( $sectionTitleTag, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], true ) ) {
-    $sectionTitleTag = 'h2';
-}
 
 if ( '' !== $sectionColor ) {
     $sectionStyles[] = 'background-color: ' . $sectionColor;
 }
 
-if ( is_numeric( $marginTopField ) ) {
-    $sectionStyles[] = 'margin-top: ' . max( - 1000, min( 1000, (int) $marginTopField ) ) . 'px';
-}
-
-if ( is_numeric( $marginBottomField ) ) {
-    $sectionStyles[] = 'margin-bottom: ' . max( - 1000, min( 1000, (int) $marginBottomField ) ) . 'px';
+foreach ( [ 'padding_top', 'padding_top_mobile', 'padding_bottom', 'padding_bottom_mobile' ] as $fieldName ) {
+    $fieldValue = get_sub_field( $fieldName );
+    if ( is_numeric( $fieldValue ) ) {
+        $sectionStyles[] = '--seo-box-' . str_replace( '_', '-', $fieldName ) . ': ' . absint( $fieldValue ) . 'px';
+    }
 }
 ?>
 
@@ -42,10 +33,6 @@ if ( is_numeric( $marginBottomField ) ) {
 >
     <div class="container seo-box-container flex justify-center">
         <div class="seco-box-block">
-            <?php if ( '' !== $sectionTitle ) : ?>
-            <<?= esc_attr( $sectionTitleTag ); ?> class="seo-box-title md:text-desktop-h2 text-mobile-h2"><?= esc_html( $sectionTitle ); ?></<?= esc_attr( $sectionTitleTag ); ?>>
-        <?php endif; ?>
-
         <?php if ( $sectionContent ) : ?>
             <div class="seo-box-content md:text-body-3 text-body-mobile-3" id="<?= esc_attr( $contentId ); ?>" data-seo-box-content>
                 <?= wp_kses_post( $sectionContent ); ?>

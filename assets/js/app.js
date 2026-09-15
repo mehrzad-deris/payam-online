@@ -114,6 +114,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* Accessible mobile navigation */
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('[data-mobile-menu-toggle]');
+    const menu = document.querySelector('[data-mobile-menu]');
+
+    if (!toggle || !menu) {
+        return;
+    }
+
+    const closeMenu = (restoreFocus = false) => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'باز کردن فهرست اصلی');
+        menu.hidden = true;
+        if (restoreFocus) {
+            toggle.focus();
+        }
+    };
+
+    toggle.addEventListener('click', () => {
+        const shouldOpen = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(shouldOpen));
+        toggle.setAttribute('aria-label', shouldOpen ? 'بستن فهرست اصلی' : 'باز کردن فهرست اصلی');
+        menu.hidden = !shouldOpen;
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !menu.hidden) {
+            closeMenu(true);
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.hidden && !menu.contains(event.target) && !toggle.contains(event.target)) {
+            closeMenu();
+        }
+    });
+
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
+        if (event.matches) {
+            closeMenu();
+        }
+    });
+});
+
 /* Shared deferred image hydration */
 const lazyDesktopQuery = window.matchMedia('(min-width: 1280px)');
 

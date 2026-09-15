@@ -58,9 +58,11 @@ add_filter( 'comment_form_default_fields', 'payam_article_comment_fields', 20 );
 
 function payam_enqueue_single_post_assets(): void {
 	if ( ! is_singular( 'post' ) ) { return; }
-	wp_enqueue_style( 'payam-vendor-swiper' ); wp_enqueue_style( 'payam-bundle-cards' );
-	wp_enqueue_script( 'payam-vendor-swiper' ); wp_enqueue_script( 'payam-bundle-cards' );
-	wp_enqueue_style( 'payam-bundle-single-post', get_theme_file_uri( '/assets/styles/scss/bundles/single-post.min.css' ), [ 'payam-app', 'payam-bundle-cards' ], payam_asset_version( '/assets/styles/scss/bundles/single-post.min.css' ) );
+	wp_enqueue_style( 'payam-bundle-content-cards' );
+	$style_path = payam_css_asset_path( '/assets/styles/scss/bundles/single-post.css' );
+	wp_enqueue_style( 'payam-bundle-single-post', get_theme_file_uri( $style_path ), [ 'payam-app', 'payam-bundle-content-cards' ], payam_asset_version( $style_path ) );
 	wp_enqueue_script( 'payam-bundle-single-post', get_theme_file_uri( '/assets/js/bundles/single-post.min.js' ), [ 'payam-app' ], payam_asset_version( '/assets/js/bundles/single-post.min.js' ), [ 'strategy' => 'defer', 'in_footer' => true ] );
+	payam_set_asset_cache_role( 'payam-bundle-single-post', 'style', 'page' );
+	payam_set_asset_cache_role( 'payam-bundle-single-post', 'script', 'page' );
 }
 add_action( 'wp_enqueue_scripts', 'payam_enqueue_single_post_assets', 30 );

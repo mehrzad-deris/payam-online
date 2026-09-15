@@ -44,6 +44,8 @@ $imageAlt          = (string) get_post_meta( $bannerImage, '_wp_attachment_image
 $linkUrl           = is_array( $bannerLink ) ? ( $bannerLink['url'] ?? '' ) : $bannerLink;
 $linkTarget        = is_array( $bannerLink ) ? ( $bannerLink['target'] ?? '_self' ) : '_self';
 $linkTitle         = is_array( $bannerLink ) ? ( $bannerLink['title'] ?? '' ) : '';
+$hasInnerCtas      = is_array( $bannerPrimaryCTA ) || is_array( $bannerSecondaryCTA );
+$wrapperTag        = $linkUrl && ! $hasInnerCtas ? 'a' : 'div';
 
 if ( ! $desktopImage ) {
     return;
@@ -57,7 +59,7 @@ $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
 
 <section class="banner-section banner-section-<?= esc_attr( $bannerSize )?>" style="<?= esc_attr( $bannerPaddingTop ) . ' ' . esc_attr( $bannerPaddingTopMobile ) . ' ' . esc_attr( $bannerPaddingBottom ) . ' ' . esc_attr( $bannerPaddingBottomMobile ); ?>" data-lazy-root>
     <div class="container banner-container flex justify-center">
-        <<?= esc_url( $linkUrl ) ? 'a' : 'div' ?> class="banner-link relative block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>" href="<?= esc_url( $linkUrl ); ?>" target="<?= esc_attr( $linkTarget ); ?>"<?= '_blank' === $linkTarget ? ' rel="noopener noreferrer"' : ''; ?><?= $linkTitle ? ' aria-label="' . esc_attr( $linkTitle ) . '"' : ''; ?>>
+        <<?= $wrapperTag; ?> class="banner-link relative block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>"<?php if ( 'a' === $wrapperTag ) : ?> href="<?= esc_url( $linkUrl ); ?>" target="<?= esc_attr( $linkTarget ); ?>"<?= '_blank' === $linkTarget ? ' rel="noopener noreferrer"' : ''; ?><?= $linkTitle ? ' aria-label="' . esc_attr( $linkTitle ) . '"' : ''; ?><?php endif; ?>>
 
         <picture class="banner-picture block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>">
             <?php if ( $mobileUrl ) : ?>
@@ -86,15 +88,15 @@ $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
                     <span class="text-desktop-h5 text-center lg:text-start"><?= esc_html( $bannerText ) ?></span>
                 <?php endif; ?>
                 <span class="flex items-center gap-2.5">
-                    <?php if ( $bannerSecondaryCTA ) : ?>
-                        <a href="<?= esc_url( $bannerSecondaryCTA['url'] ) ?>" class="cta-link cta-btn-secondary cta-has-icon py-2.75!">
-                            <span><?= esc_html( $bannerSecondaryCTA['title'] ) ?></span>
+                    <?php if ( is_array( $bannerSecondaryCTA ) && ! empty( $bannerSecondaryCTA['url'] ) ) : $secondaryTarget = (string) ( $bannerSecondaryCTA['target'] ?? '_self' ); ?>
+                        <a href="<?= esc_url( $bannerSecondaryCTA['url'] ) ?>" target="<?= esc_attr( $secondaryTarget ); ?>"<?= '_blank' === $secondaryTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-secondary cta-has-icon py-2.75!">
+                            <span><?= esc_html( $bannerSecondaryCTA['title'] ?? '' ) ?></span>
                             <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white hover:rotate-45 duration-200' ) ?>
                         </a>
                     <?php endif; ?>
-                    <?php if ( $bannerPrimaryCTA ) : ?>
-                        <a href="<?= esc_url( $bannerPrimaryCTA['url'] ) ?>" class="cta-link cta-btn-primary cta-has-icon py-2.75!">
-                            <span><?= esc_html( $bannerPrimaryCTA['title'] ) ?></span>
+                    <?php if ( is_array( $bannerPrimaryCTA ) && ! empty( $bannerPrimaryCTA['url'] ) ) : $primaryTarget = (string) ( $bannerPrimaryCTA['target'] ?? '_self' ); ?>
+                        <a href="<?= esc_url( $bannerPrimaryCTA['url'] ) ?>" target="<?= esc_attr( $primaryTarget ); ?>"<?= '_blank' === $primaryTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-primary cta-has-icon py-2.75!">
+                            <span><?= esc_html( $bannerPrimaryCTA['title'] ?? '' ) ?></span>
                             <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white hover:rotate-45 duration-200' ) ?>
                         </a>
                     <?php endif; ?>
@@ -102,6 +104,6 @@ $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
             </span>
         </span>
 
-    </<?= esc_url( $linkUrl ) ? 'a' : 'span' ?>>
+    </<?= $wrapperTag; ?>>
     </div>
 </section>

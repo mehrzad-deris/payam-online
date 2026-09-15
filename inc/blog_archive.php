@@ -13,8 +13,15 @@ function payam_render_blog_cards( array $posts ): string {
 
 function payam_load_more_blog_posts(): void {
 	check_ajax_referer( 'payam_blog_archive', 'nonce' );
-	$offset      = absint( $_POST['offset'] ?? 0 );
+	if ( ! payam_rate_limit_consume( 'blog-archive', 60, 10 * MINUTE_IN_SECONDS ) ) {
+		wp_send_json_error( [ 'message' => 'تعداد درخواست‌ها زیاد است. چند دقیقه دیگر تلاش کنید.' ], 429 );
+	}
+
+	$offset      = min( 6000, absint( $_POST['offset'] ?? 0 ) );
 	$category_id = absint( $_POST['categoryId'] ?? 0 );
+	if ( $category_id && ! term_exists( $category_id, 'category' ) ) {
+		wp_send_json_error( [ 'message' => 'دسته‌بندی معتبر نیست.' ], 400 );
+	}
 	$query_args  = [
 		'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 6,
 		'offset' => $offset, 'orderby' => 'date', 'order' => 'DESC',
@@ -39,9 +46,12 @@ add_action( 'wp_ajax_nopriv_payam_load_blog_posts', 'payam_load_more_blog_posts'
 
 function payam_enqueue_blog_archive_assets(): void {
 	if ( ! is_home() && ! is_archive() ) { return; }
-	wp_enqueue_style( 'payam-bundle-cards' );
-	wp_enqueue_style( 'payam-blog-archive', get_theme_file_uri( '/assets/styles/scss/sections/blog-archive.css' ), [ 'payam-app', 'payam-bundle-cards' ], payam_asset_version( '/assets/styles/scss/sections/blog-archive.css' ) );
+	wp_enqueue_style( 'payam-bundle-content-cards' );
+	$style_path = payam_css_asset_path( '/assets/styles/scss/sections/blog-archive.css' );
+	wp_enqueue_style( 'payam-blog-archive', get_theme_file_uri( $style_path ), [ 'payam-app', 'payam-bundle-content-cards' ], payam_asset_version( $style_path ) );
 	wp_enqueue_script( 'payam-blog-archive', get_theme_file_uri( '/assets/js/sections/blog-archive.min.js' ), [ 'payam-app' ], payam_asset_version( '/assets/js/sections/blog-archive.min.js' ), [ 'strategy' => 'defer', 'in_footer' => true ] );
+	payam_set_asset_cache_role( 'payam-blog-archive', 'style', 'page' );
+	payam_set_asset_cache_role( 'payam-blog-archive', 'script', 'page' );
 	wp_localize_script( 'payam-blog-archive', 'payamBlogArchive', [ 'ajaxUrl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'payam_blog_archive' ) ] );
 }
 add_action( 'wp_enqueue_scripts', 'payam_enqueue_blog_archive_assets', 30 );

@@ -62,6 +62,25 @@ function payam_asset_exists( string $relative_path ): bool {
 	return file_exists( get_theme_file_path( $relative_path ) );
 }
 
+/** Select readable CSS in development and minified CSS in production. */
+function payam_css_asset_path( string $relative_path ): string {
+	static $use_minified = null;
+
+	if ( null === $use_minified ) {
+		$environment  = function_exists( 'wp_get_environment_type' ) ? wp_get_environment_type() : 'production';
+		$is_debug     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
+		$use_minified = ! $is_debug && ! in_array( $environment, [ 'local', 'development' ], true );
+	}
+
+	if ( ! $use_minified || ! str_ends_with( $relative_path, '.css' ) ) {
+		return $relative_path;
+	}
+
+	$minified = substr( $relative_path, 0, -4 ) . '.min.css';
+
+	return payam_asset_exists( $minified ) ? $minified : $relative_path;
+}
+
 /**
  * Converts an ACF layout name to an asset slug.
  */
@@ -102,10 +121,11 @@ function payam_get_section_config(): array {
 
 		'hero_section_on_page' => [
 			'styles'  => [
-				'payam-bundle-cards',
+				'payam-bundle-product-cards',
 			],
 			'scripts' => [
-				'payam-bundle-cards',
+				'payam-bundle-product-cards',
+				'payam-bundle-tabs',
 			],
 		],
 
@@ -116,38 +136,39 @@ function payam_get_section_config(): array {
 		'os_logo_section' => [
 			'styles'  => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-sliders',
 			],
 			'scripts' => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-sliders',
 			],
 		],
 
 		'server_card_section' => [
 			'styles'  => [
-				'payam-bundle-cards',
+				'payam-bundle-product-cards',
 			],
 			'scripts' => [
-				'payam-bundle-cards',
+				'payam-bundle-product-cards',
+				'payam-bundle-tabs',
 			],
 		],
 
 		'ssl_products_section' => [
 			'styles'  => [
-				'payam-bundle-cards',
+				'payam-bundle-product-cards',
 			],
 			'scripts' => [
-				'payam-bundle-cards',
+				'payam-bundle-tabs',
 			],
 		],
 
 		'faq_section' => [
 			'styles' => [
-				'payam-bundle-cards',
+				'payam-bundle-faq',
 			],
 			'scripts' => [
-				'payam-bundle-cards',
+				'payam-bundle-faq',
 			],
 		],
 
@@ -190,37 +211,38 @@ function payam_get_section_config(): array {
 		'testimonials_section' => [
 			'styles'  => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-sliders',
 			],
 			'scripts' => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-sliders',
 			],
 		],
 
 		'services_section' => [
 			'styles'  => [
-				'payam-bundle-cards',
+				'payam-bundle-services-tabs',
 			],
 			'scripts' => [
-				'payam-bundle-cards',
+				'payam-bundle-tabs',
 			],
 		],
 
 		'services_card_section' => [
 			'styles' => [
-				'payam-bundle-cards',
+				'payam-bundle-service-cards',
 			],
 		],
 
 		'blog_section' => [
 			'styles'  => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-content-cards',
+				'payam-bundle-sliders',
 			],
 			'scripts' => [
 				'payam-vendor-swiper',
-				'payam-bundle-cards',
+				'payam-bundle-sliders',
 			],
 		],
 	];
@@ -242,7 +264,7 @@ function payam_get_section_assets(): array {
 		$styles  = $config['styles'] ?? [];
 		$scripts = $config['scripts'] ?? [];
 
-		if ( payam_asset_exists( $style_path ) ) {
+		if ( payam_asset_exists( payam_css_asset_path( $style_path ) ) ) {
 			$styles[] = 'payam-section-' . $slug;
 		}
 
@@ -265,6 +287,8 @@ function payam_get_section_assets(): array {
 function payam_register_theme_style(
 	string $handle, string $relative_path, array $dependencies = []
 ): bool {
+	$relative_path = payam_css_asset_path( $relative_path );
+
 	if ( ! payam_asset_exists( $relative_path ) ) {
 		return false;
 	}
@@ -286,6 +310,21 @@ function payam_register_theme_script(
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		] );
+}
+
+/**
+ * Marks an asset for DS Cache without coupling the theme to the plugin.
+ */
+function payam_set_asset_cache_role( string $handle, string $type, string $role, bool $safe_to_merge = false ): void {
+	if ( 'style' === $type ) {
+		wp_style_add_data( $handle, 'ds_asset_group', $role );
+		return;
+	}
+
+	wp_script_add_data( $handle, 'ds_asset_group', $role );
+	if ( $safe_to_merge ) {
+		wp_script_add_data( $handle, 'ds_asset_safe', true );
+	}
 }
 
 /**
@@ -319,11 +358,22 @@ function payam_register_assets(): void {
 	|--------------------------------------------------------------------------
 	*/
 
-	payam_register_theme_style( 'payam-bundle-cards', '/assets/styles/scss/bundles/cards.min.css' );
+	payam_register_theme_style( 'payam-bundle-cards', '/assets/styles/scss/bundles/cards.css' );
+	payam_register_theme_style( 'payam-bundle-product-cards', '/assets/styles/scss/bundles/product-cards.css' );
+	payam_register_theme_style( 'payam-bundle-service-cards', '/assets/styles/scss/bundles/service-cards.css' );
+	payam_register_theme_style( 'payam-bundle-services-tabs', '/assets/styles/scss/bundles/services-tabs.css' );
+	payam_register_theme_style( 'payam-bundle-content-cards', '/assets/styles/scss/bundles/content-cards.css' );
+	payam_register_theme_style( 'payam-bundle-sliders', '/assets/styles/scss/bundles/sliders.css' );
+	payam_register_theme_style( 'payam-bundle-faq', '/assets/styles/scss/bundles/faq.css' );
 
 	payam_register_theme_script( 'payam-bundle-cards', '/assets/js/bundles/cards.min.js', [
 			'payam-app',
 		] );
+
+	payam_register_theme_script( 'payam-bundle-product-cards', '/assets/js/bundles/product-cards.min.js', [ 'payam-app' ] );
+	payam_register_theme_script( 'payam-bundle-tabs', '/assets/js/bundles/tabs.min.js', [ 'payam-app' ] );
+	payam_register_theme_script( 'payam-bundle-faq', '/assets/js/bundles/faq.min.js', [ 'payam-app' ] );
+	payam_register_theme_script( 'payam-bundle-sliders', '/assets/js/bundles/sliders.min.js', [ 'payam-app', 'payam-vendor-swiper' ] );
 
 	payam_register_theme_script( 'payam-bundle-feature', '/assets/js/bundles/feature.min.js', [
 			'payam-app',
@@ -338,7 +388,7 @@ function payam_register_assets(): void {
 	foreach ( array_keys( payam_get_section_config() ) as $layout ) {
 		$slug = payam_get_section_slug( $layout );
 
-		$style_path = sprintf( '/assets/styles/scss/sections/%s.css', $slug );
+		$style_path = payam_css_asset_path( sprintf( '/assets/styles/scss/sections/%s.css', $slug ) );
 
 		$script_path = sprintf( '/assets/js/sections/%s.min.js', $slug );
 
@@ -349,6 +399,23 @@ function payam_register_assets(): void {
 		payam_register_theme_script( 'payam-section-' . $slug, $script_path, [
 				'payam-app',
 			] );
+
+		payam_set_asset_cache_role( 'payam-section-' . $slug, 'style', 'page' );
+		payam_set_asset_cache_role( 'payam-section-' . $slug, 'script', 'page', true );
+	}
+
+	payam_set_asset_cache_role( 'payam-app', 'style', 'global' );
+	payam_set_asset_cache_role( 'payam-app', 'script', 'global' );
+	payam_set_asset_cache_role( 'payam-vendor-swiper', 'style', 'vendor' );
+	payam_set_asset_cache_role( 'payam-vendor-swiper', 'script', 'vendor' );
+
+	$bundle_styles = [ 'cards', 'product-cards', 'service-cards', 'services-tabs', 'content-cards', 'sliders', 'faq', 'feature' ];
+	foreach ( $bundle_styles as $bundle ) {
+		payam_set_asset_cache_role( 'payam-bundle-' . $bundle, 'style', 'page' );
+	}
+	$bundle_scripts = [ 'cards', 'product-cards', 'tabs', 'faq', 'sliders', 'feature' ];
+	foreach ( $bundle_scripts as $bundle ) {
+		payam_set_asset_cache_role( 'payam-bundle-' . $bundle, 'script', 'page', true );
 	}
 }
 
