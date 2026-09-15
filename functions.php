@@ -23,6 +23,7 @@ add_action( 'after_setup_theme', function () {
 
 require_once get_theme_file_path('/inc/asset_registry.php');
 require_once get_theme_file_path('/inc/security.php');
+require_once get_theme_file_path('/inc/acf_local_json.php');
 require_once get_theme_file_path('/inc/section_previews.php');
 require_once get_theme_file_path('/inc/admin_guide.php');
 require_once get_theme_file_path('/inc/image_resize.php');

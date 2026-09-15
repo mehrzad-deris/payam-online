@@ -1,0 +1,26 @@
+{
+    "key": "ui_options_page_6a54e07f33417",
+    "title": "تنظیمات قالب",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "تنظیمات قالب",
+    "menu_slug": "theme_options",
+    "parent_slug": "none",
+    "advanced_configuration": 0,
+    "icon_url": "",
+    "menu_title": "",
+    "position": "",
+    "redirect": 0,
+    "description": "",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-admin-generic"
+    },
+    "update_button": "بروزرسانی",
+    "updated_message": "تنظیمات به روز شدند",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1789470530
+}

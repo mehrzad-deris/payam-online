@@ -3,8 +3,10 @@
     "dev": "concurrently \"sass --watch assets/styles/scss:assets/styles/scss --style=expanded --source-map\" \"tailwindcss -i ./assets/styles/input.css -o ./assets/styles/theme.min.css --watch\"",
     "build": "npm run build:css && npm run build:js",
     "build:css": "node ./build-css.mjs production && tailwindcss -i ./assets/styles/input.css -o ./assets/styles/theme.min.css --minify",
-	"build:css:dev": "node ./build-css.mjs development && tailwindcss -i ./assets/styles/input.css -o ./assets/styles/theme.min.css",
-    "build:js": "node ./build-js.mjs"
+    "build:css:dev": "node ./build-css.mjs development && tailwindcss -i ./assets/styles/input.css -o ./assets/styles/theme.min.css",
+    "build:js": "node ./build-js.mjs",
+    "acf:prepare": "node ./scripts/acf-json.mjs prepare",
+    "acf:validate": "node ./scripts/acf-json.mjs validate"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.1",
