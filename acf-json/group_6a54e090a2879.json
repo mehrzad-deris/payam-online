@@ -3,6 +3,29 @@
     "title": "تنظیمات قالب",
     "fields": [
         {
+            "key": "field_payam_header_settings_tab",
+            "label": "تنظیمات سربرگ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_payam_header_account_link",
+            "label": "لینک پنل کاربری",
+            "name": "header_account_link",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "عنوان، آدرس و نحوه بازشدن لینک در تمام دکمه‌های پنل کاربری هدر و منوی موبایل مشترک است. خالی باشد نمایش داده نمی‌شود."
+        },
+        {
+            "key": "field_payam_header_consultation_link",
+            "label": "لینک مشاوره",
+            "name": "header_consultation_link",
+            "type": "link",
+            "return_format": "array",
+            "instructions": "در هدر و منوی موبایل استفاده می‌شود. خالی باشد نمایش داده نمی‌شود."
+        },
+        {
             "key": "field_6aa68834ab80f",
             "label": "تنظیمات عمومی",
             "name": "",
@@ -341,5 +364,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789470530
+    "modified": 1789600000
 }

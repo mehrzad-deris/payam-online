@@ -7,6 +7,7 @@ function theme_setup() {
 
 	register_nav_menus( [
 		'main_menu' => 'فهرست سربرگ',
+		'mobile_menu' => 'فهرست سربرگ موبایل',
 		'article_useful_links' => 'مقاله — لینک‌های مفید',
 	] );
 }
@@ -23,6 +24,7 @@ add_action( 'after_setup_theme', function () {
 } );
 
 require_once get_theme_file_path('/inc/asset_registry.php');
+require_once get_theme_file_path('/inc/header_navigation.php');
 require_once get_theme_file_path('/inc/security.php');
 require_once get_theme_file_path('/inc/acf_local_json.php');
 require_once get_theme_file_path('/inc/section_previews.php');

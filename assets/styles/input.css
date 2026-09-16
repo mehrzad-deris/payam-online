@@ -3,27 +3,28 @@
 
 @font-face {
     font-family: "Peyda";
-    font-display: optional;
+    font-display: swap;
     src: url("../fonts/peyda/PeydaWebFaNum-Light.woff2") format("woff2");
     font-weight: 300;
 }
 
 @font-face {
     font-family: "Peyda";
-    font-display: optional;
+    font-display: swap;
     src: url("../fonts/peyda/PeydaWebFaNum-Regular.woff2") format("woff2");
+    font-weight: 400;
 }
 
 @font-face {
     font-family: "Peyda";
-    font-display: optional;
+    font-display: swap;
     src: url("../fonts/peyda/PeydaWebFaNum-Medium.woff2") format("woff2");
     font-weight: 500;
 }
 
 @font-face {
     font-family: "Peyda";
-    font-display: optional;
+    font-display: swap;
     src: url("../fonts/peyda/PeydaWebFaNum-Bold.woff2") format("woff2");
     font-weight: bold;
 }
@@ -121,6 +122,10 @@ input:focus {
     --text-body-3--line-height: 28px;
     --text-body-mobile-3: 14px;
     --text-body-mobile-3--line-height: 32px;
+
+    --text-mobile-h1: 24px;
+    --text-mobile-h1--line-height: 32px;
+    --text-mobile-h1--font-weight: 700;
 
     --text-desktop-h2: 32px;
     --text-desktop-h2--line-height: 44px;

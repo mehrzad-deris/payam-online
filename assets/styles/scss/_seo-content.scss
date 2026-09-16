@@ -1,0 +1,44 @@
+// Restore editor formatting inside the SEO box after the global CSS reset.
+.seo-box-content {
+  overflow-wrap: anywhere;
+
+  :where(p, ul, ol, blockquote, pre, table, figure) { margin-block: 0 1em; }
+  :where(h1, h2, h3, h4, h5, h6) {
+    margin-block: 1.25em .6em;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--color-neutral-900);
+  }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.75em; }
+  h3 { font-size: 1.5em; }
+  h4 { font-size: 1.25em; }
+  h5 { font-size: 1.125em; }
+  h6 { font-size: 1em; }
+  :where(ul, ol) { padding-inline-start: 1.5em; }
+  ul { list-style-type: disc; }
+  ol { list-style-type: decimal; }
+  ul ul { list-style-type: circle; }
+  ul ul ul { list-style-type: square; }
+  li { margin-block: .25em; }
+  li :where(ul, ol) { margin-block: .5em; }
+  :where(strong, b) { font-weight: 700; }
+  :where(em, i) { font-style: italic; }
+  a { color: var(--color-blue-primary); text-decoration: underline; text-underline-offset: .2em; }
+  blockquote { border-inline-start: 3px solid var(--color-blue-primary); padding-inline: 1em; }
+  pre { overflow-x: auto; white-space: pre; padding: 1em; background: var(--color-light-bg); }
+  :where(code, pre) { font-family: monospace; }
+  table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+  :where(th, td) { border: 1px solid var(--color-neutral-100); padding: .5em .75em; }
+  th { font-weight: 700; }
+  hr { margin-block: 1.5em; border-top: 1px solid var(--color-neutral-100); }
+  img { max-width: 100%; height: auto; }
+  .aligncenter { display: block; margin-inline: auto; }
+  .alignleft { float: left; margin: 0 1em 1em 0; }
+  .alignright { float: right; margin: 0 0 1em 1em; }
+  .wp-caption { max-width: 100%; }
+  .wp-caption-text { font-size: .875em; text-align: center; }
+  > :first-child { margin-top: 0; }
+  > :last-child { margin-bottom: 0; }
+  &::after { content: ''; display: block; clear: both; }
+}

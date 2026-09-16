@@ -1,0 +1,26 @@
+// Native cross-document transitions: no click interception or navigation delay.
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: 300ms;
+  }
+
+  ::view-transition-old(root) {
+    animation: payam-page-fade-out 300ms ease-out both;
+  }
+
+  ::view-transition-new(root) {
+    animation: payam-page-fade-in 300ms ease-out both;
+  }
+}
+
+@keyframes payam-page-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes payam-page-fade-in {
+  from { opacity: 0; }
+}

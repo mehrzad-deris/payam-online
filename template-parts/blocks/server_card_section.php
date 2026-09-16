@@ -272,7 +272,7 @@ $filterMobileColumns  = min( 2, max( 1, $filterCount ) );
 
         <div class="server-tabs mt-8"<?= $hasMultipleTabs ? ' data-tabs data-tabs-mobile="tabs"' : ''; ?>>
             <?php if ( $hasMultipleTabs ) : ?>
-            <div class="server-tabs-list" role="tablist" aria-label="انتخاب موقعیت سرور">
+            <div class="server-tabs-list mb-5" role="tablist" aria-label="انتخاب موقعیت سرور">
                 <div class="server-tab-list-inner">
                     <?php foreach ( $sectionServices as $index => $serviceItem ) :
                         $tabTitle = (string) $serviceItem['tab_title'];

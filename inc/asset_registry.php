@@ -368,9 +368,10 @@ add_filter( 'option_ds_cache_asset_optimizer', static function ( $options ) {
 	return $options;
 } );
 
-/** Preload only the bold face used by the above-the-fold LCP heading. */
+/** Prioritize body text and the above-the-fold heading; other weights load on demand. */
 add_action( 'wp_head', static function (): void {
 	foreach ( [
+		'/assets/fonts/peyda/PeydaWebFaNum-Regular.woff2',
 		'/assets/fonts/peyda/PeydaWebFaNum-Bold.woff2',
 	] as $font_path ) {
 		if ( ! payam_asset_exists( $font_path ) ) {

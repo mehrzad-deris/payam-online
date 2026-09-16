@@ -23,6 +23,13 @@
   bottom: calc(var(--spacing) * 2);
   left: calc(var(--spacing) * 2);
   width: 112px;
+}
+@media (max-width: 767px) {
+  .domain-check-section .domain-whois .whois-submit {
+    width: 90px;
+  }
+}
+.domain-check-section .domain-whois .whois-submit {
   height: 48px;
   font-weight: 500;
 }
@@ -47,7 +54,6 @@
   cursor: default;
 }
 .domain-check-section.domain-check-style_2 {
-  overflow: hidden;
   background-color: var(--color-light-bg);
 }
 .domain-check-section.domain-check-style_2 .domain-check-container {

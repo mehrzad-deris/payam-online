@@ -111,8 +111,28 @@ $footerAsset = static fn( string $file ): string => get_theme_file_uri( '/assets
                     <?php endforeach; ?>
                 </ul>
 
-                <span class="gradient-shape shape-right top-2"><?= icon( 'rounded-shape', 'rounded-shape' ) ?></span>
-                <span class="gradient-shape shape-left top-2"><?= icon( 'rounded-shape', 'rounded-shape' ) ?></span>
+                <span class="gradient-shape shape-right top-2">
+                    <svg class="rounded-shape" width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 94C45.0207 20.3231 80.8966 0 102 0V94H0Z" fill="url(#paint0_linear_6009_3594)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_6009_3594" x1="255.754" y1="0" x2="255.754" y2="94" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#3B56FF" stop-opacity="0.14"/>
+                                <stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="gradient-shape shape-left top-2">
+                     <svg class="rounded-shape" width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 94C45.0207 20.3231 80.8966 0 102 0V94H0Z" fill="url(#paint0_linear_6009_3594)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_6009_3594" x1="255.754" y1="0" x2="255.754" y2="94" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#3B56FF" stop-opacity="0.14"/>
+                                <stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
             </div>
         </div>
     <?php endif; ?>

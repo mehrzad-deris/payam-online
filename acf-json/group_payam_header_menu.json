@@ -1,0 +1,29 @@
+{
+    "key": "group_payam_header_menu",
+    "title": "اطلاعات نمایشی آیتم منو",
+    "fields": [
+        {
+            "key": "field_payam_menu_item_icon",
+            "label": "آیکون آیتم",
+            "name": "menu_item_icon",
+            "type": "image",
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "required": 0
+        },
+        {
+            "key": "field_payam_menu_item_subtitle",
+            "label": "زیرعنوان آیتم",
+            "name": "menu_item_subtitle",
+            "type": "text",
+            "required": 0
+        }
+    ],
+    "location": [[{"param": "nav_menu_item", "operator": "==", "value": "all"}]],
+    "active": true,
+    "position": "normal",
+    "style": "default",
+    "menu_order": 0,
+    "modified": 1789516800
+}

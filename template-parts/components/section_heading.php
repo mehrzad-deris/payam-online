@@ -18,24 +18,24 @@
 defined( 'ABSPATH' ) || exit;
 
 $args = wp_parse_args( $args ?? [], [
-                'icon'           => '',
-                'icon_alt'       => '',
-                'title'          => '',
-                'subtitle'       => '',
-                'title_tag'      => 'h2',
-                'class'          => '',
-                'icon_class'     => '',
-                'title_class'    => '',
-                'subtitle_class' => '',
-                'show_shapes'    => false,
-        ] );
+        'icon'           => '',
+        'icon_alt'       => '',
+        'title'          => '',
+        'subtitle'       => '',
+        'title_tag'      => 'h2',
+        'class'          => '',
+        'icon_class'     => '',
+        'title_class'    => '',
+        'subtitle_class' => '',
+        'show_shapes'    => false,
+] );
 
-$icon_id   = absint( $args['icon'] );
-$icon_alt  = (string) $args['icon_alt'];
-$title     = (string) $args['title'];
-$subtitle  = (string) $args['subtitle'];
+$icon_id     = absint( $args['icon'] );
+$icon_alt    = (string) $args['icon_alt'];
+$title       = (string) $args['title'];
+$subtitle    = (string) $args['subtitle'];
 $show_shapes = (bool) $args['show_shapes'];
-$title_tag = strtolower( (string) $args['title_tag'] );
+$title_tag   = strtolower( (string) $args['title_tag'] );
 
 if ( ! in_array( $title_tag, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], true ) ) {
     $title_tag = 'h2';
@@ -59,7 +59,7 @@ if ( '' !== $icon_alt ) {
     $icon_attributes['alt'] = $icon_alt;
 }
 
-$title_class = trim( 'whitespace-pre-line text-mobile-h3 md:text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
+$title_class = trim( 'whitespace-pre-line text-mobile-h1 md:text-desktop-h2 text-neutral-900 ' . (string) $args['title_class'] );
 
 $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-neutral-500 ' . (string) $args['subtitle_class'] );
 ?>
@@ -67,32 +67,32 @@ $subtitle_class = trim( 'max-w-180 text-body-mobile-3 md:text-desktop-h6 text-ne
 <div class="<?= esc_attr( $wrapper_class ); ?>">
     <?php if ( $show_shapes ) : ?>
         <span class="gradient-shape shape-right top-2" aria-hidden="true">
-        <svg width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M102 94C56.9793 20.3231 21.1034 0 0 0V94H102Z" fill="url(#paint0_linear_4555_10015)"/>
-<defs>
-<linearGradient id="paint0_linear_4555_10015" x1="-153.754" y1="0" x2="-153.754" y2="94" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3B56FF" stop-opacity="0.14"/>
-<stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
-</linearGradient>
-</defs>
-</svg>
-</span>
+            <svg class="rounded-shape" width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 94C45.0207 20.3231 80.8966 0 102 0V94H0Z" fill="url(#paint0_linear_6009_3594)"/>
+                <defs>
+                    <linearGradient id="paint0_linear_6009_3594" x1="255.754" y1="0" x2="255.754" y2="94" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3B56FF" stop-opacity="0.14"/>
+                        <stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </span>
         <span class="gradient-shape shape-left top-2" aria-hidden="true">
-        <svg width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M102 94C56.9793 20.3231 21.1034 0 0 0V94H102Z" fill="url(#paint0_linear_4555_10015)"/>
-<defs>
-<linearGradient id="paint0_linear_4555_10015" x1="-153.754" y1="0" x2="-153.754" y2="94" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3B56FF" stop-opacity="0.14"/>
-<stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
-</linearGradient>
-</defs>
-</svg>
-</span>
+            <svg class="rounded-shape" width="102" height="94" viewBox="0 0 102 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 94C45.0207 20.3231 80.8966 0 102 0V94H0Z" fill="url(#paint0_linear_6009_3594)"/>
+                <defs>
+                    <linearGradient id="paint0_linear_6009_3594" x1="255.754" y1="0" x2="255.754" y2="94" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3B56FF" stop-opacity="0.14"/>
+                        <stop offset="1" stop-color="#3B56FF" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </span>
     <?php endif; ?>
 
     <?php if ( $icon_id ) : ?>
         <div class="section-heading__icon">
-            <?= wp_get_attachment_image( $icon_id, 'full', false, $icon_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  ?>
+            <?= wp_get_attachment_image( $icon_id, 'full', false, $icon_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped   ?>
         </div>
     <?php endif; ?>
 

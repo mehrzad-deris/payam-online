@@ -12,9 +12,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
     let currentTheme = '';
     const darkThemeOffset = 32;
-    const stickyOffset = 24;
+    const stickyOffset = 60;
+    let previousScroll = Math.max(0, window.scrollY);
+    let scrollTravel = 0;
+    const updateHeaderVisibility = () => {
+        const position = Math.max(0, window.scrollY);
+        const delta = position - previousScroll;
+        previousScroll = position;
+        if (position <= stickyOffset ||
+            header.classList.contains('has-open-submenu') ||
+            document.documentElement.classList.contains('header-drawer-open') ||
+            header.contains(document.activeElement)) {
+            scrollTravel = 0;
+            header.classList.remove('site-header--scroll-hidden');
+            return;
+        }
+        if (delta === 0) return;
+        if (Math.sign(delta) !== Math.sign(scrollTravel)) scrollTravel = 0;
+        scrollTravel += delta;
+        // Hide below the top buffer; filter jitter when revealing.
+        if (scrollTravel > 0 || scrollTravel <= -10) {
+            header.classList.toggle('site-header--scroll-hidden', scrollTravel > 0);
+            scrollTravel = 0;
+        }
+    };
 
     const applyHeaderState = (nextTheme, isSticky) => {
+        updateHeaderVisibility();
         header.classList.toggle('site-header--sticky', isSticky);
 
         if (nextTheme && nextTheme !== currentTheme) {
@@ -102,6 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const syncRestoredScrollPosition = () => {
+        previousScroll = Math.max(0, window.scrollY);
+        scrollTravel = 0;
+        header.classList.remove('site-header--scroll-hidden');
         // Scroll restoration may happen between load/pageshow and the next paint.
         updateHeaderTheme();
         requestAnimationFrame(() => {
@@ -112,6 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     syncRestoredScrollPosition();
+    header.addEventListener('focusin', () => {
+        header.classList.remove('site-header--scroll-hidden');
+        scrollTravel = 0;
+    });
 
     window.addEventListener('load', syncRestoredScrollPosition, {
         once: true
@@ -127,49 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/* Accessible mobile navigation */
-document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.querySelector('[data-mobile-menu-toggle]');
-    const menu = document.querySelector('[data-mobile-menu]');
-
-    if (!toggle || !menu) {
-        return;
-    }
-
-    const closeMenu = (restoreFocus = false) => {
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'باز کردن فهرست اصلی');
-        menu.hidden = true;
-        if (restoreFocus) {
-            toggle.focus();
-        }
-    };
-
-    toggle.addEventListener('click', () => {
-        const shouldOpen = toggle.getAttribute('aria-expanded') !== 'true';
-        toggle.setAttribute('aria-expanded', String(shouldOpen));
-        toggle.setAttribute('aria-label', shouldOpen ? 'بستن فهرست اصلی' : 'باز کردن فهرست اصلی');
-        menu.hidden = !shouldOpen;
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !menu.hidden) {
-            closeMenu(true);
-        }
-    });
-
-    document.addEventListener('click', (event) => {
-        if (!menu.hidden && !menu.contains(event.target) && !toggle.contains(event.target)) {
-            closeMenu();
-        }
-    });
-
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
-        if (event.matches) {
-            closeMenu();
-        }
-    });
-});
+import './header-navigation.js';
 
 /* Shared deferred image hydration */
 const lazyDesktopQuery = window.matchMedia('(min-width: 1280px)');

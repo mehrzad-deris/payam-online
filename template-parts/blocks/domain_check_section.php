@@ -90,8 +90,8 @@ $domainPrices = array_map(
 			<div class="domain-search-wrap">
 				<form class="domain-whois" action="<?= esc_url( $searchAction ); ?>" method="get" role="search">
 					<label class="sr-only" for="<?= esc_attr( $searchInputId ); ?>">جستجوی دامنه</label>
-					<input id="<?= esc_attr( $searchInputId ); ?>" type="text" name="domain" class="whois-input text-[14px] lg:text-[16px] py-5 placeholder:text-neutral-500 pe-14 ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="<?= esc_attr( $searchPlaceholder ); ?>" autocomplete="off">
-					<?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-neutral-500' ); ?>
+					<input id="<?= esc_attr( $searchInputId ); ?>" type="text" name="domain" class="whois-input text-[14px] lg:text-[16px] py-5 placeholder:text-neutral-500 pe-4 sm:pe-14 ps-26 sm:ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="<?= esc_attr( $searchPlaceholder ); ?>" autocomplete="off">
+					<?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-neutral-500 hidden sm:inline-block' ); ?>
 					<button type="submit" class="whois-submit cta-link cta-btn-primary text-[14px] lg:text-[16px]"><?= esc_html( $searchButtonText ); ?></button>
 				</form>
 
@@ -170,8 +170,8 @@ $domainPrices = array_map(
 				<div class="w-197.5 max-w-full relative">
 					<form class="domain-whois mb-4 lg:mb-5" action="<?= esc_url( $searchAction ); ?>" method="get" role="search">
 						<label class="sr-only" for="<?= esc_attr( $searchInputId ); ?>">جستجوی دامنه</label>
-						<input id="<?= esc_attr( $searchInputId ); ?>" type="text" name="domain" class="whois-input text-[14px] lg:text-[16px] py-5 placeholder:text-neutral-500 pe-14 ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="<?= esc_attr( $searchPlaceholder ); ?>" autocomplete="off">
-						<?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-neutral-500' ); ?>
+						<input id="<?= esc_attr( $searchInputId ); ?>" type="text" name="domain" class="whois-input text-[14px] lg:text-[16px] py-5 placeholder:text-neutral-500 pe-4 sm:pe-14 ps-26 sm:ps-30 lg:ps-35 field-rtl" dir="ltr" placeholder="<?= esc_attr( $searchPlaceholder ); ?>" autocomplete="off">
+						<?= icon( 'search', 'w-6 h-6 absolute right-6 top-5 stroke-neutral-500 hidden sm:inline-block' ); ?>
 						<button type="submit" class="whois-submit cta-link cta-btn-primary text-[14px] lg:text-[16px]"><?= esc_html( $searchButtonText ); ?></button>
 					</form>
 
