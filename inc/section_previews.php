@@ -3,6 +3,36 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/** Remove generated preview controls from an ACF sub-field collection. */
+function payam_strip_section_preview_subfields( array $subfields ): array {
+	return array_values( array_filter( $subfields, static function ( $subfield ): bool {
+		if ( ! is_array( $subfield ) ) {
+			return true;
+		}
+
+		$key  = (string) ( $subfield['key'] ?? '' );
+		$name = (string) ( $subfield['name'] ?? '' );
+
+		return ! str_starts_with( $key, 'field_payam_preview_' )
+			&& ! str_starts_with( $name, 'payam_preview_' );
+	} ) );
+}
+
+/** Never persist generated preview tabs, nonce URLs or environment hosts. */
+add_filter( 'acf/update_field', static function ( array $field ): array {
+	if ( 'flexible_content' !== ( $field['type'] ?? '' ) || empty( $field['layouts'] ) || ! is_array( $field['layouts'] ) ) {
+		return $field;
+	}
+
+	foreach ( $field['layouts'] as &$layout ) {
+		$subfields           = is_array( $layout['sub_fields'] ?? null ) ? $layout['sub_fields'] : [];
+		$layout['sub_fields'] = payam_strip_section_preview_subfields( $subfields );
+	}
+	unset( $layout );
+
+	return $field;
+}, 5 );
+
 /** Find a desktop preview by layout name without storing anything in ACF. */
 function payam_section_preview_asset( string $layout_name ): array {
 	$layout_name = sanitize_key( $layout_name );
@@ -83,6 +113,10 @@ add_filter( 'acf/load_field/type=flexible_content', static function ( array $fie
 
 	foreach ( $field['layouts'] as &$layout ) {
 		$layout_name = sanitize_key( (string) ( $layout['name'] ?? '' ) );
+		$subfields   = is_array( $layout['sub_fields'] ?? null ) ? $layout['sub_fields'] : [];
+		$subfields   = payam_strip_section_preview_subfields( $subfields );
+		$layout['sub_fields'] = $subfields;
+
 		if ( ! in_array( $layout_name, $registered_layouts, true ) ) {
 			continue;
 		}
@@ -92,15 +126,8 @@ add_filter( 'acf/load_field/type=flexible_content', static function ( array $fie
 			continue;
 		}
 
-		$identity  = substr( md5( (string) ( $field['key'] ?? $field['name'] ?? '' ) . '|' . $layout_name ), 0, 16 );
-		$subfields = is_array( $layout['sub_fields'] ?? null ) ? $layout['sub_fields'] : [];
-		$tab_key   = 'field_payam_preview_tab_' . $identity;
-
-		foreach ( $subfields as $subfield ) {
-			if ( $tab_key === ( $subfield['key'] ?? '' ) ) {
-				continue 2;
-			}
-		}
+		$identity = substr( md5( (string) ( $field['key'] ?? $field['name'] ?? '' ) . '|' . $layout_name ), 0, 16 );
+		$tab_key  = 'field_payam_preview_tab_' . $identity;
 
 		$subfields[] = [
 			'key'       => $tab_key,
