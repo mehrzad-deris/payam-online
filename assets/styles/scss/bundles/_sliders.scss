@@ -11,12 +11,20 @@
 
   .testimonials-slider {
     width: min(980px, 100%);
+    height: auto;
     overflow: visible;
+
+    // All slides remain in the flex row, reserving the tallest card's height.
+    // Fade transforms do not affect layout; short cards must not stretch.
+    .swiper-wrapper {
+      height: auto;
+      align-items: flex-start;
+    }
   }
 
   .testimonial-card {
     position: relative;
-    height: 364px;
+    height: auto;
     overflow: hidden;
     border-radius: 24px;
     background: linear-gradient(90deg, #001352 0%, #1844DA 50%, #001352 100%);
@@ -45,7 +53,6 @@
     z-index: 1;
     display: flex;
     width: min(713px, 100%);
-    height: 100%;
     flex-direction: column;
     align-items: center;
     gap: 40px;
@@ -140,6 +147,11 @@
       justify-content: center;
       gap: 4px;
       margin-top: 40px;
+      transform: translateY(var(--testimonial-pagination-offset, 0px));
+      transition: transform 280ms ease;
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
 
     .swiper-pagination-bullet {
@@ -263,7 +275,6 @@
     .testimonial-card {
       background: linear-gradient(39.96deg, #001352 0%, #1844DA 100.03%) !important;
       border-radius: 24px;
-      height: auto;
     }
 
     .testimonial-content {
@@ -299,4 +310,3 @@
     }
   }
 }
-

@@ -132,6 +132,7 @@ function payam_get_section_config(): array {
 		'banner_section' => [],
 
 		'seo_box_section' => [],
+		'domain_products_section' => [],
 
 		'os_logo_section' => [
 			'styles'  => [

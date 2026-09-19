@@ -100,6 +100,74 @@ function payam_register_whmcs_domain_tld_post_type(): void {
 }
 
 /**
+ * Registers canonical domain categories: term slug is the WHMCS key and the
+ * term name is its editable display label.
+ */
+function payam_register_whmcs_domain_taxonomy(): void {
+	register_taxonomy( 'whmcs_domain_category', [ 'whmcs_domain_tld' ], [
+		'labels' => [
+			'name'              => 'دسته‌بندی دامنه‌ها',
+			'singular_name'     => 'دسته‌بندی دامنه',
+			'menu_name'         => 'دسته‌بندی‌ها',
+			'all_items'         => 'همه دسته‌بندی‌ها',
+			'edit_item'         => 'ویرایش دسته‌بندی',
+			'update_item'       => 'به‌روزرسانی دسته‌بندی',
+			'add_new_item'      => 'افزودن دسته‌بندی جدید',
+			'new_item_name'     => 'نام دسته‌بندی جدید',
+			'search_items'      => 'جستجوی دسته‌بندی‌ها',
+			'parent_item'       => 'دسته‌بندی مادر',
+			'parent_item_colon' => 'دسته‌بندی مادر:',
+		],
+		'public'             => false,
+		'publicly_queryable' => false,
+		'show_ui'            => true,
+		'show_admin_column'  => true,
+		'show_in_rest'       => false,
+		'meta_box_cb'        => false,
+		'hierarchical'       => true,
+		'rewrite'            => false,
+		'query_var'          => false,
+	] );
+}
+
+/**
+ * Assigns the single canonical WHMCS category to a domain record.
+ * Future API sync code should use this helper instead of writing term IDs.
+ *
+ * @return array<int>|WP_Error
+ */
+function payam_set_whmcs_domain_category( int $post_id, string $key, string $label = '' ) {
+	if ( 'whmcs_domain_tld' !== get_post_type( $post_id ) ) {
+		return new WP_Error( 'invalid_domain', 'رکورد دامنه معتبر نیست.' );
+	}
+
+	$key = sanitize_title( $key );
+	if ( '' === $key ) {
+		return wp_set_object_terms( $post_id, [], 'whmcs_domain_category', false );
+	}
+
+	$label = sanitize_text_field( $label );
+	$term  = get_term_by( 'slug', $key, 'whmcs_domain_category' );
+	if ( ! $term ) {
+		$created = wp_insert_term( $label ?: $key, 'whmcs_domain_category', [ 'slug' => $key ] );
+		if ( is_wp_error( $created ) ) {
+			return $created;
+		}
+		$term_id = (int) $created['term_id'];
+	} else {
+		$term_id = (int) $term->term_id;
+		if ( '' !== $label && $label !== $term->name ) {
+			$updated = wp_update_term( $term_id, 'whmcs_domain_category', [ 'name' => $label ] );
+			if ( is_wp_error( $updated ) ) {
+				return $updated;
+			}
+		}
+	}
+
+	return wp_set_object_terms( $post_id, [ $term_id ], 'whmcs_domain_category', false );
+}
+
+/**
  * Normalizes one local TLD record for frontend cards.
  */
 function payam_get_whmcs_domain_tld_data( int $post_id ): array {
@@ -128,6 +196,31 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 	$currency       = strtoupper( trim( (string) $get_value( 'whmcs_currency' ) ) );
 	$price_suffix   = trim( (string) $get_value( 'domain_price_suffix' ) );
 	$order_link     = $get_value( 'domain_order_link' );
+	$renew_price    = $get_value( 'whmcs_renew_price' );
+	// Legacy migration: preserve old transfer-only prices without rewriting stored data.
+	if ( ! is_numeric( $renew_price ) ) {
+		$renew_price = get_post_meta( $post_id, 'whmcs_transfer_price', true );
+	}
+	$redemption_fee = $get_value( 'whmcs_redemption_fee' );
+	$category_terms = get_the_terms( $post_id, 'whmcs_domain_category' );
+	$category_term  = is_array( $category_terms ) ? reset( $category_terms ) : false;
+	$category_key   = $category_term instanceof WP_Term ? $category_term->slug : sanitize_key( (string) $get_value( 'whmcs_category' ) );
+	$category_label = $category_term instanceof WP_Term ? $category_term->name : sanitize_text_field( (string) $get_value( 'whmcs_category_label' ) );
+
+	if ( '' === $category_label && '' !== $category_key ) {
+		$default_category_labels = [
+			'popular'     => 'محبوب‌ترین‌ها',
+			'new'         => 'جدید',
+			'sale'        => 'تخفیف‌دار',
+			'geographic'  => 'جغرافیایی',
+			'country-code'=> 'دامنه‌های کشوری',
+			'business'    => 'کسب‌وکار',
+			'technology'  => 'فناوری',
+			'generic'     => 'عمومی',
+		];
+		$category_labels = apply_filters( 'payam_whmcs_domain_category_labels', $default_category_labels );
+		$category_label  = sanitize_text_field( (string) ( $category_labels[ $category_key ] ?? '' ) );
+	}
 
 	if ( ! $discount && is_numeric( $regular_price ) && is_numeric( $register_price ) && (float) $regular_price > (float) $register_price ) {
 		$discount = (int) round( ( ( (float) $regular_price - (float) $register_price ) / (float) $regular_price ) * 100 );
@@ -154,6 +247,11 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 		'id'               => $post_id,
 		'extension'        => sanitize_text_field( $extension ),
 		'register_price'   => is_numeric( $register_price ) ? (float) $register_price : '',
+		'renew_price'      => is_numeric( $renew_price ) && (float) $renew_price >= 0 ? (float) $renew_price : '',
+		'redemption_fee'   => is_numeric( $redemption_fee ) && (float) $redemption_fee >= 0 ? (float) $redemption_fee : '',
+		'category'         => $category_key,
+		'category_label'   => $category_label,
+		'currency'         => $currency,
 		'regular_price'    => is_numeric( $regular_price ) ? (float) $regular_price : '',
 		'discount_percent' => min( 100, $discount ),
 		'price_suffix'     => $price_suffix,
@@ -230,6 +328,7 @@ function payam_register_whmcs_catalogue(): void {
 	payam_register_whmcs_product_post_type();
 	payam_register_whmcs_product_taxonomy();
 	payam_register_whmcs_domain_tld_post_type();
+	payam_register_whmcs_domain_taxonomy();
 }
 
 add_action( 'init', 'payam_register_whmcs_catalogue' );

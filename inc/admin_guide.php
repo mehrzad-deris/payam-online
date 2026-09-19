@@ -138,13 +138,14 @@ function payam_render_management_guide(): void {
 			<section id="guide-domains" class="payam-guide-section">
 				<h2>مدیریت دامنه‌ها</h2>
 				<p>هر پسوند در «دامنه‌های WHMCS» یک رکورد مستقل است. پسوند را بدون نقطه ذخیره کنید؛ مثلاً <code>ir</code> یا <code>com</code>.</p>
+				<p>دسته اصلی را از فیلد «دسته‌بندی دامنه» انتخاب کنید. نامک ترم کلید پایدار WHMCS و نام ترم عنوان فارسی قابل نمایش در فیلتر است.</p>
 				<?php payam_admin_guide_table( [
 					'whmcs_extension'         => 'پسوند پایدار بدون نقطه.',
 					'whmcs_register_price'    => 'قیمت ثبت دامنه، فقط عدد خام.',
-					'whmcs_transfer_price'    => 'قیمت انتقال دامنه.',
-					'whmcs_renew_price'       => 'قیمت تمدید دامنه.',
+					'whmcs_renew_price'       => 'قیمت مشترک تمدید و انتقال دامنه.',
 					'whmcs_currency'          => 'کد ارز مانند IRT یا USD.',
-					'whmcs_category'          => 'دسته دریافتی یا داخلی دامنه.',
+					'whmcs_category'          => 'کلید پایدار دسته مانند popular.',
+					'whmcs_category_label'    => 'عنوان نمایشی دسته مانند محبوب‌ترین‌ها.',
 					'whmcs_group'             => 'برچسب گروه مانند HOT، NEW یا SALE.',
 					'domain_regular_price'    => 'قیمت قبلی اختیاری برای نمایش تخفیف.',
 					'domain_discount_percent' => 'درصد تخفیف اختیاری؛ در نبود آن می‌تواند از قیمت‌ها محاسبه شود.',

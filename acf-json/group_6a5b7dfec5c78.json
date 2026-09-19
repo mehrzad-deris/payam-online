@@ -351,22 +351,38 @@
                         {
                             "key": "field_payam_preview_tab_82382e9b68e0e223",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_82382e9b68e0e223",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_82382e9b68e0e223",
                             "label": "",
-                            "name": "payam_preview_image_82382e9b68e0e223",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=section_heading_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461133\" alt=\"پیش‌نمایش سکشن سربرگ سکشن\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=section_heading_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461133\" alt=\"پیش‌نمایش سکشن سربرگ سکشن\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -473,7 +489,7 @@
                             "name": "domain_search_action",
                             "aria-label": "",
                             "type": "url",
-                            "instructions": "",
+                            "instructions": "آدرس پیش‌فرض WHMCS: https://my.payamonline.com/cart.php?a=add&domain=register",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -481,7 +497,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "https://my.payamonline.com/cart.php?a=add&domain=register",
                             "allow_in_bindings": 0,
                             "placeholder": ""
                         },
@@ -516,6 +532,31 @@
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_payam_domain_more_link",
+                            "label": "لینک مشاهده دامنه‌های بیشتر",
+                            "name": "more_domains_link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "لینک و متن بخش «مشاهده دامنه‌های بیشتر» در سبک دوم را مشخص کنید.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aa52e29a24bc",
+                                        "operator": "==",
+                                        "value": "style_2"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0
                         },
                         {
                             "key": "field_6a5cdec6eefb5",
@@ -682,22 +723,38 @@
                         {
                             "key": "field_payam_preview_tab_522df2f385b21b96",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_522df2f385b21b96",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_522df2f385b21b96",
                             "label": "",
-                            "name": "payam_preview_image_522df2f385b21b96",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=domain_check_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461384\" alt=\"پیش‌نمایش سکشن سکشن بررسی دامنه\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=domain_check_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461384\" alt=\"پیش‌نمایش سکشن سکشن بررسی دامنه\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -1029,22 +1086,38 @@
                         {
                             "key": "field_payam_preview_tab_5e05217f0e19f79a",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_5e05217f0e19f79a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_5e05217f0e19f79a",
                             "label": "",
-                            "name": "payam_preview_image_5e05217f0e19f79a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=services_card_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461520\" alt=\"پیش‌نمایش سکشن سکشن سرویس‌ها (کارتی)\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=services_card_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461520\" alt=\"پیش‌نمایش سکشن سکشن سرویس‌ها (کارتی)\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -1523,22 +1596,38 @@
                         {
                             "key": "field_payam_preview_tab_b83bd811999c7d2e",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_b83bd811999c7d2e",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_b83bd811999c7d2e",
                             "label": "",
-                            "name": "payam_preview_image_b83bd811999c7d2e",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=server_card_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461044\" alt=\"پیش‌نمایش سکشن سکشن محصولات هاست و سرور\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=server_card_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461044\" alt=\"پیش‌نمایش سکشن سکشن محصولات هاست و سرور\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -1810,22 +1899,38 @@
                         {
                             "key": "field_payam_preview_tab_d9668f65e41b2994",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_d9668f65e41b2994",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_d9668f65e41b2994",
                             "label": "",
-                            "name": "payam_preview_image_d9668f65e41b2994",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=ssl_products_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461660\" alt=\"پیش‌نمایش سکشن سکشن محصولات SSL\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=ssl_products_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461660\" alt=\"پیش‌نمایش سکشن سکشن محصولات SSL\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -2264,22 +2369,38 @@
                         {
                             "key": "field_payam_preview_tab_6353d77aad2dce87",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_6353d77aad2dce87",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_6353d77aad2dce87",
                             "label": "",
-                            "name": "payam_preview_image_6353d77aad2dce87",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=services_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461711\" alt=\"پیش‌نمایش سکشن سکشن سرویس ها (تب)\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=services_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461711\" alt=\"پیش‌نمایش سکشن سکشن سرویس ها (تب)\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -2598,22 +2719,38 @@
                         {
                             "key": "field_payam_preview_tab_8bbe5e60d5364c7c",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_8bbe5e60d5364c7c",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_8bbe5e60d5364c7c",
                             "label": "",
-                            "name": "payam_preview_image_8bbe5e60d5364c7c",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=content_image_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461741\" alt=\"پیش‌نمایش سکشن سکشن تصویر و محتوا\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=content_image_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461741\" alt=\"پیش‌نمایش سکشن سکشن تصویر و محتوا\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -2694,7 +2831,7 @@
                                     "name": "static_value",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "توضیح: برای مقادیر غیرقابل‌شمارش؛ مانند ∞ یا 24/7",
+                                    "instructions": "توضیح: برای مقادیر غیرقابل‌شمارش؛ مانند ∞ یا 24\/7",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
@@ -2943,22 +3080,38 @@
                         {
                             "key": "field_payam_preview_tab_95e1310771eb01dc",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_95e1310771eb01dc",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_95e1310771eb01dc",
                             "label": "",
-                            "name": "payam_preview_image_95e1310771eb01dc",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=statistics_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461784\" alt=\"پیش‌نمایش سکشن سکشن آمار و ارقام\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=statistics_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461784\" alt=\"پیش‌نمایش سکشن سکشن آمار و ارقام\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -3247,22 +3400,38 @@
                         {
                             "key": "field_payam_preview_tab_277786a117110290",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_277786a117110290",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_277786a117110290",
                             "label": "",
-                            "name": "payam_preview_image_277786a117110290",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=feature_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461844\" alt=\"پیش‌نمایش سکشن سکشن ویژگی ها\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=feature_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461844\" alt=\"پیش‌نمایش سکشن سکشن ویژگی ها\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -3551,22 +3720,38 @@
                         {
                             "key": "field_payam_preview_tab_3bdcd5e614df7f20",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_3bdcd5e614df7f20",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_3bdcd5e614df7f20",
                             "label": "",
-                            "name": "payam_preview_image_3bdcd5e614df7f20",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=feature_section_card_style&#038;nonce=e5ab3b0c9e&#038;ver=1789461908\" alt=\"پیش‌نمایش سکشن سکشن ویژگی ها سبک کارتی\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=feature_section_card_style&#038;nonce=e5ab3b0c9e&#038;ver=1789461908\" alt=\"پیش‌نمایش سکشن سکشن ویژگی ها سبک کارتی\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -3837,22 +4022,38 @@
                         {
                             "key": "field_payam_preview_tab_b221c1494a2d256a",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_b221c1494a2d256a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_b221c1494a2d256a",
                             "label": "",
-                            "name": "payam_preview_image_b221c1494a2d256a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=brands_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461955\" alt=\"پیش‌نمایش سکشن سکشن برندها\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=brands_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461955\" alt=\"پیش‌نمایش سکشن سکشن برندها\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -4163,22 +4364,38 @@
                         {
                             "key": "field_payam_preview_tab_cffad3489d53cc5f",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_cffad3489d53cc5f",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_cffad3489d53cc5f",
                             "label": "",
-                            "name": "payam_preview_image_cffad3489d53cc5f",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=testimonials_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461991\" alt=\"پیش‌نمایش سکشن سکشن نظر مشتریان\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=testimonials_section&#038;nonce=e5ab3b0c9e&#038;ver=1789461991\" alt=\"پیش‌نمایش سکشن سکشن نظر مشتریان\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -4492,22 +4709,38 @@
                         {
                             "key": "field_payam_preview_tab_74a4cf8b6816d05a",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_74a4cf8b6816d05a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_74a4cf8b6816d05a",
                             "label": "",
-                            "name": "payam_preview_image_74a4cf8b6816d05a",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=blog_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462021\" alt=\"پیش‌نمایش سکشن سکشن مقالات\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=blog_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462021\" alt=\"پیش‌نمایش سکشن سکشن مقالات\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -4855,22 +5088,38 @@
                         {
                             "key": "field_payam_preview_tab_7dfcb17738141155",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_7dfcb17738141155",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_7dfcb17738141155",
                             "label": "",
-                            "name": "payam_preview_image_7dfcb17738141155",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=banner_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462072\" alt=\"پیش‌نمایش سکشن سکشن بنر\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=banner_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462072\" alt=\"پیش‌نمایش سکشن سکشن بنر\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -5115,22 +5364,38 @@
                         {
                             "key": "field_payam_preview_tab_fa7635e77ca46d92",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_fa7635e77ca46d92",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_fa7635e77ca46d92",
                             "label": "",
-                            "name": "payam_preview_image_fa7635e77ca46d92",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=os_logo_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462107\" alt=\"پیش‌نمایش سکشن سکشن انواع سیستم عامل ها\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=os_logo_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462107\" alt=\"پیش‌نمایش سکشن سکشن انواع سیستم عامل ها\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -5527,22 +5792,38 @@
                         {
                             "key": "field_payam_preview_tab_115a2e08e5ad9e8b",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_115a2e08e5ad9e8b",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_115a2e08e5ad9e8b",
                             "label": "",
-                            "name": "payam_preview_image_115a2e08e5ad9e8b",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=faq_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462147\" alt=\"پیش‌نمایش سکشن سکشن سوالات متداول\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=faq_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462147\" alt=\"پیش‌نمایش سکشن سکشن سوالات متداول\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -5781,22 +6062,38 @@
                         {
                             "key": "field_payam_preview_tab_13c24798f6a6bd68",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_13c24798f6a6bd68",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_13c24798f6a6bd68",
                             "label": "",
-                            "name": "payam_preview_image_13c24798f6a6bd68",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=seo_box_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462182\" alt=\"پیش‌نمایش سکشن سکشن سئو باکس (محتوایی)\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=seo_box_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462182\" alt=\"پیش‌نمایش سکشن سکشن سئو باکس (محتوایی)\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -6283,22 +6580,38 @@
                         {
                             "key": "field_payam_preview_tab_32343315baf06bda",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_32343315baf06bda",
+                            "name": "",
+                            "aria-label": "",
                             "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "placement": "top",
-                            "endpoint": 0
+                            "endpoint": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_payam_preview_image_32343315baf06bda",
                             "label": "",
-                            "name": "payam_preview_image_32343315baf06bda",
+                            "name": "",
+                            "aria-label": "",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=compare_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462253\" alt=\"پیش‌نمایش سکشن مقایسه پلن‌ها\" loading=\"lazy\" decoding=\"async\"></div>",
-                            "new_lines": "",
-                            "esc_html": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
                             "wrapper": {
-                                "class": "payam-section-preview-field"
-                            }
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=compare_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462253\" alt=\"پیش‌نمایش سکشن مقایسه پلن‌ها\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
                         }
                     ],
                     "min": "",
@@ -6632,17 +6945,288 @@
                         {
                             "key": "field_payam_preview_tab_1065ccd1860fa161",
                             "label": "پیش‌نمایش",
-                            "name": "payam_preview_tab_1065ccd1860fa161",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "selected": 0
+                        },
+                        {
+                            "key": "field_payam_preview_image_1065ccd1860fa161",
+                            "label": "",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "payam-section-preview-field",
+                                "id": ""
+                            },
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https:\/\/payamonline.com\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=contact_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462594\" alt=\"پیش‌نمایش سکشن تماس با ما\" loading=\"lazy\" decoding=\"async\"><\/div>",
+                            "new_lines": "",
+                            "esc_html": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_domain_products_section": {
+                    "key": "layout_domain_products_section",
+                    "name": "domain_products_section",
+                    "label": "سکشن لیست محصولات دامنه",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_domain_products_content",
+                            "label": "محتوا",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "selected": 0
+                        },
+                        {
+                            "key": "field_domain_products_selection",
+                            "label": "دامنه‌های قابل نمایش",
+                            "name": "domain_products",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "خالی باشد همه دامنه‌های منتشرشده نمایش داده می‌شوند؛ در صورت انتخاب، ترتیب انتخاب حفظ می‌شود.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "whmcs_domain_tld"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "filters": [
+                                "search"
+                            ],
+                            "return_format": "id",
+                            "taxonomy": [],
+                            "min": 0,
+                            "max": 0,
+                            "elements": [],
+                            "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_domain_products_batch",
+                            "label": "تعداد نمایش اولیه",
+                            "name": "domain_items_per_page",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": 10,
+                            "min": 1,
+                            "max": 100,
+                            "step": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_domain_products_general",
+                            "label": "استایل",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "selected": 0
+                        },
+                        {
+                            "key": "field_domain_products_color",
+                            "label": "رنگ پس‌زمینه",
+                            "name": "section_color",
+                            "aria-label": "",
+                            "type": "color_picker",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#f6f8fe",
+                            "enable_opacity": false,
+                            "custom_palette_source": "",
+                            "palette_colors": "",
+                            "show_color_wheel": true,
+                            "return_format": "string"
+                        },
+                        {
+                            "key": "field_domain_products_style",
+                            "label": "تم سربرگ",
+                            "name": "section_style",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "light": "روشن",
+                                "dark": "تیره"
+                            },
+                            "default_value": "light",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
+                            "key": "field_domain_products_top",
+                            "label": "فاصله بالا دسکتاپ",
+                            "name": "padding_top",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "min": 0,
+                            "default_value": 0,
+                            "append": "px",
+                            "max": "",
+                            "step": "",
+                            "placeholder": "",
+                            "prepend": ""
+                        },
+                        {
+                            "key": "field_domain_products_top_mobile",
+                            "label": "فاصله بالا موبایل",
+                            "name": "padding_top_mobile",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "min": 0,
+                            "default_value": 0,
+                            "append": "px",
+                            "max": "",
+                            "step": "",
+                            "placeholder": "",
+                            "prepend": ""
+                        },
+                        {
+                            "key": "field_domain_products_bottom",
+                            "label": "فاصله پایین دسکتاپ",
+                            "name": "padding_bottom",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "min": 0,
+                            "default_value": 0,
+                            "append": "px",
+                            "max": "",
+                            "step": "",
+                            "placeholder": "",
+                            "prepend": ""
+                        },
+                        {
+                            "key": "field_domain_products_bottom_mobile",
+                            "label": "فاصله پایین موبایل",
+                            "name": "padding_bottom_mobile",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "min": 0,
+                            "default_value": 0,
+                            "append": "px",
+                            "max": "",
+                            "step": "",
+                            "placeholder": "",
+                            "prepend": ""
+                        },
+                        {
+                            "key": "field_payam_preview_tab_e1cad1491db172c7",
+                            "label": "پیش‌نمایش",
+                            "name": "payam_preview_tab_e1cad1491db172c7",
                             "type": "tab",
                             "placement": "top",
                             "endpoint": 0
                         },
                         {
-                            "key": "field_payam_preview_image_1065ccd1860fa161",
+                            "key": "field_payam_preview_image_e1cad1491db172c7",
                             "label": "",
-                            "name": "payam_preview_image_1065ccd1860fa161",
+                            "name": "payam_preview_image_e1cad1491db172c7",
                             "type": "message",
-                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"https://payamonline.com/wp-admin/admin-ajax.php?action=payam_section_preview&#038;layout=contact_section&#038;nonce=e5ab3b0c9e&#038;ver=1789462594\" alt=\"پیش‌نمایش سکشن تماس با ما\" loading=\"lazy\" decoding=\"async\"></div>",
+                            "message": "<div class=\"payam-section-preview\"><img data-section-preview-src=\"http:\/\/payamonline.local\/wp-admin\/admin-ajax.php?action=payam_section_preview&#038;layout=domain_products_section&#038;nonce=b9f4ed69e1&#038;ver=1789808333\" alt=\"پیش‌نمایش سکشن سکشن لیست محصولات دامنه\" loading=\"lazy\" decoding=\"async\"><\/div>",
                             "new_lines": "",
                             "esc_html": 0,
                             "wrapper": {
@@ -6680,5 +7264,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789470530
+    "modified": 1789818197
 }

@@ -119,6 +119,34 @@ const resolveSwiperControls = (slider, options) => {
     return resolved;
 };
 
+// Move pagination visually without changing the tallest-slide layout reservation.
+const positionTestimonialPagination = (swiper) => {
+    const slider = swiper.el;
+    if (!slider.querySelector('[data-swiper-pagination]')) return;
+    let frame = 0;
+    const schedule = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+            frame = 0;
+            if (swiper.destroyed) return;
+            const active = swiper.slides[swiper.activeIndex];
+            if (!active) return;
+            const offset = Math.min(0, active.offsetHeight - swiper.wrapperEl.offsetHeight);
+            slider.style.setProperty('--testimonial-pagination-offset', `${offset}px`);
+        });
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(swiper.wrapperEl);
+    swiper.slides.forEach(slide => observer.observe(slide));
+    swiper.on('slideChange', schedule);
+    swiper.on('destroy', () => {
+        observer.disconnect();
+        cancelAnimationFrame(frame);
+        slider.style.removeProperty('--testimonial-pagination-offset');
+    });
+    schedule();
+};
+
 const initSwipers = () => {
     if (typeof window.Swiper !== 'function') {
         return false;
@@ -178,6 +206,7 @@ const initSwipers = () => {
 
             hydrateSwiperSlide(slides[0]);
             swiper = new window.Swiper(slider, options);
+            if (presetName === 'testimonials') positionTestimonialPagination(swiper);
 
             if (options.autoplay && swiper.autoplay) {
                 const visibilityObserver = new IntersectionObserver(
@@ -220,4 +249,3 @@ if (!initSwipers()) {
     });
     window.addEventListener('load', initSwipers, { once: true });
 }
-

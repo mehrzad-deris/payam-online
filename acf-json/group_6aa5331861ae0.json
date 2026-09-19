@@ -3,6 +3,41 @@
     "title": "اطلاعات دامنه WHMCS",
     "fields": [
         {
+            "key": "field_payam_whmcs_domain_category",
+            "label": "دسته‌بندی دامنه",
+            "name": "domain_category",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "نام ترم عنوان نمایشی و نامک آن کلید پایدار WHMCS است. برای هر دامنه فقط یک دسته انتخاب کنید.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "whmcs_domain_category",
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "field_type": "select",
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_payam_whmcs_redemption_fee",
+            "label": "جریمه بازیابی دامنه",
+            "name": "whmcs_redemption_fee",
+            "type": "number",
+            "min": 0,
+            "step": "any",
+            "instructions": "مبلغ اختیاری جریمه با همان ارز whmcs_currency. صفر معتبر است؛ نامشخص را خالی بگذارید. در آینده از سرویس همگام‌سازی به‌روزرسانی می‌شود."
+        },
+        {
             "key": "field_6aa53318a0d9e",
             "label": "پسوند دامنه",
             "name": "whmcs_extension",
@@ -47,31 +82,8 @@
             "append": ""
         },
         {
-            "key": "field_6aa5336ba0da0",
-            "label": "هزینه انتقال",
-            "name": "whmcs_transfer_price",
-            "aria-label": "",
-            "type": "number",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "min": 0,
-            "max": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "step": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_6aa5337fa0da1",
-            "label": "هزینه تمدید",
+            "label": "هزینه تمدید / انتقال",
             "name": "whmcs_renew_price",
             "aria-label": "",
             "type": "number",
@@ -115,11 +127,32 @@
         },
         {
             "key": "field_6aa5339ea0da3",
-            "label": "دسته بندی",
+            "label": "کلید دسته‌بندی",
             "name": "whmcs_category",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "کلید پایدار و ترجیحاً انگلیسی؛ مانند popular یا country-code.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_payam_whmcs_category_label",
+            "label": "عنوان دسته‌بندی",
+            "name": "whmcs_category_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "عنوان نمایشی فارسی یا قابل‌فهم برای مدیر و کاربر؛ مانند محبوب‌ترین‌ها.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -281,5 +314,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789470530
+    "modified": 1789817856
 }
