@@ -1,15 +1,15 @@
 <?php
-/**
- * Responsive linked banner section.
- */
+/** Responsive content banner with either a full-card link or inner CTAs. */
 
 defined( 'ABSPATH' ) || exit;
 
 $bannerImage        = absint( get_sub_field( 'banner_image' ) );
 $bannerMobileImage  = absint( get_sub_field( 'banner_mobile_image' ) );
 $bannerLink         = get_sub_field( 'cta_link' ) ?: get_sub_field( 'banner_link' );
-$bannerSize         = (string) ( get_sub_field( 'banner_size' ) ?: 'medium' );
-$bannerText         = get_sub_field( 'banner_text' );
+$bannerSize         = (string) ( get_sub_field( 'banner_size' ) ?: 'full' );
+$bannerStyle        = (string) ( get_sub_field( 'banner_style' ) ?: 'style_1' );
+$bannerTitle        = trim( (string) get_sub_field( 'banner_text' ) );
+$bannerContent      = trim( (string) get_sub_field( 'banner_content' ) );
 $bannerPrimaryCTA   = get_sub_field( 'primary_cta' );
 $bannerSecondaryCTA = get_sub_field( 'secondary_cta' );
 $paddingTopValue          = get_sub_field( 'padding_top' );
@@ -27,7 +27,11 @@ if ( ! in_array( $bannerSize, [ 'medium', 'full' ], true ) ) {
     $bannerSize = 'medium';
 }
 
-if ( ! $bannerImage ) {
+if ( ! in_array( $bannerStyle, [ 'style_1', 'style_2' ], true ) ) {
+    $bannerStyle = 'style_1';
+}
+
+if ( ! $bannerImage || '' === $bannerTitle ) {
     return;
 }
 
@@ -42,9 +46,11 @@ $mobileImage       = $bannerMobileImage ? wp_get_attachment_image_src( $bannerMo
 $mobileImage2xSrc  = $bannerMobileImage ? wp_get_attachment_image_src( $bannerMobileImage, $mobileImage2x ) : false;
 $imageAlt          = (string) get_post_meta( $bannerImage, '_wp_attachment_image_alt', true );
 $linkUrl           = is_array( $bannerLink ) ? ( $bannerLink['url'] ?? '' ) : $bannerLink;
-$linkTarget        = is_array( $bannerLink ) ? ( $bannerLink['target'] ?? '_self' ) : '_self';
+$linkTarget        = is_array( $bannerLink ) && ! empty( $bannerLink['target'] ) ? (string) $bannerLink['target'] : '_self';
 $linkTitle         = is_array( $bannerLink ) ? ( $bannerLink['title'] ?? '' ) : '';
-$hasInnerCtas      = is_array( $bannerPrimaryCTA ) || is_array( $bannerSecondaryCTA );
+$hasPrimaryCTA     = is_array( $bannerPrimaryCTA ) && ! empty( $bannerPrimaryCTA['url'] );
+$hasSecondaryCTA   = is_array( $bannerSecondaryCTA ) && ! empty( $bannerSecondaryCTA['url'] );
+$hasInnerCtas      = $hasPrimaryCTA || $hasSecondaryCTA;
 $wrapperTag        = $linkUrl && ! $hasInnerCtas ? 'a' : 'div';
 
 if ( ! $desktopImage ) {
@@ -57,9 +63,9 @@ $mobileUrl = $mobileImage ? $mobileImage[0] : false;
 $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
 ?>
 
-<section class="banner-section banner-section-<?= esc_attr( $bannerSize )?>" style="<?= esc_attr( $bannerPaddingTop ) . ' ' . esc_attr( $bannerPaddingTopMobile ) . ' ' . esc_attr( $bannerPaddingBottom ) . ' ' . esc_attr( $bannerPaddingBottomMobile ); ?>" data-lazy-root>
+<section class="banner-section banner-section-<?= esc_attr( $bannerSize ); ?> banner-section-<?= esc_attr( $bannerStyle ); ?>" style="<?= esc_attr( $bannerPaddingTop ) . ' ' . esc_attr( $bannerPaddingTopMobile ) . ' ' . esc_attr( $bannerPaddingBottom ) . ' ' . esc_attr( $bannerPaddingBottomMobile ); ?>" data-lazy-root>
     <div class="container banner-container flex justify-center">
-        <<?= $wrapperTag; ?> class="banner-link relative block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>"<?php if ( 'a' === $wrapperTag ) : ?> href="<?= esc_url( $linkUrl ); ?>" target="<?= esc_attr( $linkTarget ); ?>"<?= '_blank' === $linkTarget ? ' rel="noopener noreferrer"' : ''; ?><?= $linkTitle ? ' aria-label="' . esc_attr( $linkTitle ) . '"' : ''; ?><?php endif; ?>>
+        <<?= $wrapperTag; ?> class="banner-link relative block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>"<?php if ( 'a' === $wrapperTag ) : ?> href="<?= esc_url( $linkUrl ); ?>" target="<?= esc_attr( $linkTarget ); ?>"<?= '_blank' === $linkTarget ? ' rel="noopener noreferrer"' : ''; ?><?= $linkTitle || $bannerTitle ? ' aria-label="' . esc_attr( $linkTitle ?: $bannerTitle ) . '"' : ''; ?><?php endif; ?>>
 
         <picture class="banner-picture block w-full <?= $isFull ? 'max-w-[1280px]' : 'max-w-[1144px]'; ?>">
             <?php if ( $mobileUrl ) : ?>
@@ -82,27 +88,34 @@ $mobile2x  = $mobileImage2xSrc ? $mobileImage2xSrc[0] : false;
             >
         </picture>
 
-        <span class="absolute right-0 left-0 top-0 bottom-0 flex flex-row items-center justify-center">
-            <span class="flex lg:justify-between flex-col lg:flex-row items-center ps-5 z-1 text-white p-5 lg:p-5 lg:ps-10 gap-10 w-full">
-                <?php if ( $bannerText ) : ?>
-                    <span class="text-desktop-h5 text-center lg:text-start"><?= esc_html( $bannerText ) ?></span>
-                <?php endif; ?>
-                <span class="flex items-center gap-2.5">
-                    <?php if ( is_array( $bannerSecondaryCTA ) && ! empty( $bannerSecondaryCTA['url'] ) ) : $secondaryTarget = (string) ( $bannerSecondaryCTA['target'] ?? '_self' ); ?>
+        <div class="banner-body">
+            <div class="banner-content-wrap">
+                <div class="banner-copy">
+                    <?php if ( '' !== $bannerTitle ) : ?>
+                        <h2 class="banner-title"><?= esc_html( $bannerTitle ); ?></h2>
+                    <?php endif; ?>
+                    <?php if ( '' !== $bannerContent ) : ?>
+                        <p class="banner-content"><?= nl2br( esc_html( $bannerContent ) ); ?></p>
+                    <?php endif; ?>
+                </div>
+                <?php if ( $hasInnerCtas ) : ?>
+                <div class="banner-ctas">
+                    <?php if ( $hasSecondaryCTA ) : $secondaryTarget = ! empty( $bannerSecondaryCTA['target'] ) ? (string) $bannerSecondaryCTA['target'] : '_self'; ?>
                         <a href="<?= esc_url( $bannerSecondaryCTA['url'] ) ?>" target="<?= esc_attr( $secondaryTarget ); ?>"<?= '_blank' === $secondaryTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-secondary cta-has-icon py-2.75!">
                             <span><?= esc_html( $bannerSecondaryCTA['title'] ?? '' ) ?></span>
-                            <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white hover:rotate-45 duration-200' ) ?>
+                            <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white ' ) ?>
                         </a>
                     <?php endif; ?>
-                    <?php if ( is_array( $bannerPrimaryCTA ) && ! empty( $bannerPrimaryCTA['url'] ) ) : $primaryTarget = (string) ( $bannerPrimaryCTA['target'] ?? '_self' ); ?>
+                    <?php if ( $hasPrimaryCTA ) : $primaryTarget = ! empty( $bannerPrimaryCTA['target'] ) ? (string) $bannerPrimaryCTA['target'] : '_self'; ?>
                         <a href="<?= esc_url( $bannerPrimaryCTA['url'] ) ?>" target="<?= esc_attr( $primaryTarget ); ?>"<?= '_blank' === $primaryTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-primary cta-has-icon py-2.75!">
                             <span><?= esc_html( $bannerPrimaryCTA['title'] ?? '' ) ?></span>
-                            <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white hover:rotate-45 duration-200' ) ?>
+                            <?= icon( 'arrow-linear-2', 'w-5 h-5 fill-white' ) ?>
                         </a>
                     <?php endif; ?>
-                </span>
-            </span>
-        </span>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
 
     </<?= $wrapperTag; ?>>
     </div>

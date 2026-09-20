@@ -3788,7 +3788,7 @@
                             "aria-label": "",
                             "type": "image",
                             "instructions": "",
-                            "required": 1,
+                            "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
@@ -4772,11 +4772,11 @@
                         },
                         {
                             "key": "field_6a672c5aa67b2",
-                            "label": "لینک بنر",
+                            "label": "لینک کل بنر",
                             "name": "cta_link",
                             "aria-label": "",
                             "type": "link",
-                            "instructions": "",
+                            "instructions": "فقط وقتی CTA اصلی و ثانویه خالی باشند، کل بدنه بنر با این لینک قابل کلیک می‌شود.",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -4786,6 +4786,35 @@
                             },
                             "return_format": "array",
                             "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_payam_banner_style",
+                            "label": "مدل نمایش بنر",
+                            "name": "banner_style",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "مدل اول برای فراخوان فشرده و مدل دوم برای بنر تصویری محتوایی است.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "style_1": "مدل اول؛ فراخوان فشرده",
+                                "style_2": "مدل دوم؛ تصویری محتوایی"
+                            },
+                            "default_value": "style_1",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
                         },
                         {
                             "key": "field_6a801c7ac6bca",
@@ -4805,7 +4834,7 @@
                                 "medium": "متوسط",
                                 "full": "تمام عرض"
                             },
-                            "default_value": "medium",
+                            "default_value": "full",
                             "return_format": "value",
                             "multiple": 0,
                             "allow_null": 0,
@@ -4823,7 +4852,7 @@
                             "aria-label": "",
                             "type": "image",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
@@ -4870,12 +4899,12 @@
                         },
                         {
                             "key": "field_6a9bc289f6985",
-                            "label": "متن بنر",
+                            "label": "عنوان بنر",
                             "name": "banner_text",
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
@@ -4888,6 +4917,27 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": ""
+                        },
+                        {
+                            "key": "field_payam_banner_content",
+                            "label": "محتوای بنر",
+                            "name": "banner_content",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "متن توضیحی بنر؛ شکست خط‌ها در خروجی حفظ می‌شود.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "rows": 4,
+                            "placeholder": "",
+                            "new_lines": ""
                         },
                         {
                             "key": "field_6a9bc31cf6986",
@@ -7264,5 +7314,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789818197
+    "modified": 1789818198
 }

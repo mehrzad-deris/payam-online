@@ -262,8 +262,152 @@ html.header-drawer-open .site-header.site-header--scroll-hidden {
   padding-top: var(--banner-padding-top-mobile, var(--banner-padding-top, 0px));
   padding-bottom: var(--banner-padding-bottom-mobile, var(--banner-padding-bottom, 0px));
 
-  .banner-picture {
+  .banner-link {
+    position: relative;
+    display: block;
+    isolation: isolate;
+    overflow: hidden;
     border-radius: 32px;
+    color: #fff;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-blue-primary);
+      outline-offset: 4px;
+    }
+  }
+
+  .banner-picture,
+  .banner-picture img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-picture img {
+    object-fit: cover;
+  }
+
+  .banner-body {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .banner-content-wrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .banner-copy {
+    max-width: 620px;
+  }
+
+  .banner-title {
+    font-size: var(--text-mobile-h2);
+    font-weight: var(--text-mobile-h2--font-weight);
+    line-height: var(--text-mobile-h2--line-height);
+    white-space: pre-line;
+  }
+
+  .banner-content {
+    margin-top: 8px;
+    font-size: var(--text-body-mobile-2);
+    line-height: var(--text-body-mobile-2--line-height);
+  }
+
+  .banner-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &.banner-section-style_1 {
+    .banner-link {
+      height: 224px;
+      background: linear-gradient(58deg, #001352 1%, #1844da 100%);
+    }
+
+    .banner-picture {
+      position: absolute;
+      inset: 0;
+      opacity: .45;
+    }
+
+    .banner-overlay {
+      background: linear-gradient(58deg, rgba(0, 19, 82, .76) 1%, rgba(24, 68, 218, .42) 100%);
+    }
+
+    .banner-content-wrap {
+      height: 100%;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 40px 16px;
+    }
+
+    .banner-copy {
+      max-width: 270px;
+    }
+
+    .banner-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 28px;
+    }
+
+    .banner-content {
+      display: none;
+    }
+
+    .banner-ctas {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &.banner-section-style_2 {
+    .banner-link {
+      height: 512px;
+    }
+
+    .banner-overlay {
+      background: linear-gradient(180deg, rgba(7, 4, 29, 0) 0%, #07041d 78%);
+      backdrop-filter: blur(20px);
+    }
+
+    .banner-body {
+      align-items: flex-end;
+    }
+
+    .banner-content-wrap {
+      align-items: stretch;
+      gap: 16px;
+      padding: 20px 16px;
+      text-align: right;
+    }
+
+    .banner-copy {
+      max-width: none;
+    }
+
+    .banner-content {
+      margin-top: 16px;
+      color: var(--color-neutral-100, #dddfe3);
+      font-size: var(--text-body-mobile-3);
+      line-height: 32px;
+      text-align: justify;
+    }
+
+    .banner-ctas {
+      justify-content: flex-start;
+    }
   }
 }
 
@@ -284,6 +428,82 @@ html.header-drawer-open .site-header.site-header--scroll-hidden {
   .banner-section {
     padding-top: var(--banner-padding-top, 0px);
     padding-bottom: var(--banner-padding-bottom, 0px);
+
+    .banner-link {
+      border-radius: 24px;
+    }
+
+    &.banner-section-style_1 {
+      .banner-link {
+        height: 92px;
+      }
+
+      .banner-picture {
+        opacity: .52;
+      }
+
+      .banner-content-wrap {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+        text-align: right;
+      }
+
+      .banner-copy {
+        max-width: 760px;
+      }
+
+      .banner-title {
+        font-size: var(--text-desktop-h5);
+        font-weight: var(--text-desktop-h5--font-weight);
+        line-height: var(--text-desktop-h5--line-height);
+      }
+
+      .banner-ctas {
+        flex: none;
+      }
+    }
+
+    &.banner-section-style_2 {
+      .banner-link {
+        height: 328px;
+      }
+
+      .banner-overlay {
+        background: linear-gradient(270deg, #07041d 0%, rgba(7, 4, 29, 0) 100%);
+        backdrop-filter: blur(20px);
+      }
+
+      .banner-body {
+        align-items: center;
+      }
+
+      .banner-content-wrap {
+        width: 630px;
+        align-items: flex-start;
+        gap: 16px;
+        margin-inline-end: auto;
+        padding: 32px 48px;
+        text-align: right;
+      }
+
+      .banner-title {
+        font-size: var(--text-desktop-h2);
+        font-weight: var(--text-desktop-h2--font-weight);
+        line-height: var(--text-desktop-h2--line-height);
+      }
+
+      .banner-content {
+        margin-top: 16px;
+        font-size: var(--text-body-3);
+        line-height: var(--text-body-3--line-height);
+      }
+
+      .banner-ctas {
+        flex: none;
+        justify-content: flex-start;
+      }
+    }
   }
 }
 
