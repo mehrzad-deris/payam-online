@@ -44,6 +44,7 @@ $builderSource = payam_options_builder_source( 'error_404_builder' );
                 <span>بازگشت به صفحه اصلی</span>
                 <?= icon('arrow-linear-2', 'w-5 h-5 fill-white hover:rotate-45 duration-200') ?>
             </a>
+
     </div>
     </div>
 	<?php if ( payam_builder_sections( $builderSource ) ) : ?>
