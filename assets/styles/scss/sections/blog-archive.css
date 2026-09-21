@@ -7,10 +7,6 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
-.blog-archive .blog-archive-grid .blog-card,
-.blog-archive .blog-archive-grid .blog-card-skeleton {
-  min-height: 420px;
-}
 .blog-archive .blog-load-more-wrap {
   display: flex;
   justify-content: center;

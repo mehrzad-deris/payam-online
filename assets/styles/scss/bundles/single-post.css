@@ -491,6 +491,9 @@ body.single-post {
     display: none;
   }
 }
+.single-article .single-article .article-comments .comment-invitation span {
+  font-size: 13px;
+}
 
 @keyframes article-reveal {
   from {

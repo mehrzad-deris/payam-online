@@ -20,7 +20,7 @@
                     <img class="logo-light absolute inset-y-0 right-0 h-10 w-29.75 max-w-none object-cover object-right" src="<?= esc_url( get_theme_file_uri( '/assets/images/payamonline-colored.svg' ) ); ?>" width="116" height="40" alt="راهکار میزبانی دیجیتال پیام آنلاین"/>
                 </a>
             </div>
-            <div class="w-full lg:w-auto">
+            <div class="w-full lg:w-auto flex items-center">
                 <button type="button" class="lg:hidden cursor-pointer" data-mobile-menu-toggle aria-expanded="false" aria-controls="site-mobile-menu" aria-label="باز کردن فهرست اصلی"><?= icon( 'hamburger-menu', 'w-8 h-8 duration-200 fill-neutral-900' ) ?></button>
                 <div class="hidden lg:block header-desktop-navigation" data-header-navigation>
                     <?php payam_header_menu( 'header-menu header-menu-desktop' ); ?>

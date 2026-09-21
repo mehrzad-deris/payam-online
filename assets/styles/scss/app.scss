@@ -411,6 +411,21 @@ html.header-drawer-open .site-header.site-header--scroll-hidden {
   }
 }
 
+.error-404-page {
+  .section-heading > .mb-10 {
+    width: 100%;
+    padding-inline: 16px;
+  }
+
+  .section-heading > .mb-10 svg {
+    display: block;
+    width: 100%;
+    max-width: 473px;
+    height: auto;
+    margin-inline: auto;
+  }
+}
+
 .content-block {
   text-align: justify;
 

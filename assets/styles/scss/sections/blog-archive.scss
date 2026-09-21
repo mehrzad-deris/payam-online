@@ -6,11 +6,6 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
-
-    .blog-card,
-    .blog-card-skeleton {
-      min-height: 420px;
-    }
   }
 
   .blog-load-more-wrap {

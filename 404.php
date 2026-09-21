@@ -6,7 +6,7 @@ status_header( 404 );
 get_header();
 $builderSource = payam_options_builder_source( 'error_404_builder' );
 ?>
-<main class="py-32" data-header-theme="light">
+<main class="error-404-page py-32" data-header-theme="light">
     <div class="">
         <div class="section-heading relative flex flex-col items-center text-center lg:gap-4 gap-2 mb-10">
             <span class="gradient-shape shape-right top-2" aria-hidden="true"><?= icon( 'rounded-shape', 'rounded-shape' ); ?></span>
