@@ -1330,9 +1330,6 @@
     padding-bottom: var(--blog-padding-bottom, 0px);
   }
 }
-.blog-section .blog-slider {
-  padding-bottom: 110px;
-}
 
 /* OS Logo Image */
 .os-logo-section {
@@ -1612,5 +1609,3 @@
   opacity: 0.55;
   pointer-events: none;
 }
-
-/*# sourceMappingURL=cards.css.map */
