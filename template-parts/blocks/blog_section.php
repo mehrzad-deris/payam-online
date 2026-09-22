@@ -71,10 +71,10 @@ if ( 'selected' === $postsSource && is_array( $selectedPosts ) ) {
                 </div>
 
                 <?php if ( count( $blogPosts ) > 1 ) : ?>
-                    <div class="swiper-pagination blog-pagination swiper-pagination-card-style bottom-7! relative" data-swiper-pagination></div>
+                    <div class="swiper-pagination blog-pagination swiper-pagination-card-style bottom-13! relative" data-swiper-pagination></div>
                 <?php endif; ?>
 
-                <div class="justify-center flex mt-10">
+                <div class="justify-center flex mt-12">
                     <?php if ( is_array( $sectionLoadMore ) && ! empty( $sectionLoadMore['url'] ) ) : $moreTarget = (string) ( $sectionLoadMore['target'] ?? '_self' ); ?>
                         <a href="<?= esc_url( $sectionLoadMore['url'] ); ?>" target="<?= esc_attr( $moreTarget ); ?>"<?= '_blank' === $moreTarget ? ' rel="noopener noreferrer"' : ''; ?> class="cta-link cta-btn-primary cta-has-icon">
                             <?= esc_html( $sectionLoadMore['title'] ?? '' ); ?>
