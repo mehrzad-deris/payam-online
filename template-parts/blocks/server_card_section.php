@@ -117,7 +117,7 @@ $sectionFilters = is_array( $sectionFilters ) ? array_slice( array_values( array
 $normalizeProduct = static function ( $productReference ) use ( $getProductField, $normalizePrice, $normalizeFilterValue ): ?array {
     $postId = absint( $productReference instanceof WP_Post ? $productReference->ID : $productReference );
 
-    if ( ! $postId || 'whmcs_product' !== get_post_type( $postId ) || 'publish' !== get_post_status( $postId ) ) {
+    if ( ! $postId || 'whmcs_product' !== get_post_type( $postId ) || 'publish' !== get_post_status( $postId ) || $getProductField( 'whmcs_is_hidden', $postId ) ) {
         return null;
     }
 
@@ -206,7 +206,7 @@ $normalizeProduct = static function ( $productReference ) use ( $getProductField
         'period'   => $period,
         'features' => $features,
         'filters'  => $filterValues,
-        'url'      => (string) ( $link['url'] ?? '' ),
+        'url'      => (string) ( $link['url'] ?? '' ) ?: ( function_exists( 'payam_whmcs_catalog_product_order_url' ) ? payam_whmcs_catalog_product_order_url( absint( $getProductField( 'whmcs_external_id', $postId ) ) ) : '' ),
         'target'   => (string) ( $link['target'] ?? '' ),
     ];
 };

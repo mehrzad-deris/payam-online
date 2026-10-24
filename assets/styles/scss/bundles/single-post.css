@@ -144,6 +144,108 @@ body.single-post {
   border-radius: 16px;
   background: #fff;
 }
+.single-article .article-main .article-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 0;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 32px;
+  background: #fff;
+  box-shadow: var(--shadow-mellow-blue);
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-200) transparent;
+}
+.single-article .article-main .article-content table thead,
+.single-article .article-main .article-content table tbody {
+  display: table;
+  width: 100%;
+  min-width: 630px;
+  table-layout: fixed;
+}
+.single-article .article-main .article-content table tr {
+  border: 0;
+}
+.single-article .article-main .article-content table th,
+.single-article .article-main .article-content table td {
+  height: 96px;
+  padding: 16px 20px;
+  border: 0;
+  color: var(--color-neutral-900);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  vertical-align: middle;
+}
+.single-article .article-main .article-content table thead th {
+  height: 80px;
+  background: var(--color-primary-700);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+.single-article .article-main .article-content table thead th:first-child {
+  border-start-start-radius: 20px;
+}
+.single-article .article-main .article-content table thead th:last-child {
+  border-start-end-radius: 20px;
+}
+.single-article .article-main .article-content table tbody td:first-child {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+.single-article .article-main .article-content table tbody tr:nth-child(even) td {
+  background: var(--color-primary-50);
+}
+.single-article .article-main .article-content table:not(:has(thead)) tbody tr:first-child td {
+  height: 80px;
+  background: var(--color-primary-700);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+.single-article .article-main .article-content table:not(:has(thead)) tbody tr:first-child td:first-child {
+  border-start-start-radius: 20px;
+}
+.single-article .article-main .article-content table:not(:has(thead)) tbody tr:first-child td:last-child {
+  border-start-end-radius: 20px;
+}
+.single-article .article-main .article-content table:not(:has(thead)) tbody tr:nth-child(even) td {
+  background: #fff;
+  color: var(--color-neutral-900);
+}
+.single-article .article-main .article-content table:not(:has(thead)) tbody tr:nth-child(odd):not(:first-child) td {
+  background: var(--color-primary-50);
+}
+.single-article .article-main .article-content table caption {
+  padding: 12px 16px;
+  color: var(--color-neutral-500);
+  font-size: 14px;
+  line-height: 24px;
+  text-align: start;
+}
+.single-article .article-main .article-content .wp-block-table {
+  max-width: 100%;
+  overflow: visible;
+}
+.single-article .article-main .article-content .wp-block-table table {
+  margin: 0;
+}
+.single-article .article-main .article-content .wp-block-table figcaption {
+  margin-top: 12px;
+  color: var(--color-neutral-500);
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
 .single-article .article-main .article-tags {
   display: flex;
   flex-wrap: wrap;

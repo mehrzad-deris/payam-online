@@ -61,11 +61,14 @@ $price = static fn( $value ): string => is_numeric( $value ) && (float) $value >
 <!--                <button type="button" class="cta-link cta-btn-primary domain-products-search-button" data-domain-search-button>جستجو</button>-->
             </div>
             <div class="domain-products-head" aria-hidden="true">
-                <span>پسوند</span><span>خرید <small>(سالانه)</small></span><span>تمدید/انتقال <small>(سالانه)</small></span><span>جریمه</span><span></span>
+                <span>پسوند</span><span>خرید <small>(سالانه)</small></span><span>تمدید <small>(سالانه)</small></span><span>انتقال <small>(سالانه)</small></span><span>جریمه</span><span></span>
             </div>
             <ul class="domain-products-list" id="<?= esc_attr( $id ); ?>" data-domain-list aria-label="قیمت دامنه‌ها">
                 <?php foreach ( $domains as $domain ) :
                     $link = $domain['order_link'];
+                    if ( empty( $link['url'] ) && function_exists( 'payam_whmcs_catalog_domain_order_url' ) ) {
+                        $link = [ 'url' => payam_whmcs_catalog_domain_order_url(), 'target' => '' ];
+                    }
                     $currency_label = match ( $domain['currency'] ) { 'IRT', 'TMN' => 'تومان', 'IRR' => 'ریال', 'USD' => 'دلار', default => $domain['currency'] };
                     $annual_label = $currency_label ? $currency_label . '/سالانه' : 'سالانه';
                     ?>
@@ -76,8 +79,12 @@ $price = static fn( $value ): string => is_numeric( $value ) && (float) $value >
                             <strong><?= esc_html( $price( $domain['register_price'] ) ); ?></strong>
                         </div>
                         <div class="domain-product-price">
-                            <span class="domain-product-label">تمدید/انتقال</span><small>(<?= esc_html( $annual_label ); ?>)</small>
+                            <span class="domain-product-label">تمدید</span><small>(<?= esc_html( $annual_label ); ?>)</small>
                             <strong><?= esc_html( $price( $domain['renew_price'] ) ); ?></strong>
+                        </div>
+                        <div class="domain-product-price">
+                            <span class="domain-product-label">انتقال</span><small>(<?= esc_html( $annual_label ); ?>)</small>
+                            <strong><?= esc_html( $price( $domain['transfer_price'] ) ); ?></strong>
                         </div>
                         <div class="domain-product-price domain-product-fee">
                             <span class="domain-product-label">جریمه</span><small><?= $currency_label ? '(' . esc_html( $currency_label ) . ')' : ''; ?></small>

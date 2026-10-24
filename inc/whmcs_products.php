@@ -198,9 +198,10 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 	$order_link     = $get_value( 'domain_order_link' );
 	$renew_price    = $get_value( 'whmcs_renew_price' );
 	// Legacy migration: preserve old transfer-only prices without rewriting stored data.
-	if ( ! is_numeric( $renew_price ) ) {
+	if ( ! is_numeric( $renew_price ) && ! get_post_meta( $post_id, '_payam_whmcs_catalog_managed', true ) ) {
 		$renew_price = get_post_meta( $post_id, 'whmcs_transfer_price', true );
 	}
+	$transfer_price = $get_value( 'whmcs_transfer_price' );
 	$redemption_fee = $get_value( 'whmcs_redemption_fee' );
 	$category_terms = get_the_terms( $post_id, 'whmcs_domain_category' );
 	$category_term  = is_array( $category_terms ) ? reset( $category_terms ) : false;
@@ -248,6 +249,7 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 		'extension'        => sanitize_text_field( $extension ),
 		'register_price'   => is_numeric( $register_price ) ? (float) $register_price : '',
 		'renew_price'      => is_numeric( $renew_price ) && (float) $renew_price >= 0 ? (float) $renew_price : '',
+		'transfer_price'   => is_numeric( $transfer_price ) && (float) $transfer_price >= 0 ? (float) $transfer_price : '',
 		'redemption_fee'   => is_numeric( $redemption_fee ) && (float) $redemption_fee >= 0 ? (float) $redemption_fee : '',
 		'category'         => $category_key,
 		'category_label'   => $category_label,
@@ -268,6 +270,9 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
  */
 function payam_get_whmcs_product_card_data( int $post_id, int $feature_limit = 0 ): array {
 	if ( 'whmcs_product' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		return [];
+	}
+	if ( function_exists( 'get_field' ) && get_field( 'whmcs_is_hidden', $post_id ) ) {
 		return [];
 	}
 
@@ -309,6 +314,9 @@ function payam_get_whmcs_product_card_data( int $post_id, int $feature_limit = 0
 	$icon_id    = absint( is_array( $icon_field ) ? ( $icon_field['ID'] ?? 0 ) : $icon_field );
 	$link_field = $get_value( 'product_order_link' );
 	$link       = is_array( $link_field ) ? $link_field : [];
+	if ( empty( $link['url'] ) && function_exists( 'payam_whmcs_catalog_product_order_url' ) ) {
+		$link = [ 'url' => payam_whmcs_catalog_product_order_url( absint( $get_value( 'whmcs_external_id' ) ) ), 'target' => '' ];
+	}
 
 	return [
 		'id'       => $post_id,
