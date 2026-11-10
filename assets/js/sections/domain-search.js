@@ -1,6 +1,10 @@
 const statuses = {available: 'موجود است.', unavailable: 'موجود نیست.', error: 'بررسی ناموفق؛ دوباره تلاش کنید.', pending: 'در حال بررسی…'};
 const money = value => new Intl.NumberFormat('fa-IR', {maximumFractionDigits: 2}).format(value);
 const node = (tag, cls, text) => { const el = document.createElement(tag); el.className = cls; if (text) el.textContent = text; return el; };
+const domainCacheKey = 'payam-domain-check-v1';
+let domainCache = {};
+try { domainCache = JSON.parse(sessionStorage.getItem(domainCacheKey) || '{}') || {}; } catch { /* Storage may be unavailable. */ }
+const validCacheEntry = entry => entry && ['available', 'unavailable'].includes(entry.status) && entry.expires > Date.now() && entry.expires <= Date.now() + 300000;
 
 document.querySelectorAll('[data-domain-search-config]').forEach(section => {
     let config;
@@ -55,10 +59,23 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
     clearButton.type = 'button'; clearButton.setAttribute('aria-label', 'پاک‌کردن جستجو و بستن نتایج'); clearButton.hidden = true;
     form.append(clearButton);
     const request = async (action, domains, signal) => {
-        const response = await fetch(config.endpoint + action, {method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({domains}), signal});
+        signal.throwIfAborted();
+        const cachedResults = {};
+        const pending = domains.filter(domain => {
+            if (validCacheEntry(domainCache[domain])) { cachedResults[domain] = domainCache[domain].status; return false; }
+            delete domainCache[domain]; return true;
+        });
+        if (!pending.length) return {results: cachedResults};
+        const response = await fetch(config.endpoint + action, {method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({domains: pending}), signal});
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || 'ارتباط با سرویس بررسی دامنه برقرار نشد.');
-        return data;
+        pending.forEach(domain => {
+            const entry = {status: data.results?.[domain], expires: Number(data.expires?.[domain]) * 1000};
+            if (validCacheEntry(entry)) domainCache[domain] = entry;
+        });
+        domainCache = Object.fromEntries(Object.entries(domainCache).filter(([,entry]) => validCacheEntry(entry)).slice(-160));
+        try { sessionStorage.setItem(domainCacheKey, JSON.stringify(domainCache)); } catch { /* In-memory cache remains available. */ }
+        return {...data, results: {...cachedResults, ...data.results}};
     };
     const close = () => {
         notify('');
