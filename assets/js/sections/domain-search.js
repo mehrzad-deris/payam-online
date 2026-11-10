@@ -13,6 +13,10 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
     const results = section.querySelector('[data-domain-results]');
     if (!form || !results || !config.catalog.length) return;
     const input = form.querySelector('input[name="query"]');
+    const initialQuery = input.value;
+    const historyKey = 'payamDomainSearch';
+    const searchState = () => history.state?.[historyKey];
+    const ownsHistory = () => searchState()?.inputId === input.id;
     input.inputMode = 'url'; input.autocapitalize = 'none'; input.spellcheck = false;
     const notice = node('p', 'domain-search-notice');
     notice.id = input.id + '-notice'; notice.setAttribute('role', 'alert');
@@ -86,7 +90,18 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
         form.querySelector('button[type="submit"]').disabled = false;
         form.querySelector('input[name="query"]').focus();
     };
-    clearButton.addEventListener('click', () => { close(); form.querySelector('input[name="query"]').value = ''; });
+    clearButton.addEventListener('click', () => {
+        if (ownsHistory()) { history.back(); return; }
+        close(); input.value = '';
+    });
+    window.addEventListener('popstate', () => {
+        if (ownsHistory()) {
+            input.value = searchState().query;
+            form.requestSubmit();
+        } else if (!results.hidden) {
+            close(); input.value = initialQuery;
+        }
+    });
     form.addEventListener('submit', async event => {
         event.preventDefault();
         if (!englishOnly.test(input.value)) { notify('نام دامنه را فقط با حروف و اعداد انگلیسی وارد کنید.'); input.focus(); return; }
@@ -99,6 +114,12 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
             notify('یک نام دامنه معتبر وارد کنید.'); input.focus(); return;
         }
         notify('');
+        // Keep one results entry: Back restores the page, Forward restores this search.
+        const state = {...history.state, [historyKey]: {inputId: input.id, query: raw}};
+        const url = new URL(window.location.href);
+        url.hash = 'domain-results';
+        if (ownsHistory()) history.replaceState(state, '', url);
+        else history.pushState(state, '', url);
         const main = match || known.find(item => item.extension === 'com') || known[0];
         controller?.abort(); controller = new AbortController(); const run = ++generation;
         const signal = controller.signal;
@@ -185,4 +206,9 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
             if (requestFailed) break;
         }
     });
+    // A reload of a results history entry should retain working Back/Forward behavior.
+    if (ownsHistory()) {
+        input.value = searchState().query;
+        form.requestSubmit();
+    }
 });
