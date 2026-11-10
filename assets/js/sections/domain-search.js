@@ -123,30 +123,41 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
         };
         const primary = add(main, featured);
         primary.card.classList.add('domain-result-primary');
-        config.suggestions.forEach(item => add(item, grid));
+        const seen = new Set([main.extension]);
+        const candidates = config.suggestions.filter(item => {
+            if (seen.has(item.extension)) return false;
+            seen.add(item.extension); return true;
+        });
+        const confirmedCount = () => Array.from(grid.children).filter(card => !card.hidden && card.dataset.status === 'available').length;
         updateGridVisibility();
         const updateRecommendation = () => {
             if (primary.status !== 'unavailable') { recommendation.hidden = true; return; }
-            const alternative = [...items.values()].find(entry => entry !== primary && entry.status === 'available');
+            const alternative = [...items.values()].find(entry => entry !== primary && entry.status === 'available' && !entry.button.disabled);
             if (!alternative) return;
             alternative.card.classList.add('domain-result-recommended');
             recommendationRow.replaceChildren(alternative.card);
             recommendation.hidden = false;
         };
         results.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
-        const queue = [...items.values()];
-        for (let offset = 0; offset < queue.length; offset += 4) {
+        let cursor = 0;
+        let firstBatch = true;
+        while (firstBatch || (config.orderUrl && cursor < candidates.length && confirmedCount() < 10)) {
             if (signal.aborted) break;
-            const batch = queue.slice(offset, offset + 4);
+            const batch = firstBatch ? [primary] : [];
+            firstBatch = false;
+            const slots = Math.min(4 - batch.length, 10 - confirmedCount());
+            for (let i = 0; i < slots && cursor < candidates.length; i++) batch.push(add(candidates[cursor++], grid));
+            updateGridVisibility();
             let data;
+            let requestFailed = false;
             try { data = await request('check', batch.map(item => item.domain), signal); }
-            catch (error) { if (error.name === 'AbortError') break; data = {results: {}}; if (run === generation) message.textContent = error.message; }
+            catch (error) { if (error.name === 'AbortError') break; requestFailed = true; data = {results: {}}; if (run === generation) message.textContent = error.message; }
             if (run !== generation) return;
             batch.forEach(entry => {
                 entry.status = data.results[entry.domain] || 'error';
                 entry.card.classList.remove('is-pending'); entry.card.dataset.status = entry.status;
                 entry.card.setAttribute('aria-busy', 'false');
-                entry.card.hidden = entry !== primary && entry.status === 'unavailable';
+                entry.card.hidden = entry !== primary && (entry.status !== 'available' || !config.orderUrl);
                 entry.state.textContent = statuses[entry.status]; entry.button.disabled = entry.status !== 'available' || !config.orderUrl;
                 entry.card.querySelector('.domain-result-pricing').hidden = entry.status === 'unavailable' || entry.status === 'error';
                 entry.button.hidden = entry.status === 'unavailable' || entry.status === 'error';
@@ -154,6 +165,7 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
             updateRecommendation();
             updateGridVisibility();
             message.textContent = primary.status === 'error' ? 'بررسی دامنه انجام نشد؛ دوباره تلاش کنید.' : primary.domain + ' — ' + statuses[primary.status];
+            if (requestFailed) break;
         }
     });
 });

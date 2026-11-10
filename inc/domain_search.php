@@ -68,7 +68,7 @@ function payam_domain_search_config(): array {
     foreach ($all as $id) {
         $data = payam_get_whmcs_domain_tld_data((int) $id);
         if (!$data || !is_numeric($data['register_price'] ?? null)) continue;
-        $catalog[(string) $id] = ['id' => (int) $id, 'extension' => strtolower(ltrim($data['extension'], '.')), 'price' => (float) $data['register_price'], 'regular' => is_numeric($data['regular_price'] ?? null) ? (float) $data['regular_price'] : null, 'currency' => $data['currency'] ?? '', 'suffix' => $data['price_suffix'] ?? ''];
+        $catalog[(string) $id] = ['id' => (int) $id, 'extension' => strtolower(ltrim($data['extension'], '.')), 'price' => (float) $data['register_price'], 'regular' => is_numeric($data['regular_price'] ?? null) ? (float) $data['regular_price'] : null, 'currency' => $data['currency'] ?? '', 'suffix' => $data['price_suffix'] ?? '', 'popular' => ($data['category'] ?? '') === 'popular'];
     }
     $choose = static function ($value) use ($catalog): array {
         $items = [];
@@ -78,5 +78,8 @@ function payam_domain_search_config(): array {
         }
         return $items;
     };
-    return ['endpoint' => rest_url('payam/v1/domains/'), 'orderUrl' => function_exists('payam_whmcs_catalog_domain_order_url') ? payam_whmcs_catalog_domain_order_url() : '', 'catalog' => array_values($catalog), 'suggestions' => array_slice($choose(get_sub_field('domain_result_tlds')) ?: array_values($catalog), 0, 40)];
+    $suggestions = $choose(get_sub_field('domain_result_tlds')) ?: array_values($catalog);
+    // Stable priority: popular terms first, preserving editorial order within each group.
+    usort($suggestions, static fn(array $a, array $b): int => (int) $b['popular'] <=> (int) $a['popular']);
+    return ['endpoint' => rest_url('payam/v1/domains/'), 'orderUrl' => function_exists('payam_whmcs_catalog_domain_order_url') ? payam_whmcs_catalog_domain_order_url() : '', 'catalog' => array_values($catalog), 'suggestions' => array_slice($suggestions, 0, 40)];
 }
