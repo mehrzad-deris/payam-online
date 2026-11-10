@@ -68,6 +68,7 @@ $domainPrices = array_map(
 <section
 	class="domain-check-section domain-check-<?= esc_attr( $domainCheckStyle ); ?><?= 'dark' === $sectionStyle ? ' text-white' : ''; ?>"
 	data-domain-check
+	data-domain-search-config="<?= esc_attr( wp_json_encode( payam_domain_search_config() ) ); ?>"
 	data-header-theme="<?= esc_attr( $sectionStyle ); ?>"
 	<?= $sectionStyles ? 'style="' . esc_attr( implode( '; ', $sectionStyles ) ) . '"' : ''; ?>
 >
@@ -198,4 +199,14 @@ $domainPrices = array_map(
 
 		</div>
 	<?php endif; ?>
+	<div class="container domain-results" data-domain-results hidden>
+		<template data-domain-toman-icon><?= icon( 'toman', 'domain-result-toman' ); ?></template>
+		<template data-domain-close-icon><?= icon( 'close-circle', 'domain-search-clear-icon' ); ?></template>
+		<div class="domain-results-toolbar"><h2>نتیجه جستجو شما</h2></div>
+		<p class="sr-only" data-domain-message role="status" aria-live="polite"></p>
+		<div class="domain-results-featured" data-domain-featured></div>
+		<div data-domain-recommendation hidden><h2>دامنه پیشنهادی برای شما</h2><div data-domain-recommendation-row></div></div>
+		<h2 data-domain-grid-title>سایر دامنه‌ها</h2>
+		<div class="domain-results-grid" data-domain-grid></div>
+	</div>
 </section>

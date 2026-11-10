@@ -1,3 +1,5 @@
+import './domain-search.js';
+
 const initDomainRotator = (container) => {
     if (container.dataset.domainRotatorReady === 'true') {
         return;

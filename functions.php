@@ -36,6 +36,7 @@ require_once get_theme_file_path('/inc/blog_archive.php');
 require_once get_theme_file_path('/inc/single_post.php');
 require_once get_theme_file_path('/inc/contact_forms.php');
 require_once get_theme_file_path('/inc/faqs.php');
+require_once get_theme_file_path('/inc/domain_search.php');
 
 /* Remove Gutenberg */
 add_filter( 'use_block_editor_for_post', '__return_false' );
@@ -83,7 +84,10 @@ function theme_render_block( $layout ) {
 	$path            = 'template-parts/blocks/' . $template_layout;
 
 	if ( locate_template( $path . '.php' ) ) {
+		$hide_on_search = (bool) get_sub_field( 'hide_on_domain_results' );
+		if ( $hide_on_search ) echo '<div data-hide-on-domain-results>';
 		get_template_part( $path );
+		if ( $hide_on_search ) echo '</div>';
 	}
 }
 
