@@ -141,11 +141,15 @@ document.querySelectorAll('[data-domain-search-config]').forEach(section => {
             const state = node('span', 'domain-result-status', statuses.pending);
             copy.append(node('span', '', 'دامنه'), title, state);
             const pricing = node('div', 'domain-result-pricing');
-            const unit = node('small', '', item.suffix);
-            if (['IRT', 'TMN'].includes(item.currency) || item.suffix.includes('تومان')) {
+            // IRR amounts in this catalog are already toman; support older cached page configs too.
+            const suffix = String(item.suffix || '');
+            const isToman = ['IRT', 'TMN', 'IRR'].includes(String(item.currency || '').trim().toUpperCase()) || suffix.includes('تومان');
+            const unitLabel = isToman ? (suffix.replace(/ریال|IRR/gi, 'تومان') || 'تومان') : suffix;
+            const unit = node('small', '', unitLabel);
+            if (isToman) {
                 unit.className = 'domain-result-currency'; unit.textContent = '';
                 unit.append(results.querySelector('[data-domain-toman-icon]').content.cloneNode(true));
-                unit.setAttribute('aria-label', item.suffix || 'تومان'); unit.title = item.suffix || 'تومان';
+                unit.setAttribute('aria-label', unitLabel); unit.title = unitLabel;
             }
             pricing.append(node('strong', '', money(item.price)), unit);
             const button = node('button', 'cta-link cta-btn-primary', 'ثبت دامنه'); button.type = 'button'; button.disabled = true;

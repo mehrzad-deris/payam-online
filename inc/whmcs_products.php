@@ -195,6 +195,11 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 	$discount       = absint( $get_value( 'domain_discount_percent' ) );
 	$currency       = strtoupper( trim( (string) $get_value( 'whmcs_currency' ) ) );
 	$price_suffix   = trim( (string) $get_value( 'domain_price_suffix' ) );
+	// This installation's IRR catalog amounts already represent toman: alias the display unit only.
+	if ( 'IRR' === $currency ) {
+		$currency = 'IRT';
+		$price_suffix = str_replace( [ 'ریال', 'IRR' ], 'تومان', $price_suffix );
+	}
 	$order_link     = $get_value( 'domain_order_link' );
 	$renew_price    = $get_value( 'whmcs_renew_price' );
 	// Legacy migration: preserve old transfer-only prices without rewriting stored data.
@@ -230,7 +235,6 @@ function payam_get_whmcs_domain_tld_data( int $post_id ): array {
 	if ( '' === $price_suffix ) {
 		$price_suffix = match ( $currency ) {
 			'IRT', 'TMN' => 'تومان/سالانه',
-			'IRR'        => 'ریال/سالانه',
 			'USD'        => 'دلار/سالانه',
 			default      => $currency ? $currency . '/سالانه' : 'سالانه',
 		};
